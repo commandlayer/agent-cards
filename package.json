@@ -3,13 +3,18 @@
   "version": "1.0.0",
   "description": "AgentCard schemas and .well-known/agent.json templates for CommandLayer-compatible agents.",
   "license": "Apache-2.0",
-  "author": "commandlayer.eth",
+  "author": "Gregory Soucy, Command Layer, Inc.",
   "type": "module",
   "scripts": {
-    "validate:cards": "node scripts/validate-cards.mjs"
+    "validate:cards": "node scripts/validate-cards.mjs",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "ajv": "^8.17.0",
     "ajv-formats": "^3.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "@types/node": "^22.7.0"
   }
 }
