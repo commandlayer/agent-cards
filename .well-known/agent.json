@@ -21,6 +21,48 @@
       "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/analyze.agent.card.schema.json"
     },
     {
+      "verb": "classify",
+      "version": "1.0.0",
+      "entry": "x402://classifyagent.eth/classify/v1",
+      "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/classify.agent.card.schema.json"
+    },
+    {
+      "verb": "clean",
+      "version": "1.0.0",
+      "entry": "x402://cleanagent.eth/clean/v1",
+      "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/clean.agent.card.schema.json"
+    },
+    {
+      "verb": "convert",
+      "version": "1.0.0",
+      "entry": "x402://convertagent.eth/convert/v1",
+      "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/convert.agent.card.schema.json"
+    },
+    {
+      "verb": "describe",
+      "version": "1.0.0",
+      "entry": "x402://describeagent.eth/describe/v1",
+      "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/describe.agent.card.schema.json"
+    },
+    {
+      "verb": "explain",
+      "version": "1.0.0",
+      "entry": "x402://explainagent.eth/explain/v1",
+      "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/explain.agent.card.schema.json"
+    },
+    {
+      "verb": "format",
+      "version": "1.0.0",
+      "entry": "x402://formatagent.eth/format/v1",
+      "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/format.agent.card.schema.json"
+    },
+    {
+      "verb": "parse",
+      "version": "1.0.0",
+      "entry": "x402://parseagent.eth/parse/v1",
+      "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/parse.agent.card.schema.json"
+    },
+    {
       "verb": "fetch",
       "version": "1.0.0",
       "entry": "x402://fetchagent.eth/fetch/v1",
