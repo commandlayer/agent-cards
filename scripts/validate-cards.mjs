@@ -1,86 +1,81 @@
-#!/usr/bin/env node
-/**
- * AgentCards validator (Apache-2.0)
- * Validates all commons AgentCard schemas against their example instances.
- */
-
+import fs from "node:fs";
+import path from "node:path";
+import url from "node:url";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
-import { readdirSync, readFileSync, statSync } from "node:fs";
-import { join, basename } from "node:path";
 
-const SCHEMAS_ROOT = "schemas/v1.0.0/commons";
-const EXAMPLES_ROOT = "examples/v1.0.0/commons";
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
 const ajv = new Ajv({
   strict: true,
   allErrors: true
 });
-
 addFormats(ajv);
 
-function walk(dir) {
-  const entries = readdirSync(dir);
-  const out = [];
-  for (const entry of entries) {
-    const full = join(dir, entry);
-    const st = statSync(full);
-    if (st.isDirectory()) {
-      out.push(...walk(full));
-    } else {
-      out.push(full);
-    }
-  }
-  return out;
+function loadJson(relativePath) {
+  const fullPath = path.join(__dirname, "..", relativePath);
+  return JSON.parse(fs.readFileSync(fullPath, "utf8"));
 }
 
-function main() {
-  const schemaFiles = walk(SCHEMAS_ROOT).filter((f) =>
-    f.endsWith(".agent.card.schema.json")
-  );
+// 1) Validate .well-known/agent.json
+function validateAgentDescriptor() {
+  const schema = loadJson("schemas/v1.0.0/_shared/agent.descriptor.schema.json");
+  const validate = ajv.compile(schema);
+  const descriptor = loadJson(".well-known/agent.json");
 
-  if (schemaFiles.length === 0) {
-    console.warn("⚠️ No AgentCard schemas found under", SCHEMAS_ROOT);
-    process.exit(0);
+  const ok = validate(descriptor);
+  if (!ok) {
+    console.error("❌ .well-known/agent.json failed validation:");
+    console.error(validate.errors);
+    process.exitCode = 1;
+  } else {
+    console.log("✅ .well-known/agent.json is valid.");
   }
+}
 
-  let hadError = false;
+// 2) Validate AgentCard examples for all Commons verbs
+function validateAgentCards() {
+  const verbs = [
+    "summarize",
+    "analyze",
+    "fetch",
+    "classify",
+    "clean",
+    "convert",
+    "describe",
+    "explain",
+    "format",
+    "parse"
+  ];
 
-  for (const schemaPath of schemaFiles) {
-    const raw = readFileSync(schemaPath, "utf8");
-    const schema = JSON.parse(raw);
+  for (const verb of verbs) {
+    const schemaPath = `schemas/v1.0.0/commons/${verb}.agent.card.schema.json`;
+    const examplePath = `examples/v1.0.0/commons/${verb}.agent.card.example.json`;
 
+    const schema = loadJson(schemaPath);
     const validate = ajv.compile(schema);
-
-    const base = basename(schemaPath, ".agent.card.schema.json");
-    const examplePath = join(EXAMPLES_ROOT, `${base}.example.json`);
-
-    let example;
-    try {
-      const exRaw = readFileSync(examplePath, "utf8");
-      example = JSON.parse(exRaw);
-    } catch (_err) {
-      console.error(`❌ Missing or unreadable example for schema: ${schemaPath}`);
-      console.error(`   Expected example at: ${examplePath}`);
-      hadError = true;
-      continue;
-    }
+    const example = loadJson(examplePath);
 
     const ok = validate(example);
     if (!ok) {
-      console.error(`❌ Example failed validation for schema: ${schemaPath}`);
+      console.error(`❌ AgentCard example failed for verb: ${verb}`);
       console.error(`   Example: ${examplePath}`);
       console.error(validate.errors);
-      hadError = true;
+      process.exitCode = 1;
     } else {
-      console.log(`✅ Example OK: ${schemaPath} -> ${examplePath}`);
+      console.log(`✅ AgentCard example OK for verb: ${verb}`);
     }
   }
+}
 
-  if (hadError) {
-    process.exitCode = 1;
+function main() {
+  validateAgentDescriptor();
+  validateAgentCards();
+
+  if (process.exitCode && process.exitCode !== 0) {
+    process.exit(process.exitCode);
   } else {
-    console.log("✅ All AgentCard schemas validated successfully.");
+    console.log("✅ All AgentCard validations completed successfully.");
   }
 }
 

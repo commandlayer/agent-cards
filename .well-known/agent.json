@@ -21,6 +21,12 @@
       "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/analyze.agent.card.schema.json"
     },
     {
+      "verb": "fetch",
+      "version": "1.0.0",
+      "entry": "x402://fetchagent.eth/fetch/v1",
+      "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/fetch.agent.card.schema.json"
+    },
+    {
       "verb": "classify",
       "version": "1.0.0",
       "entry": "x402://classifyagent.eth/classify/v1",
@@ -61,12 +67,6 @@
       "version": "1.0.0",
       "entry": "x402://parseagent.eth/parse/v1",
       "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/parse.agent.card.schema.json"
-    },
-    {
-      "verb": "fetch",
-      "version": "1.0.0",
-      "entry": "x402://fetchagent.eth/fetch/v1",
-      "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/fetch.agent.card.schema.json"
     }
   ],
   "metadata": {

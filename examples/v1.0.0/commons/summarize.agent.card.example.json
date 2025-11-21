@@ -17,6 +17,6 @@
   ],
   "metadata": {
     "runtime": "node",
-    "region": "us-east-1"
+    "network": "mainnet"
   }
 }
