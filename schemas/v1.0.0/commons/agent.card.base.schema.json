@@ -1,0 +1,164 @@
+{
+  "$id": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/agent.card.base.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "agent.card.base",
+  "description": "Base schema for CommandLayer agent-cards describing a single agent implementation.",
+  "type": "object",
+  "additionalProperties": false,
+
+  "required": [
+    "id",
+    "slug",
+    "display_name",
+    "description",
+    "owner",
+    "ens",
+    "version",
+    "status",
+    "class",
+    "implements",
+    "schemas",
+    "entry"
+  ],
+
+  "properties": {
+    "id": {
+      "description": "Primary identifier for this agent, typically the ENS name.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "slug": {
+      "description": "Short slug identifier for this agent.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "display_name": {
+      "description": "Human-readable display name for the agent.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "description": {
+      "description": "Human-readable description of the agent's purpose.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "owner": {
+      "description": "Canonical owner identifier (ENS, org, or DID).",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256"
+    },
+    "ens": {
+      "description": "ENS name associated with this agent.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256"
+    },
+    "version": {
+      "description": "Version of this agent-card descriptor.",
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "maxLength": 16
+    },
+    "status": {
+      "description": "Lifecycle status of this agent within the registry.",
+      "type": "string",
+      "enum": ["protocol_reference", "stable", "experimental", "deprecated"]
+    },
+    "class": {
+      "description": "Classification of this agent (commons vs commercial).",
+      "type": "string",
+      "enum": ["commons", "commercial"]
+    },
+    "implements": {
+      "description": "List of canonical verbs implemented by this agent.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 64
+      }
+    },
+    "schemas": {
+      "description": "References to the canonical request and receipt schemas for the implemented verb.",
+      "type": "object",
+      "required": ["request", "receipt"],
+      "additionalProperties": false,
+      "properties": {
+        "request": {
+          "description": "URL or URI of the request schema.",
+          "type": "string",
+          "maxLength": 1024
+        },
+        "receipt": {
+          "description": "URL or URI of the receipt schema.",
+          "type": "string",
+          "maxLength": 1024
+        }
+      }
+    },
+    "entry": {
+      "description": "x402 entry URI for invoking this agent for its primary verb.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "capabilities": {
+      "description": "Non-normative description of supported operations and IO types.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "operations": {
+          "description": "List of high-level operations supported by this agent.",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "input_types": {
+          "description": "Supported input MIME types.",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "output_types": {
+          "description": "Supported output MIME types.",
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "meta": {
+      "description": "Additional non-normative metadata about the agent.",
+      "type": "object",
+      "additionalProperties": true
+    },
+    "networks": {
+      "description": "List of networks this agent is available on (e.g., eip155:1).",
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "license": {
+      "description": "License under which this agent-card descriptor is published.",
+      "type": "string",
+      "maxLength": 128
+    },
+    "contact": {
+      "description": "Contact email or URL for this agent.",
+      "type": "string",
+      "maxLength": 320
+    },
+    "created_at": {
+      "description": "Creation timestamp of this agent-card descriptor (ISO 8601).",
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "description": "Last update timestamp of this agent-card descriptor (ISO 8601).",
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

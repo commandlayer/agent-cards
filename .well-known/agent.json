@@ -1,78 +1,12 @@
 {
   "id": "x402://commandlayer.eth/commons-agent/v1",
-  "name": "CommandLayer Commons Agent",
-  "description": "Reference agent exposing CommandLayer Protocol Commons v1.0.0 verbs via x402.",
   "owner": "commandlayer.eth",
   "ens": "commandlayer.eth",
   "version": "1.0.0",
-  "contact": "dev@commandlayer.org",
-  "card_registry": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/",
-  "capabilities": [
-    {
-      "verb": "summarize",
-      "version": "1.0.0",
-      "entry": "x402://summarizeagent.eth/summarize/v1",
-      "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/summarize.agent.card.schema.json"
-    },
-    {
-      "verb": "analyze",
-      "version": "1.0.0",
-      "entry": "x402://analyzeagent.eth/analyze/v1",
-      "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/analyze.agent.card.schema.json"
-    },
-    {
-      "verb": "fetch",
-      "version": "1.0.0",
-      "entry": "x402://fetchagent.eth/fetch/v1",
-      "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/fetch.agent.card.schema.json"
-    },
-    {
-      "verb": "classify",
-      "version": "1.0.0",
-      "entry": "x402://classifyagent.eth/classify/v1",
-      "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/classify.agent.card.schema.json"
-    },
-    {
-      "verb": "clean",
-      "version": "1.0.0",
-      "entry": "x402://cleanagent.eth/clean/v1",
-      "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/clean.agent.card.schema.json"
-    },
-    {
-      "verb": "convert",
-      "version": "1.0.0",
-      "entry": "x402://convertagent.eth/convert/v1",
-      "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/convert.agent.card.schema.json"
-    },
-    {
-      "verb": "describe",
-      "version": "1.0.0",
-      "entry": "x402://describeagent.eth/describe/v1",
-      "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/describe.agent.card.schema.json"
-    },
-    {
-      "verb": "explain",
-      "version": "1.0.0",
-      "entry": "x402://explainagent.eth/explain/v1",
-      "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/explain.agent.card.schema.json"
-    },
-    {
-      "verb": "format",
-      "version": "1.0.0",
-      "entry": "x402://formatagent.eth/format/v1",
-      "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/format.agent.card.schema.json"
-    },
-    {
-      "verb": "parse",
-      "version": "1.0.0",
-      "entry": "x402://parseagent.eth/parse/v1",
-      "agent_card": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/parse.agent.card.schema.json"
-    }
-  ],
-  "metadata": {
-    "protocol_commons_version": "1.0.0",
-    "agent_cards_version": "1.0.0",
-    "schemas_cid": "TODO_SET_AFTER_IPFS_PIN",
-    "license": "Apache-2.0"
-  }
+
+  "card_registry": "ipfs://<AGENT_CARDS_CID>/meta/manifest.json",
+  "meta_agent": "ipfs://<AGENT_CARDS_CID>/meta/commons-agent.json",
+
+  "networks": ["eip155:1"],
+  "contact": "dev@commandlayer.org"
 }
