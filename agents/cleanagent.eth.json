@@ -16,8 +16,8 @@
   "implements": ["clean"],
 
   "schemas": {
-    "request": "https://commandlayer.org/schemas/v1.0.0/commons/clean/requests/clean.request.schema.json",
-    "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/clean/receipts/clean.receipt.schema.json"
+    "request": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m/commons/clean/requests/clean.request.schema.json",
+    "receipt": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m/commons/clean/receipts/clean.receipt.schema.json"
   },
 
   "entry": "x402://cleanagent.eth/clean/v1",
