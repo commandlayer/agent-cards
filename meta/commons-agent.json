@@ -11,11 +11,11 @@
   "registry": {
     "card_registry": {
       "http": "https://commandlayer.org/agent-cards/meta/manifest.json",
-      "ipfs": "ipfs://AGENT_CARDS_CID/meta/manifest.json"
+      "ipfs": "ipfs://bafybeiaguiuqynotles5htqs35xbe3e4gvdfy2l47ce3jscgbn2al3f5rq/meta/manifest.json"
     },
     "agents_root": {
       "http": "https://commandlayer.org/agent-cards/agents/",
-      "ipfs": "ipfs://AGENT_CARDS_CID/agents/"
+      "ipfs": "ipfs://bafybeiaguiuqynotles5htqs35xbe3e4gvdfy2l47ce3jscgbn2al3f5rq/agents/"
     },
     "schemas": {
       "cid": "bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m",
@@ -32,7 +32,7 @@
       "entry": "x402://cleanagent.eth/clean/v1",
       "agent_card": {
         "http": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/cleanagent.eth.json",
-        "ipfs": "ipfs://AGENT_CARDS_CID/agents/cleanagent.eth.json"
+        "ipfs": "ipfs://bafybeiaguiuqynotles5htqs35xbe3e4gvdfy2l47ce3jscgbn2al3f5rq/agents/cleanagent.eth.json"
       }
     },
     {
@@ -41,7 +41,7 @@
       "entry": "x402://summarizeagent.eth/summarize/v1",
       "agent_card": {
         "http": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/summarizeagent.eth.json",
-        "ipfs": "ipfs://AGENT_CARDS_CID/agents/summarizeagent.eth.json"
+        "ipfs": "ipfs://bafybeiaguiuqynotles5htqs35xbe3e4gvdfy2l47ce3jscgbn2al3f5rq/agents/summarizeagent.eth.json"
       }
     },
     {
@@ -50,7 +50,7 @@
       "entry": "x402://analyzeagent.eth/analyze/v1",
       "agent_card": {
         "http": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/analyzeagent.eth.json",
-        "ipfs": "ipfs://AGENT_CARDS_CID/agents/analyzeagent.eth.json"
+        "ipfs": "ipfs://bafybeiaguiuqynotles5htqs35xbe3e4gvdfy2l47ce3jscgbn2al3f5rq/agents/analyzeagent.eth.json"
       }
     },
     {
@@ -59,7 +59,7 @@
       "entry": "x402://classifyagent.eth/classify/v1",
       "agent_card": {
         "http": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/classifyagent.eth.json",
-        "ipfs": "ipfs://AGENT_CARDS_CID/agents/classifyagent.eth.json"
+        "ipfs": "ipfs://bafybeiaguiuqynotles5htqs35xbe3e4gvdfy2l47ce3jscgbn2al3f5rq/agents/classifyagent.eth.json"
       }
     },
     {
@@ -68,7 +68,7 @@
       "entry": "x402://fetchagent.eth/fetch/v1",
       "agent_card": {
         "http": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/fetchagent.eth.json",
-        "ipfs": "ipfs://AGENT_CARDS_CID/agents/fetchagent.eth.json"
+        "ipfs": "ipfs://bafybeiaguiuqynotles5htqs35xbe3e4gvdfy2l47ce3jscgbn2al3f5rq/agents/fetchagent.eth.json"
       }
     },
     {
@@ -77,7 +77,7 @@
       "entry": "x402://parseagent.eth/parse/v1",
       "agent_card": {
         "http": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/parseagent.eth.json",
-        "ipfs": "ipfs://AGENT_CARDS_CID/agents/parseagent.eth.json"
+        "ipfs": "ipfs://bafybeiaguiuqynotles5htqs35xbe3e4gvdfy2l47ce3jscgbn2al3f5rq/agents/parseagent.eth.json"
       }
     },
     {
@@ -86,7 +86,7 @@
       "entry": "x402://describeagent.eth/describe/v1",
       "agent_card": {
         "http": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/describeagent.eth.json",
-        "ipfs": "ipfs://AGENT_CARDS_CID/agents/describeagent.eth.json"
+        "ipfs": "ipfs://bafybeiaguiuqynotles5htqs35xbe3e4gvdfy2l47ce3jscgbn2al3f5rq/agents/describeagent.eth.json"
       }
     },
     {
@@ -95,7 +95,7 @@
       "entry": "x402://explainagent.eth/explain/v1",
       "agent_card": {
         "http": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/explainagent.eth.json",
-        "ipfs": "ipfs://AGENT_CARDS_CID/agents/explainagent.eth.json"
+        "ipfs": "ipfs://bafybeiaguiuqynotles5htqs35xbe3e4gvdfy2l47ce3jscgbn2al3f5rq/agents/explainagent.eth.json"
       }
     },
     {
@@ -104,7 +104,7 @@
       "entry": "x402://formatagent.eth/format/v1",
       "agent_card": {
         "http": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/formatagent.eth.json",
-        "ipfs": "ipfs://AGENT_CARDS_CID/agents/formatagent.eth.json"
+        "ipfs": "ipfs://bafybeiaguiuqynotles5htqs35xbe3e4gvdfy2l47ce3jscgbn2al3f5rq/agents/formatagent.eth.json"
       }
     },
     {
@@ -113,7 +113,7 @@
       "entry": "x402://convertagent.eth/convert/v1",
       "agent_card": {
         "http": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/convertagent.eth.json",
-        "ipfs": "ipfs://AGENT_CARDS_CID/agents/convertagent.eth.json"
+        "ipfs": "ipfs://bafybeiaguiuqynotles5htqs35xbe3e4gvdfy2l47ce3jscgbn2al3f5rq/agents/convertagent.eth.json"
       }
     }
   ],
@@ -122,7 +122,7 @@
     "protocol_commons_version": "1.0.0",
     "agent_cards_version": "1.0.0",
     "schemas_cid": "bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m",
-    "agent_cards_cid": "AGENT_CARDS_CID",
+    "agent_cards_cid": "bafybeiaguiuqynotles5htqs35xbe3e4gvdfy2l47ce3jscgbn2al3f5rq",
     "license": "Apache-2.0"
   }
 }
