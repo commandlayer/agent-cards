@@ -1,27 +1,23 @@
 {
   "$schema": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/agent.card.base.schema.json",
   "$id": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/classifyagent.eth.json",
-
   "id": "classifyagent.eth",
   "slug": "classifyagent",
   "display_name": "Classify Agent (Protocol Reference)",
   "description": "Reference agent for the classify verb. Applies labels, categories, and tags according to the classify.request and classify.receipt schemas.",
-
   "owner": "commandlayer.eth",
   "ens": "classifyagent.eth",
   "version": "1.0.0",
   "status": "protocol_reference",
   "class": "commons",
-
-  "implements": ["classify"],
-
+  "implements": [
+    "classify"
+  ],
   "schemas": {
     "request": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m/commons/classify/requests/classify.request.schema.json",
     "receipt": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m/commons/classify/receipts/classify.receipt.schema.json"
   },
-
   "entry": "x402://classifyagent.eth/classify/v1",
-
   "capabilities": {
     "operations": [
       "assign_labels",
@@ -37,7 +33,6 @@
       "application/json"
     ]
   },
-
   "meta": {
     "publisher": "CommandLayer",
     "contact": "dev@commandlayer.org",
@@ -48,10 +43,14 @@
       "protocol-reference"
     ]
   },
-
-  "networks": ["eip155:1"],
+  "networks": [
+    "eip155:1"
+  ],
   "license": "Apache-2.0",
-
   "created_at": "2025-11-22T00:00:00Z",
-  "updated_at": "2025-11-22T00:00:00Z"
+  "updated_at": "2025-11-22T00:00:00Z",
+  "schemas_mirror": {
+    "request": "https://commandlayer.org/schemas/v1.0.0/commons/classify/requests/classify.request.schema.json",
+    "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/classify/receipts/classify.receipt.schema.json"
+  }
 }

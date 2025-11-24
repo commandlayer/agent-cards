@@ -1,27 +1,23 @@
 {
   "$schema": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/agent.card.base.schema.json",
   "$id": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/explainagent.eth.json",
-
   "id": "explainagent.eth",
   "slug": "explainagent",
   "display_name": "Explain Agent (Protocol Reference)",
   "description": "Reference agent for the explain verb. Produces step-by-step or conceptual explanations according to the explain.request and explain.receipt schemas.",
-
   "owner": "commandlayer.eth",
   "ens": "explainagent.eth",
   "version": "1.0.0",
   "status": "protocol_reference",
   "class": "commons",
-
-  "implements": ["explain"],
-
+  "implements": [
+    "explain"
+  ],
   "schemas": {
     "request": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m/commons/explain/requests/explain.request.schema.json",
     "receipt": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m/commons/explain/receipts/explain.receipt.schema.json"
   },
-
   "entry": "x402://explainagent.eth/explain/v1",
-
   "capabilities": {
     "operations": [
       "simple_explanations",
@@ -38,7 +34,6 @@
       "text/markdown"
     ]
   },
-
   "meta": {
     "publisher": "CommandLayer",
     "contact": "dev@commandlayer.org",
@@ -49,10 +44,14 @@
       "protocol-reference"
     ]
   },
-
-  "networks": ["eip155:1"],
+  "networks": [
+    "eip155:1"
+  ],
   "license": "Apache-2.0",
-
   "created_at": "2025-11-22T00:00:00Z",
-  "updated_at": "2025-11-22T00:00:00Z"
+  "updated_at": "2025-11-22T00:00:00Z",
+  "schemas_mirror": {
+    "request": "https://commandlayer.org/schemas/v1.0.0/commons/explain/requests/explain.request.schema.json",
+    "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/explain/receipts/explain.receipt.schema.json"
+  }
 }

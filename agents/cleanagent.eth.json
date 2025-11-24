@@ -1,27 +1,23 @@
 {
   "$schema": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/agent.card.base.schema.json",
   "$id": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/cleanagent.eth.json",
-
   "id": "cleanagent.eth",
   "slug": "cleanagent",
   "display_name": "Clean Agent (Protocol Reference)",
   "description": "Official protocol-level reference agent for the clean verb. Performs content sanitization, normalization, redaction, and safe-preprocessing operations according to the clean.request and clean.receipt schemas.",
-
   "owner": "commandlayer.eth",
   "ens": "cleanagent.eth",
   "version": "1.0.0",
   "status": "protocol_reference",
   "class": "commons",
-
-  "implements": ["clean"],
-
+  "implements": [
+    "clean"
+  ],
   "schemas": {
     "request": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m/commons/clean/requests/clean.request.schema.json",
     "receipt": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m/commons/clean/receipts/clean.receipt.schema.json"
   },
-
   "entry": "x402://cleanagent.eth/clean/v1",
-
   "capabilities": {
     "operations": [
       "strip_noise",
@@ -41,7 +37,6 @@
       "application/json"
     ]
   },
-
   "meta": {
     "publisher": "CommandLayer",
     "contact": "dev@commandlayer.org",
@@ -54,10 +49,14 @@
       "protocol-reference"
     ]
   },
-
-  "networks": ["eip155:1"],
+  "networks": [
+    "eip155:1"
+  ],
   "license": "Apache-2.0",
-
   "created_at": "2025-11-22T00:00:00Z",
-  "updated_at": "2025-11-22T00:00:00Z"
+  "updated_at": "2025-11-22T00:00:00Z",
+  "schemas_mirror": {
+    "request": "https://commandlayer.org/schemas/v1.0.0/commons/clean/requests/clean.request.schema.json",
+    "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/clean/receipts/clean.receipt.schema.json"
+  }
 }
