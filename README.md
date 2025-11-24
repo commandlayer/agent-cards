@@ -31,7 +31,7 @@ Agent Cards are:
 - **deterministic and immutable**
 
 This repo contains **no execution logic**.  
-Execution lives in the upcoming **protocol-commercial** repository.
+Execution lives in the  **protocol-commercial** repository.
 
 ---
 
@@ -145,10 +145,10 @@ agent-cards — identity metadata layer
 
 protocol-commercial — execution layer (coming soon)
 
-##📫 Contact
+## 📫 Contact
 
 CommandLayer
-security@commandlayer.org
+dev@commandlayer.org
 
 PGP: 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
 
