@@ -17,6 +17,10 @@
     "request": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m/commons/analyze/requests/analyze.request.schema.json",
     "receipt": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m/commons/analyze/receipts/analyze.receipt.schema.json"
   },
+  "schemas_mirror": {
+    "request": "https://commandlayer.org/schemas/v1.0.0/commons/analyze/requests/analyze.request.schema.json",
+    "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/analyze/receipts/analyze.receipt.schema.json"
+  },
   "entry": "x402://analyzeagent.eth/analyze/v1",
   "capabilities": {
     "operations": [
@@ -50,9 +54,5 @@
   ],
   "license": "Apache-2.0",
   "created_at": "2025-11-22T00:00:00Z",
-  "updated_at": "2025-11-22T00:00:00Z",
-  "schemas_mirror": {
-    "request": "https://commandlayer.org/schemas/v1.0.0/commons/analyze/requests/analyze.request.schema.json",
-    "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/analyze/receipts/analyze.receipt.schema.json"
-  }
+  "updated_at": "2025-11-22T00:00:00Z"
 }
