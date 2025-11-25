@@ -143,7 +143,7 @@ protocol-commons — canonical verb + schema layer
 
 agent-cards — identity metadata layer
 
-protocol-commercial — execution layer (coming soon)
+protocol-commercial — execution layer 
 
 ## 📫 Contact
 
