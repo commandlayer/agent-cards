@@ -1,4 +1,4 @@
-# CommandLayer — Agent Cards (v1.0.0)
+# CommandLayer — Agent Cards 
 **Canonical identity metadata for autonomous agents.**
 
 Agent Cards define *who an agent is*, *what verb it implements*, and *how it is discovered* across the A2A ecosystem.  
