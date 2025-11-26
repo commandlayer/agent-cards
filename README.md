@@ -8,7 +8,7 @@ This repository contains the **public identity layer** for all CommandLayer Comm
 
 ---
 
-## 📌 What Are Agent Cards?
+##  What Are Agent Cards?
 Agent Cards are the canonical identity documents for autonomous agents.  
 They describe:
 
@@ -30,12 +30,12 @@ Agent Cards are:
 - **Apache-2.0 licensed**
 - **deterministic and immutable**
 
-This repo contains **no execution logic**.  
-Execution lives in the  **protocol-commercial** repository.
+**This repo** contains **no execution logic**.  
+`Execution` lives in the  **protocol-commercial** repository.
 
 ---
 
-## 📂 Repository Structure
+##  Repository Structure
 
 ```
 agent-cards/
@@ -68,7 +68,7 @@ agent-cards/
 
 ---
 
-## 🧩 How Identity Resolution Works
+##  How Identity Resolution Works
 
 ### 1. ENS TXT Records  
 Each `<verb>agent.eth` name includes TXT values:
@@ -95,12 +95,12 @@ A resolver fetches the agent-card JSON, validates its:
 ### 3. Protocol Commons  
 Schemas are validated against the pinned v1.0.0 canonical schema set.
 
-### 4. Execution Layer  
-The x402 entry is passed to the runtime (located in protocol-commercial).
+### 4. Protocol Commercial - Execution Layer  
 
----
+The x402 entry is passed to the runtime 
 
-## 🧪 Validation
+----
+##  Validation
 
 To validate all cards:
 
@@ -117,7 +117,7 @@ This runs:
 - checksum verification
 ----
 
-## 🌐 IPFS Pin (v1.0.0)
+##  IPFS Pin (v1.0.0)
 
 Agent Cards CID:
 ```
@@ -128,13 +128,13 @@ bafybeiccpdmehf7532b6yiirjjqcvbu2zq53ftbejz65to356ltnuyc2we
 https://ipfs.io/ipfs/bafybeiccpdmehf7532b6yiirjjqcvbu2zq53ftbejz65to356ltnuyc2we
 ```
 ----
-## 🔐 License
+##  License
 
 This repository is licensed under Apache-2.0, ensuring open, safe, forward-compatible identity metadata.
 
 ----
 
-## 🛰️ Status: Stable (v1.0.0)
+##  Status: Stable (v1.0.0)
 
 All agent-cards for the CommandLayer Commons are complete, validated, and pinned.
 This repo is part of the CommandLayer Protocol stack:
@@ -145,7 +145,7 @@ agent-cards — identity metadata layer
 
 protocol-commercial — execution layer 
 
-## 📫 Contact
+##  Contact
 
 CommandLayer
 dev@commandlayer.org
