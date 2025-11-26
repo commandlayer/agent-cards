@@ -139,11 +139,11 @@ This repository is licensed under Apache-2.0, ensuring open, safe, forward-compa
 All agent-cards for the CommandLayer Commons are complete, validated, and pinned.
 This repo is part of the CommandLayer Protocol stack:
 
-protocol-commons — canonical verb + schema layer
+- **protocol-commons** — canonical verb + schema layer
 
-agent-cards — identity metadata layer
+- **agent-cards** — identity metadata layer
 
-protocol-commercial — execution layer 
+- **protocol-commercial** — execution layer 
 
 ##  Contact
 
