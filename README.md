@@ -15,6 +15,9 @@
 
 ## Purpose
 
+> Identity • Discovery • Invocation • Verification  
+> **One universal contract for agent interop**
+
 **Agent Cards are the identity and discovery layer for autonomous agents — binding canonical verbs to verifiable execution.**
 
 Agent Cards are **machine-readable** identity documents describing how an autonomous agent implements a canonical verb — defined in Protocol-Commons (open) or Protocol-Commercial (permissioned) — including the metadata required for trustless discovery, validation, and invocation.
@@ -29,42 +32,65 @@ Both tiers use the same metadata contract and identical discovery mechanisms.
 
 Execution lives outside this repository and can vary by implementation.
 
+## Why Agent Cards Matter
+
+Autonomous agents need **three** things to work together:
+a `shared language` (verbs), a `shared identity system` (ENS), and a `shared trust layer` (x402).
+Agent Cards bind all three — turning the internet into an **interoperable machine economy.**
+
+- Deterministic identity
+- Typed requests + receipts
+- Verifiable execution
+- Neutral + permissionless
+
+**Without this?**
+
+Every agent becomes an API silo — brittle and incompatible.
+
+Agent Cards solve interoperability, discovery, and trust in one layer.
+
+
+
+
+
+
 ## Architecture Role
+
 
 Agent Cards bridge **semantic definitions** and **runtime execution:**
 
 ```
-┌────────────────────────┐
-│  Protocol-Commons      │  ← Canonical Verb Schemas
-│  Protocol-Commercial   │  ← Monetized Verb Schemas
-└───────────┬────────────┘
-            │
-            ▼
-┌────────────────────────┐
-│    Agent Cards         │  ← Identity + metadata binding
-│  (JSON, immutable)     │
-└───────────┬────────────┘
-            │ ENS TXT Discovery (ERC-8004)
-            ▼
-┌────────────────────────┐
-│     x402 Entry         │  ← Verifiable invocation
-│   / Runtime URI        │
-└───────────┬────────────┘
-            │
-            ▼
-┌────────────────────────┐
-│   Execution Engine     │  ← Any A2A runtime / LLM agent
-└───────────┬────────────┘
-            │
-            ▼
-┌────────────────────────┐
-│   Structured Receipt   │  ← Canonical outputs + trace
-└───────────┬────────────┘
-            │
-            ▼
-┌────────────────────────┐
-│    Agent Chaining      │  ← Autonomous multi-agent workflows
-└────────────────────────┘
++------------------------+
+|  Protocol-Commons      |  ← Canonical Verb Schemas
+|  Protocol-Commercial   |  ← Monetized Verb Schemas
++-----------+------------+
+            |
+            v
++------------------------+
+|    Agent Cards         |  ← Identity + metadata binding
+|  (JSON, immutable)     |
++-----------+------------+
+            | ENS TXT Discovery (ERC-8004)
+            v
++------------------------+
+|     x402 Entry         |  ← Verifiable invocation
+|   / Runtime URI        |
++-----------+------------+
+            |
+            v
++------------------------+
+|   Execution Engine     |  ← Any A2A runtime / LLM agent
++-----------+------------+
+            |
+            v
++------------------------+
+|   Structured Receipt   |  ← Canonical outputs + trace
++-----------+------------+
+            |
+            v
++------------------------+
+|    Agent Chaining      |  ← Multi-agent workflow automation
++------------------------+
 
 
 ```
@@ -89,30 +115,6 @@ This layering enables **neutral**, **interoperable**, **trust-minimized** agent 
 Multi-Agent Workflow (A2A automation)
 
 ```
-**Live ENS TXT example (summarizeagent.eth)**
-```
-cl.verb=summarize
-cl.version=1.0.0
-
-cl.entry=x402://summarizeagent.eth/summarize
-
-cl.schema.request=https://commandlayer.org/schemas/v1.0.0/commons/summarize/requests/summarize.request.schema.json
-cl.schema.receipt=https://commandlayer.org/schemas/v1.0.0/commons/summarize/receipts/summarize.receipt.schema.json
-cl.cid.schemas=bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m
-cl.schemas.mirror.ipfs=https://ipfs.io/ipfs/bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m
-
-cl.agentcard=https://commandlayer.org/agent-cards/agents/v1.0.0/commons/summarizeagent.eth.json
-cl.cid.agentcard=bafybeiccpdmehf7532b6yiirjjqcvbu2zq53ftbejz65to356ltnuyc2we
-cl.agentcard.mirror.ipfs=https://ipfs.io/ipfs/bafybeiccpdmehf7532b6yiirjjqcvbu2zq53ftbejz65to356ltnuyc2we/agents/summarizeagent.eth.json
-
-cl.checksum.request=sha256:20bd4897a2b91c66de84b31d0f586d5b5b8fecc9573e4c5dae3b97a78552d3fa
-cl.checksum.receipt=sha256:ccb7f20562d2e34dff73a17794aabcf98f25f659e83a790e42cf9a31e97460b3
-cl.checksum.agentcard=sha256:cffb7a4534c0848767eacdf5e3a1775b73a093baa8117e09957ba5d9a145af19
-
-cl.owner=commandlayer.eth
-```
-
-
 ---
 
 ## Identity Contract
@@ -139,9 +141,6 @@ All cards:
 
 ---
 
-## Repository Structure
-
-```
 ## Repository Structure
 
 ```text
@@ -242,7 +241,7 @@ They are **runtime-agnostic** and usable in any A2A environment.
 
 **Example Agent Card (Summarize):**
 
-> File: `./schemas/v1.0.0/commons/summarize.agent.card.json`
+ File: `./schemas/v1.0.0/commons/summarize.agent.card.json`
 
 ```{
   "$schema": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/agent.card.base.schema.json",
@@ -343,7 +342,30 @@ Published cards **cannot be modified**; integrity is cryptographically enforced.
 Reproducibility is mandatory.
 
 ---
+## On-chain Discovery
 
+**Live ENS TXT example (summarizeagent.eth)**
+```
+cl.verb=summarize
+cl.version=1.0.0
+
+cl.entry=x402://summarizeagent.eth/summarize
+
+cl.schema.request=https://commandlayer.org/schemas/v1.0.0/commons/summarize/requests/summarize.request.schema.json
+cl.schema.receipt=https://commandlayer.org/schemas/v1.0.0/commons/summarize/receipts/summarize.receipt.schema.json
+cl.cid.schemas=bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m
+cl.schemas.mirror.ipfs=https://ipfs.io/ipfs/bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m
+
+cl.agentcard=https://commandlayer.org/agent-cards/agents/v1.0.0/commons/summarizeagent.eth.json
+cl.cid.agentcard=bafybeiccpdmehf7532b6yiirjjqcvbu2zq53ftbejz65to356ltnuyc2we
+cl.agentcard.mirror.ipfs=https://ipfs.io/ipfs/bafybeiccpdmehf7532b6yiirjjqcvbu2zq53ftbejz65to356ltnuyc2we/agents/summarizeagent.eth.json
+
+cl.checksum.request=sha256:20bd4897a2b91c66de84b31d0f586d5b5b8fecc9573e4c5dae3b97a78552d3fa
+cl.checksum.receipt=sha256:ccb7f20562d2e34dff73a17794aabcf98f25f659e83a790e42cf9a31e97460b3
+cl.checksum.agentcard=sha256:cffb7a4534c0848767eacdf5e3a1775b73a093baa8117e09957ba5d9a145af19
+
+cl.owner=commandlayer.eth
+```
 ### License
 
 **Apache License 2.0**
