@@ -23,8 +23,7 @@
 
 Agent Cards are **machine-readable** identity documents describing how an autonomous agent implements a canonical verb — defined in Protocol-Commons (open) or Protocol-Commercial (permissioned) — including the metadata required for trustless discovery, validation, and invocation.
 
-This repository contains all CommandLayer Agent Cards:
-
+This repository contains the official reference Agent Cards:
 - **Commons** (open, foundation layer)
 
 - **Commercial** (permissioned, monetizable layer)
