@@ -15,10 +15,11 @@
 
 ## Purpose
 
-> Identity • Discovery • Invocation • Verification  
-> **One universal contract for agent interop**
+**Agent Cards are the identity and discovery layer for autonomous agents — binding canonical verbs to verifiable execution.** Execution always resolves through an x402 entrypoint — no proprietary routing required.
 
-**Agent Cards are the identity and discovery layer for autonomous agents — binding canonical verbs to verifiable execution.**
+- Identity • Discovery • Invocation • Verification  
+- **One universal contract for agent interop**
+
 
 Agent Cards are **machine-readable** identity documents describing how an autonomous agent implements a canonical verb — defined in Protocol-Commons (open) or Protocol-Commercial (permissioned) — including the metadata required for trustless discovery, validation, and invocation.
 
@@ -34,22 +35,23 @@ Execution lives outside this repository and can vary by implementation.
 
 ## Why Agent Cards Matter
 
-Autonomous agents need **three** things to work together:
-a `shared language` (verbs), a `shared identity system` (ENS), and a `shared trust layer` (x402).
+Autonomous agents only work together if they share:
+
+- a **common language** (canonical verbs)
+- a **global identity system** (ENS)
+- a **verifiable trust layer** (x402)
+
 Agent Cards bind all three — turning the internet into an **interoperable machine economy.**
 
-- Deterministic identity
-- Typed requests + receipts
-- Verifiable execution
-- Neutral + permissionless
+- Deterministic identity  
+- Typed requests + receipts  
+- Verifiable execution  
+- Neutral + permissionless  
 
-**Without this?**
+Without this, every agent becomes an API silo — isolated, brittle, and incompatible.
 
-Every agent becomes an API silo — brittle and incompatible.
-
-Agent Cards solve interoperability, discovery, and trust in one layer.
-
-
+**Every Agent Card is a portable contract: anyone can resolve the verb, validate the payload,  
+and verify execution provenance — without trusting the operator.**
 
 
 
