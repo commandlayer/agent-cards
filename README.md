@@ -1,156 +1,259 @@
-# CommandLayer — Agent Cards 
-**Canonical identity metadata for autonomous agents.**
+# CommandLayer — Agent Cards
+**Canonical identity metadata for autonomous agents**  
+**Standards-aligned · Deterministic · Verifiable**
 
-Agent Cards define *who an agent is*, *what verb it implements*, and *how it is discovered* across the A2A ecosystem.  
-Each card is a deterministic, verifiable identity record that describes a single verb-implementing agent.
-
-This repository contains the **public identity layer** for all CommandLayer Commons agents (v1.0.0).
-
----
-
-##  What Are Agent Cards?
-Agent Cards are the canonical identity documents for autonomous agents.  
-They describe:
-
-- the **verb** an agent implements  
-- the **schemas** it conforms to (request + receipt)  
-- its **x402 entrypoint**  
-- its **ENS identity**  
-- its **metadata, publisher, and PGP fingerprint**  
-- its **checksum** for verification  
-- its **IPFS CID** and HTTP mirrors  
-- its **capabilities and I/O contract** (non-normative)
-
-Agent Cards are:
-
-- **JSON Schema–driven**
-- **ERC-8004 aligned**
-- **AJV-validated**
-- **IPFS-first, HTTP-fallback**
-- **Apache-2.0 licensed**
-- **deterministic and immutable**
-
-**This repo** contains **no execution logic**.  
-`Execution` lives in the  **protocol-commercial** repository.
+<p align="center">
+<a><img alt="Stability" src="https://img.shields.io/badge/Status-Stable%20v1.0.0-brightgreen"/></a>
+<a href="https://www.npmjs.com/package/@commandlayer/agent-cards">
+<img alt="NPM" src="https://img.shields.io/npm/v/@commandlayer/agent-cards"/></a>
+<a href="https://github.com/commandlayer/agent-cards/actions/workflows/validate.yml">
+<img alt="CI" src="https://github.com/commandlayer/agent-cards/actions/workflows/validate.yml/badge.svg?branch=main"/></a>
+<a href="./LICENSE"><img alt="License" src="https://img.shields.io/badge/License-Apache--2.0-blue"/></a>
+</p>
 
 ---
 
-##  Repository Structure
+## Purpose
+
+Agent Cards are **machine-readable** identity documents describing how an autonomous agent implements a canonical verb — defined in Protocol-Commons (open) or Protocol-Commercial (permissioned) — including the metadata required for trustless discovery, validation, and invocation.
+
+This repository contains **all** CommandLayer Agent Cards:
+- **Commons** (open, foundation layer)
+- **Commercial** (permissioned, monetizable layer)
+
+Both tiers use the same metadata contract and **identical discovery** mechanisms.
+
+Execution lives outside this repository and can vary by implementation.
+
+---
+
+## Architecture Role
+
+Agent Cards bridge **semantic definitions** and **runtime execution**:
+
+```
+┌───────────────────────────┐ ┌──────────────────────┐
+│ Protocol-Commons          │ │ Protocol-Commercial  │
+│ Canonical verbs/schemas   │ │ Permissioned schemas │
+└───────────────────────────┘ └──────────────────────┘
+│                     │
+└──── schema binding ─┘
+│
+▼
+┌──────────────────────────────────────────────────────────┐
+│ Agent Cards (Commons + Commercial)                       │
+│ Identity + metadata                                      │
+└───────────────┬──────────────────────────────────────────┘
+│ discovery (ERC-8004 + ENS)
+▼
+┌───────────────────────────┐
+│ ENS TXT Records           │
+│ Entry & schema resolution │
+└───────────────┬───────────┘
+│ x402 invocation (A2A)
+▼
+┌───────────────────────────┐
+│ x402 Runtime Execution    │
+│ Deterministic behavior    │
+└───────────────────────────┘
+```
+
+
+This layering enables **neutral**, **interoperable**, **trust-minimized** agent ecosystems.
+
+---
+
+## Identity Contract
+
+Each Agent Card is a JSON file defining:
+
+| Field | Description |
+|-------|-------------|
+| `verb` | Canonical action binding |
+| `schemas.request` / `receipt` | Typed IO guarantees via Protocol-Commons |
+| `x402.entry` | Runtime invocation URI |
+| `ens.name` | On-chain identity pointer |
+| `publisher` | Attribution + optional PGP metadata |
+| `cid` & `checksum` | Integrity enforcement |
+| `capabilities` | Non-normative IO description |
+| `version` | Deterministic lifecycle alignment |
+
+All cards:
+
+- use **JSON Schema Draft 2020-12**
+- are **Ajv-validated + checksum-enforced**
+- must resolve all `$ref` dependencies
+- are **immutable** once published within a version family
+
+---
+
+## Repository Structure
 
 ```
 agent-cards/
 │
-├── agents/ # All 10 Commons agent-cards (v1.0.0)
-│ ├── cleanagent.eth.json
-│ ├── analyzeagent.eth.json
-│ ├── summarizeagent.eth.json
-│ └── ...
+├─ schemas/
+│ └─ v1.0.0/
+│ ├─ commons/
+│ │ ├─ analyze.agent.card.json
+│ │ ├─ summarize.agent.card.json
+│ │ └─ ...
+│ └─ commercial/
+│ └─ (placeholder for upcoming commercial verbs)
 │
-├── meta/
-│ ├── manifest.json # Global registry of all agent-cards
-│ └── commons-agent.json # Well-known descriptor for Commons v1.0.0
+├─ checksums/
+│ ├─ checksums.txt
+│ └─ *.sha256
 │
-├── .well-known/
-│ └── agent.json # Public discovery root for external resolvers
-│
-├── checksums/
-│ ├── *.sha256 # Per-agent verification checksums
-│ └── checksums.txt # Aggregate index
-│
-├── schemas/
-│ └── v1.0.0/commons/agent.card.base.schema.json
-│
-├── LICENSE # Apache-2.0
-├── package.json
-└── tsconfig.json
+├─ LICENSE (Apache-2.0)
+└─ package.json
 ```
 
+Commercial cards follow the **same contract** and validation rules.
 
 ---
 
-##  How Identity Resolution Works
+## Standards Alignment
 
-### 1. ENS TXT Records  
-Each `<verb>agent.eth` name includes TXT values:
+Agent Cards comply with:
 
-- `cl.verb`
-- `cl.version`
-- `cl.entry`
-- `cl.schema.request`
-- `cl.schema.receipt`
-- `cl.cid.schemas`
-- `cl.agentcard`
-- `cl.cid.agentcard`
-- `cl.checksum.*`
+- **Protocol-Commons v1.0.0** (canonical semantics)
+- **ERC-8004** (ENS TXT schema discovery)
+- **x402** transport envelopes (agent invocation)
+- **IPFS** content addressing (CID-first)
+- **Strict JSON Schema** governance
 
-### 2. AgentCard (this repo)  
-A resolver fetches the agent-card JSON, validates its:
+No proprietary transports.  
+No token requirements.
 
-- schemas  
-- structure  
-- signature metadata  
-- IPFS CID  
-- checksums  
+---
 
-### 3. Protocol Commons  
-Schemas are validated against the pinned v1.0.0 canonical schema set.
-
-### 4. Protocol Commercial - Execution Layer  
-
-The x402 entry is passed to the runtime 
-
-----
-##  Validation
-
-To validate all cards:
+## Validation
 
 ```bash
-- npm install
-- npm run validate
+npm install
+npm run validate
 ```
-This runs:
 
-- AJV strict validation
 
-- type checking
+Validation performs:
 
-- checksum verification
+- $ref resolution integrity
+
+- Schema contract enforcement
+
+- Hash-based immutability checks
+
+- Strict type guarantees
+
+Any deviation **fails CI.**
+
+---
+
+## Usage 
+
+Agent Cards enable interoperable:
+
+- **agent registries**
+
+- **LLM routing engines**
+
+- **DAG workflow automation**
+
+- **marketplaces and hubs**
+
+- **composable multi-agent systems**
+
+They are **runtime-agnostic** and usable in any A2A environment.
+
+Example usage (TypeScript):
+```
+import card from "./schemas/v1.0.0/commons/summarize.agent.card.json";
+
+console.log(card.verb);          // "summarize"
+console.log(card.x402.entry);    // "x402://summarizeagent.eth/summarize/v1"
+```
+---
+
+### Versioning & Immutability
+
+Versioning follows **protocol alignment:**
+
+- v1.0.0 aligns to Commons v1.0.0
+
+- Additive updates → patch/minor releases
+
+- Breaking changes → new major version directory (e.g. v2.x)
+
+Published cards **cannot be modified**; integrity is cryptographically enforced.
+
+---
+
+### Release Integrity
+
+| Component | Status |
+|----------|--------|
+| Agent Cards (v1.0.0) CID | `bafybeiccpdmehf7532b6yiirjjqcvbu2zq53ftbejz65to356ltnuyc2we` |
+| Checksums | Included in `checksums/` |
+| Provenance | Verified via CI |
+
+Reproducibility is mandatory.
+
+---
+
+### License
+
+**Apache License 2.0**
+
+Chosen to protect:
+
+- open adoption and ecosystem neutrality
+
+- identity metadata patent rights
+
+- long-term accessibility
+
+Agent identity is a **public good.**
+
 ----
 
-##  IPFS Pin (v1.0.0)
+### Status
 
-Agent Cards CID:
-```
-bafybeiccpdmehf7532b6yiirjjqcvbu2zq53ftbejz65to356ltnuyc2we
-```
- **HTTP mirror:**
-```
-https://ipfs.io/ipfs/bafybeiccpdmehf7532b6yiirjjqcvbu2zq53ftbejz65to356ltnuyc2we
-```
-----
-##  License
+**Stable — v1.0.0 published**
 
-This repository is licensed under Apache-2.0, ensuring open, safe, forward-compatible identity metadata.
+- 10 Commons Agents
 
-----
+- Commercial tier scaffolded
 
-##  Status: Stable (v1.0.0)
+---
 
-All agent-cards for the CommandLayer Commons are complete, validated, and pinned.
-This repo is part of the CommandLayer Protocol stack:
+### Contributing
 
-- **protocol-commons** — canonical verb + schema layer
+All proposals must include:
 
-- **agent-cards** — identity metadata layer
+1. Motivation and expected interactions
 
-- **protocol-commercial** — execution layer 
+2. Validation-passing implementation
 
-##  Contact
+3. No breaking mutations to published artifacts
 
-CommandLayer
-dev@commandlayer.org
+Policy: `POLICY.md`
+Security: `SECURITY.md`
 
-PGP: 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
+Commons schema proposals should be opened in **Protocol-Commons.**
+
+---
+
+### Governance
+
+This registry follows a neutral, standards-oriented stewardship model.  
+Future revisions will align with community participation, open discovery requirements, and decentralized identity norms.
+
+No single runtime or economic model is privileged.
+
+
+
+
 
 
 
