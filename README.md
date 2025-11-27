@@ -14,6 +14,7 @@
 ---
 
 ## Purpose
+“The universal discovery contract for autonomous agents.”
 
 **Agent Cards are the identity and discovery layer for autonomous agents — binding canonical verbs to verifiable execution.** Execution is designed to resolve through an x402 entrypoint — standards-first, no proprietary routing required.
 
