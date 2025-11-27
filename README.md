@@ -15,7 +15,7 @@
 
 ## Purpose
 
-**Agent Cards are the identity and discovery layer for autonomous agents — binding canonical verbs to verifiable execution.** Execution always resolves through an x402 entrypoint — no proprietary routing required.
+**Agent Cards are the identity and discovery layer for autonomous agents — binding canonical verbs to verifiable execution.** Execution resolves by default through an x402 entrypoint — standards-first, no proprietary routing required.
 
 - Identity • Discovery • Invocation • Verification  
 - **One universal contract for agent interop**
@@ -114,7 +114,7 @@ This layering enables **neutral**, **interoperable**, **trust-minimized** agent 
       ↓ Route
 [Next Agent Triggered by Verb]
       ↓
-Multi-Agent Workflow (A2A automation)
+Multi-Agent Workflow (A2A = Autonomous-to-Autonomous — no humans required in the loop.)
 
 ```
 ---
@@ -347,6 +347,7 @@ Reproducibility is mandatory.
 ## On-chain Discovery
 
 **Live ENS TXT example (summarizeagent.eth)**
+
 ```
 cl.verb=summarize
 cl.version=1.0.0
