@@ -15,7 +15,7 @@
 
 ## Purpose
 
-**Agent Cards are the identity and discovery layer for autonomous agents — binding canonical verbs to verifiable execution.** Execution resolves through an x402 entrypoint — standards-first, no proprietary routing required.
+**Agent Cards are the identity and discovery layer for autonomous agents — binding canonical verbs to verifiable execution.** Execution is designed to resolve through an x402 entrypoint — standards-first, no proprietary routing required.
 
 - Identity • Discovery • Invocation • Verification  
 - **One universal contract for agent interop**
