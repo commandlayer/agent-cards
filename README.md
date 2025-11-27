@@ -32,23 +32,25 @@ Execution lives outside this repository and can vary by implementation.
 Agent Cards bridge **semantic definitions** and **runtime execution**:
 
 ```
-Protocols (Commons + Commercial)
-  • Defines the verbs and their schemas
-              │
-              ▼
-        Agent Cards
-  • Identity + metadata binding
-  • What verb? Which schemas? Where to invoke?
-              │
-              ▼
-     ENS TXT Discovery
-  • Trustless lookup of Agent Card references
-  • ERC-8004 alignment for machine-readable discovery
-              │
-              ▼
-       x402 Execution
-  • Deterministic invocation of the runtime
-  • Validated request → enforced receipt
+┌────────────────────┐
+│  Protocol-Commons  │  ← Canonical verb  Schemas
+│  Protocol-Commercial│
+└─────────┬──────────┘
+          │
+          ▼
+┌────────────────────┐
+│    Agent Cards     │  ← Identity + metadata binding
+│  (JSON, immutable) │
+└─────────┬──────────┘
+          │ ENS TXT Discovery (ERC-8004)
+          ▼
+┌────────────────────┐
+│     x402 Entry     │  ← Verifiable invocation
+│   / Runtime URI    │
+└─────────┬──────────┘
+          │
+          ▼
+   Execution Engine   ← Any A2A runtime / LLM agent
 
 ```
 
@@ -159,6 +161,40 @@ Agent Cards enable interoperable:
 
 They are **runtime-agnostic** and usable in any A2A environment.
 
+They are **runtime-agnostic** and usable in any A2A environment.
+
+**Example Agent Card (Summarize):**
+
+> File: `./schemas/v1.0.0/commons/summarize.agent.card.json`
+
+```json
+{
+  "verb": "summarize",
+  "version": "1.0.0",
+  "ens": {
+    "name": "summarizeagent.eth",
+    "txt": "cl.agentcard=https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/summarize.agent.card.json"
+  },
+  "schemas": {
+    "request": "https://commandlayer.org/schemas/v1.0.0/commons/summarize/requests/summarize.request.schema.json",
+    "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/summarize/receipts/summarize.receipt.schema.json"
+  },
+  "x402": {
+    "entry": "x402://summarizeagent.eth/summarize/v1"
+  },
+  "publisher": {
+    "name": "CommandLayer",
+    "contact": "security@commandlayer.org"
+  },
+  "cid": "bafybeiha4diqc32lsvjsg3hl6zvtwn4qcfryze7zxf4d36av7tvur6lwfe",
+  "checksum": "sha256-36afcee88af94fb7233fc1cd70a6a87cb0f5f374f6ac4ee66dd29be48ec2c77c",
+  "capabilities": {
+    "input": "Any natural language content",
+    "output": "Short-form summary (structured or plain text)"
+  }
+}
+
+```
 Example usage (TypeScript):
 ```
 import card from "./schemas/v1.0.0/commons/summarize.agent.card.json";
