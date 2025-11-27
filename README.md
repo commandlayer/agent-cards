@@ -161,8 +161,6 @@ Agent Cards enable interoperable:
 
 They are **runtime-agnostic** and usable in any A2A environment.
 
-They are **runtime-agnostic** and usable in any A2A environment.
-
 **Example Agent Card (Summarize):**
 
 > File: `./schemas/v1.0.0/commons/summarize.agent.card.json`
