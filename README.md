@@ -142,23 +142,45 @@ All cards:
 ## Repository Structure
 
 ```
+## Repository Structure
+
+```text
 agent-cards/
 │
-├─ schemas/
-│ └─ v1.0.0/
-│ ├─ commons/
-│ │ ├─ analyze.agent.card.json
-│ │ ├─ summarize.agent.card.json
-│ │ └─ ...
-│ └─ commercial/
-│ └─ (placeholder for upcoming commercial verbs)
+├─ agents/
+│  └─ v1.0.0/
+│     ├─ commons/
+│     │  ├─ summarizeagent.eth.json
+│     │  ├─ analyzeagent.eth.json
+│     │  └─ ... (other Commons Agent Cards)
+│     └─ commercial/
+│        ├─ checkoutagent.eth.json
+│        └─ ... (other Commercial Agent Cards)
 │
 ├─ checksums/
-│ ├─ checksums.txt
-│ └─ *.sha256
+│  ├─ commons/
+│  │  ├─ summarizeagent.eth.sha256
+│  │  ├─ analyzeagent.eth.sha256
+│  │  └─ ...
+│  └─ commercial/
+│     ├─ checkoutagent.eth.sha256
+│     └─ ...
 │
-├─ LICENSE (Apache-2.0)
-└─ package.json
+├─ meta/
+│  ├─ manifest.json        ← Version, CIDs, mirrors, registry metadata
+│  └─ ...
+│
+├─ .well-known/
+│  └─ agent-cards-v1.0.0.json  ← Discovery helper / registry descriptor
+│
+├─ scripts/
+│  ├─ validate.ts          ← CI validation + typecheck helpers
+│  └─ ...
+│
+├─ LICENSE                 ← Apache-2.0
+├─ package.json
+└─ README.md
+
 ```
 
 Commercial cards follow the **same contract** and validation rules.
@@ -222,40 +244,77 @@ They are **runtime-agnostic** and usable in any A2A environment.
 
 > File: `./schemas/v1.0.0/commons/summarize.agent.card.json`
 
-```json
-{
-  "verb": "summarize",
+```{
+  "$schema": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/agent.card.base.schema.json",
+  "$id": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/summarizeagent.eth.json",
+  "id": "summarizeagent.eth",
+  "slug": "summarizeagent",
+  "display_name": "Summarize Agent (Protocol Reference)",
+  "description": "Official protocol-level reference agent for the summarize verb. Produces concise summaries from longer content according to the summarize.request and summarize.receipt schemas.",
+  "owner": "commandlayer.eth",
+  "ens": "summarizeagent.eth",
   "version": "1.0.0",
-  "ens": {
-    "name": "summarizeagent.eth",
-    "txt": "cl.agentcard=https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/summarize.agent.card.json"
-  },
+  "status": "protocol_reference",
+  "class": "commons",
+  "implements": [
+    "summarize"
+  ],
   "schemas": {
+    "request": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m/commons/summarize/requests/summarize.request.schema.json",
+    "receipt": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m/commons/summarize/receipts/summarize.receipt.schema.json"
+  },
+  "schemas_mirror": {
     "request": "https://commandlayer.org/schemas/v1.0.0/commons/summarize/requests/summarize.request.schema.json",
     "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/summarize/receipts/summarize.receipt.schema.json"
   },
-  "x402": {
-    "entry": "x402://summarizeagent.eth/summarize/v1"
-  },
-  "publisher": {
-    "name": "CommandLayer",
-    "contact": "security@commandlayer.org"
-  },
-  "cid": "bafybeiha4diqc32lsvjsg3hl6zvtwn4qcfryze7zxf4d36av7tvur6lwfe",
-  "checksum": "sha256-36afcee88af94fb7233fc1cd70a6a87cb0f5f374f6ac4ee66dd29be48ec2c77c",
+  "entry": "x402://summarizeagent.eth/summarize/v1",
   "capabilities": {
-    "input": "Any natural language content",
-    "output": "Short-form summary (structured or plain text)"
-  }
+    "operations": [
+      "extract_key_points",
+      "compress_long_form",
+      "produce_bullet_summaries",
+      "produce_paragraph_summaries"
+    ],
+    "input_types": [
+      "text/plain",
+      "text/markdown",
+      "application/json"
+    ],
+    "output_types": [
+      "text/plain",
+      "text/markdown",
+      "application/json"
+    ]
+  },
+  "meta": {
+    "publisher": "CommandLayer",
+    "contact": "dev@commandlayer.org",
+    "pgp_fingerprint": "5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A",
+    "tags": [
+      "summarize",
+      "compression",
+      "protocol-reference"
+    ]
+  },
+  "networks": [
+    "eip155:1"
+  ],
+  "license": "Apache-2.0",
+  "created_at": "2025-11-22T00:00:00Z",
+  "updated_at": "2025-11-22T00:00:00Z"
 }
+
 
 ```
 Example usage (TypeScript):
 ```
-import card from "./schemas/v1.0.0/commons/summarize.agent.card.json";
+import card from "./agents/v1.0.0/commons/summarizeagent.eth.json";
 
-console.log(card.verb);          // "summarize"
-console.log(card.x402.entry);    // "x402://summarizeagent.eth/summarize/v1"
+console.log(card.id);          // "summarizeagent.eth"
+console.log(card.entry);       // "x402://summarizeagent.eth/summarize/v1"
+console.log(card.schemas.request);
+// ipfs://bafybei.../commons/summarize/requests/summarize.request.schema.json
+
 ```
 ---
 
