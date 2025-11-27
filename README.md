@@ -15,46 +15,103 @@
 
 ## Purpose
 
+**Agent Cards are the identity and discovery layer for autonomous agents — binding canonical verbs to verifiable execution.**
+
 Agent Cards are **machine-readable** identity documents describing how an autonomous agent implements a canonical verb — defined in Protocol-Commons (open) or Protocol-Commercial (permissioned) — including the metadata required for trustless discovery, validation, and invocation.
 
-This repository contains **all** CommandLayer Agent Cards:
+This repository contains all CommandLayer Agent Cards:
+
 - **Commons** (open, foundation layer)
+
 - **Commercial** (permissioned, monetizable layer)
 
-Both tiers use the same metadata contract and **identical discovery** mechanisms.
+Both tiers use the same metadata contract and identical discovery mechanisms.
 
 Execution lives outside this repository and can vary by implementation.
 
----
-
 ## Architecture Role
 
-Agent Cards bridge **semantic definitions** and **runtime execution**:
+Agent Cards bridge **semantic definitions** and **runtime execution:**
 
 ```
-┌────────────────────┐
-│  Protocol-Commons  │  ← Canonical verb  Schemas
-│  Protocol-Commercial│
-└─────────┬──────────┘
-          │
-          ▼
-┌────────────────────┐
-│    Agent Cards     │  ← Identity + metadata binding
-│  (JSON, immutable) │
-└─────────┬──────────┘
-          │ ENS TXT Discovery (ERC-8004)
-          ▼
-┌────────────────────┐
-│     x402 Entry     │  ← Verifiable invocation
-│   / Runtime URI    │
-└─────────┬──────────┘
-          │
-          ▼
-   Execution Engine   ← Any A2A runtime / LLM agent
+┌────────────────────────┐
+│  Protocol-Commons      │  ← Canonical Verb Schemas
+│  Protocol-Commercial   │  ← Monetized Verb Schemas
+└───────────┬────────────┘
+            │
+            ▼
+┌────────────────────────┐
+│    Agent Cards         │  ← Identity + metadata binding
+│  (JSON, immutable)     │
+└───────────┬────────────┘
+            │ ENS TXT Discovery (ERC-8004)
+            ▼
+┌────────────────────────┐
+│     x402 Entry         │  ← Verifiable invocation
+│   / Runtime URI        │
+└───────────┬────────────┘
+            │
+            ▼
+┌────────────────────────┐
+│   Execution Engine     │  ← Any A2A runtime / LLM agent
+└───────────┬────────────┘
+            │
+            ▼
+┌────────────────────────┐
+│   Structured Receipt   │  ← Canonical outputs + trace
+└───────────┬────────────┘
+            │
+            ▼
+┌────────────────────────┐
+│    Agent Chaining      │  ← Autonomous multi-agent workflows
+└────────────────────────┘
+
 
 ```
 
 This layering enables **neutral**, **interoperable**, **trust-minimized** agent ecosystems.
+
+### End-to-end invocation flow
+
+```
+[App / Agent]
+      ↓ Discover (ERC-8004)
+[ENS TXT Record → Identity & Metadata]
+      ↓ Validate (Protocol-Commons)
+[Request Schema / Receipt Schema]
+      ↓ Invoke (x402)
+[Verb Execution]
+      ↓ Verify
+[Receipt: typed + trusted]
+      ↓ Route
+[Next Agent Triggered by Verb]
+      ↓
+Multi-Agent Workflow (A2A automation)
+
+```
+**Live ENS TXT example (summarizeagent.eth)**
+```
+cl.verb=summarize
+cl.version=1.0.0
+
+cl.entry=x402://summarizeagent.eth/summarize
+
+cl.schema.request=https://commandlayer.org/schemas/v1.0.0/commons/summarize/requests/summarize.request.schema.json
+cl.schema.receipt=https://commandlayer.org/schemas/v1.0.0/commons/summarize/receipts/summarize.receipt.schema.json
+cl.cid.schemas=bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m
+cl.schemas.mirror.ipfs=https://ipfs.io/ipfs/bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m
+
+cl.agentcard=https://commandlayer.org/agent-cards/agents/v1.0.0/commons/summarizeagent.eth.json
+cl.cid.agentcard=bafybeiccpdmehf7532b6yiirjjqcvbu2zq53ftbejz65to356ltnuyc2we
+cl.agentcard.mirror.ipfs=https://ipfs.io/ipfs/bafybeiccpdmehf7532b6yiirjjqcvbu2zq53ftbejz65to356ltnuyc2we/agents/summarizeagent.eth.json
+
+cl.checksum.request=sha256:20bd4897a2b91c66de84b31d0f586d5b5b8fecc9573e4c5dae3b97a78552d3fa
+cl.checksum.receipt=sha256:ccb7f20562d2e34dff73a17794aabcf98f25f659e83a790e42cf9a31e97460b3
+cl.checksum.agentcard=sha256:cffb7a4534c0848767eacdf5e3a1775b73a093baa8117e09957ba5d9a145af19
+
+cl.owner=commandlayer.eth
+```
+
 
 ---
 
@@ -151,7 +208,7 @@ Agent Cards enable interoperable:
 
 - **agent registries**
 
-- **LLM routing engines**
+- **routing engines**
 
 - **DAG workflow automation**
 
