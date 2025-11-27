@@ -32,32 +32,25 @@ Execution lives outside this repository and can vary by implementation.
 Agent Cards bridge **semantic definitions** and **runtime execution**:
 
 ```
-┌───────────────────────────┐ ┌──────────────────────┐
-│ Protocol-Commons          │ │ Protocol-Commercial  │
-│ Canonical verbs/schemas   │ │ Permissioned schemas │
-└───────────────────────────┘ └──────────────────────┘
-│                     │
-└──── schema binding ─┘
-│
-▼
-┌──────────────────────────────────────────────────────────┐
-│ Agent Cards (Commons + Commercial)                       │
-│ Identity + metadata                                      │
-└───────────────┬──────────────────────────────────────────┘
-│ discovery (ERC-8004 + ENS)
-▼
-┌───────────────────────────┐
-│ ENS TXT Records           │
-│ Entry & schema resolution │
-└───────────────┬───────────┘
-│ x402 invocation (A2A)
-▼
-┌───────────────────────────┐
-│ x402 Runtime Execution    │
-│ Deterministic behavior    │
-└───────────────────────────┘
-```
+Protocols (Commons + Commercial)
+  • Defines the verbs and their schemas
+              │
+              ▼
+        Agent Cards
+  • Identity + metadata binding
+  • What verb? Which schemas? Where to invoke?
+              │
+              ▼
+     ENS TXT Discovery
+  • Trustless lookup of Agent Card references
+  • ERC-8004 alignment for machine-readable discovery
+              │
+              ▼
+       x402 Execution
+  • Deterministic invocation of the runtime
+  • Validated request → enforced receipt
 
+```
 
 This layering enables **neutral**, **interoperable**, **trust-minimized** agent ecosystems.
 
