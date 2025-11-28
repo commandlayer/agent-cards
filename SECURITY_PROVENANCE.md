@@ -1,29 +1,36 @@
 # Security & Provenance — Agent-Cards
 
-## Ownership
+This document defines custody, disclosure rules, ENS authority, and cryptographic
+integrity requirements for the CommandLayer Agent-Cards layer.
 
-- Owner: commandlayer.eth
-- Security Contact: dev@commandlayer.org
-- PGP: 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
+## Ownership & Contact
+
+- **Owner:** commandlayer.eth
+- **Security Contact:** dev@commandlayer.org
+- **PGP Fingerprint:** 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
 
 ---
 
-## Integrity
+## Integrity Requirements
 
-Each card MUST publish:
+Each published card **MUST** provide:
 
-- `cl.cid.agentcard`
-- `cl.checksum.agentcard`
+- `cl.cid.agentcard` — content-addressed release artifact
+- `cl.checksum.agentcard` — SHA-256 integrity hash
 
-These MUST match pinned release artifacts.
+All Agent-Cards **MUST**:
+- Validate under strict Ajv against the canonical card schema
+- Match a CID listed in the official manifest (v1.0.0)
+- Pass schema and example validation in CI
 
-All cards validated in CI.
+Any mismatch **MUST** be treated as invalid.
 
 ---
 
 ## ENS TXT Authority
 
-Agent-Cards controls:
+Agent-Cards governs:
+
 ```
 cl.entry
 cl.agentcard
@@ -33,21 +40,28 @@ cl.checksum.agentcard
 cl.owner
 ```
 
-Changes MUST:
-- Be signed
-- Be logged in `RESOLUTION.md`
-- Follow governance review
+C
+Updates **MUST**:
+- Be signed (PGP or on-chain signature)
+- Be logged in `RESOLUTION.md` with timestamp, rationale, approver
+- Follow the governance change process
+
+Unauthorized ENS mutation **voids authenticity**.
 
 ---
 
-## Disclosure
+## Vulnerability Disclosure
 
-Security issues reported privately to:
-dev@commandlayer.org (use PGP if sensitive)
+Security issues should be reported privately:
+
+**Email:** dev@commandlayer.org  
+**PGP:** 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
+
+We will:
+- Acknowledge valid issues within **72 hours**
+- Provide remediation plan within **10 business days**
 
 ---
 
-Status: **Core Infrastructure — Strict Governance Required**
-
-
+Release Status: **Security-Critical · Stable**
 
