@@ -16,7 +16,7 @@
 ## Purpose
 “The universal discovery contract for autonomous agents.”
 
-**Agent Cards are the identity and discovery layer for autonomous agents — binding canonical verbs to verifiable execution.** Execution is designed to resolve through an x402 entrypoint — standards-first, no proprietary routing required.
+**Agent Cards are the identity and discovery layer for autonomous agents — binding canonical verbs to verifiable execution.** 
 
 **Execution is designed to resolve through an x402 entrypoint — standards-first, no proprietary routing required.**
 
@@ -28,7 +28,7 @@
 
 Agent Cards are **machine-readable** identity documents describing how an autonomous agent implements a canonical verb — defined in Protocol-Commons (open) or Protocol-Commercial (permissioned) — including the metadata required for trustless discovery, validation, and invocation.
 
-### This repository contains the official reference Agent Cards:
+## This repository contains the official reference Agent Cards:
 
 - **Commons** (open, foundation layer)
 
