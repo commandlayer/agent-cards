@@ -1,4 +1,4 @@
-name: Validate AgentCards
+name: Validate Agent Cards
 
 on:
   push:
@@ -17,13 +17,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+          cache: "npm"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Validate AgentCards JSON
-        run: npm run validate:cards
+      - name: Validate Agent Cards (schemas + checksums)
+        run: npm run validate
 
-      - name: Type-check TS AgentCard examples
-        run: npm run typecheck
+      - name: Type-check Agent Cards (optional)
+        run: npm run build --if-present
