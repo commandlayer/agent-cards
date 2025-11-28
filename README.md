@@ -1,32 +1,63 @@
 # CommandLayer — Agent Cards
-**Canonical identity metadata for autonomous agents**  **Standards-aligned · Deterministic · Verifiable**
 
+**Canonical identity metadata for autonomous agents**  
+**Standards-aligned · Deterministic · Verifiable**
 
-<p align="center">
-<a><img alt="Stability" src="https://img.shields.io/badge/Status-Stable%20v1.0.0-brightgreen"/></a>
-<a href="https://www.npmjs.com/package/@commandlayer/agent-cards">
-<img alt="NPM" src="https://img.shields.io/npm/v/@commandlayer/agent-cards"/></a>
-<a href="https://github.com/commandlayer/agent-cards/actions/workflows/validate.yml">
-<img alt="CI" src="https://github.com/commandlayer/agent-cards/actions/workflows/validate.yml/badge.svg?branch=main"/></a>
-<a href="./LICENSE"><img alt="License" src="https://img.shields.io/badge/License-Apache--2.0-blue"/></a>
-</p>
+<div align="center">
+
+[![Status](https://img.shields.io/badge/Status-Stable%20v1.0.0-brightgreen)](#)
+[![npm](https://img.shields.io/npm/v/@commandlayer/agent-cards)](https://www.npmjs.com/package/@commandlayer/agent-cards)
+[![CI](https://github.com/commandlayer/agent-cards/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/commandlayer/agent-cards/actions/workflows/validate.yml)
+[![License](https://img.shields.io/badge/License-Apache--2.0-blue)](./LICENSE)
+
+</div>
 
 ---
 
-## Purpose
+### Purpose
+
 **“The universal discovery contract for autonomous agents.”**
 
-Agent Cards are the identity and discovery layer for autonomous agents — binding canonical verbs to verifiable x402 execution.
+Agent Cards bind canonical verbs to verifiable x402 execution — enabling trustless:
 
-They enable machine-to-machine interoperability without bilateral agreements or custom APIs.
-- `Identity` • `Discovery` • `Invocation` • `Verification` 
-- **One universal contract for agent interop**
+- **Identity**
+- **Discovery**
+- **Invocation**
+- **Verification**
 
+One universal contract for agent interop.
+
+---
+
+## Architecture Primer
+
+```text
++------------------------+
+|  Protocol-Commons      | (canonical verbs)
+|  Protocol-Commercial   | (monetized verbs)
++-----------+------------+
+            |
+            v
++------------------------+
+|     Agent Cards        | (identity + metadata)
++-----------+------------+
+            | ERC-8004 TXT discovery
+            v
++------------------------+
+|   x402 Entry / URI     | (verifiable invocation)
++-----------+------------+
+            v
++------------------------+
+| Structured Receipt     | (typed + trusted output)
++------------------------+
+```
 
 
 Agent Cards are **machine-readable** identity documents describing how an autonomous agent implements a canonical verb — defined in Protocol-Commons (open) or Protocol-Commercial (permissioned) — including the metadata required for trustless discovery, validation, and invocation.
 
-## This repository contains the official reference Agent Cards:
+
+### This repository contains the official reference Agent Cards:
+
 
 - **Commons** (open, foundation layer)
 
@@ -46,7 +77,7 @@ Agent Cards are **machine-readable** identity documents describing how an autono
 
  **Execution lives outside this repository and can vary by implementation.**
 
-## Why Agent Cards Matter
+### Why Agent Cards Matter
 
 Autonomous agents only work together if they share:
 
@@ -61,54 +92,18 @@ Autonomous agents only work together if they share:
 - Verifiable execution  
 - Neutral + permissionless  
 
-Without this, every agent becomes an API silo — isolated, brittle, and incompatible.
+**Without this, every agent becomes an API silo — isolated, brittle, and incompatible.**
 
-**Every Agent Card is a portable contract: anyone can resolve the verb, validate the payload,  
-and verify execution provenance — without trusting the operator.**
+Every Agent Card is a portable contract: anyone can resolve the verb, validate the payload,  
+and verify execution provenance — without trusting the operator.
 
 
 
 
 ## Architecture Role
 
-
 Agent Cards bridge **semantic definitions** and **runtime execution:**
 
-```
-+------------------------+
-|  Protocol-Commons      |  ← Canonical Verb Schemas
-|  Protocol-Commercial   |  ← Monetized Verb Schemas
-+-----------+------------+
-            |
-            v
-+------------------------+
-|    Agent Cards         |  ← Identity + metadata binding
-|  (JSON, immutable)     |
-+-----------+------------+
-            | ENS TXT Discovery (ERC-8004)
-            v
-+------------------------+
-|     x402 Entry         |  ← Verifiable invocation
-|   / Runtime URI        |
-+-----------+------------+
-            |
-            v
-+------------------------+
-|   Execution Engine     |  ← Any A2A runtime / LLM agent
-+-----------+------------+
-            |
-            v
-+------------------------+
-|   Structured Receipt   |  ← Canonical outputs + trace
-+-----------+------------+
-            |
-            v
-+------------------------+
-|    Agent Chaining      |  ← Multi-agent workflow automation
-+------------------------+
-
-
-```
 
 This layering enables **neutral**, **interoperable**, **trust-minimized** agent ecosystems.
 
@@ -254,73 +249,7 @@ Agent Cards enable interoperable:
 
 They are **runtime-agnostic** and usable in any A2A environment.
 
-**Example Agent Card (Summarize):**
-
- File: `./schemas/v1.0.0/commons/summarize.agent.card.json`
-
-```{
-  "$schema": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/agent.card.base.schema.json",
-  "$id": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/summarizeagent.eth.json",
-  "id": "summarizeagent.eth",
-  "slug": "summarizeagent",
-  "display_name": "Summarize Agent (Protocol Reference)",
-  "description": "Official protocol-level reference agent for the summarize verb. Produces concise summaries from longer content according to the summarize.request and summarize.receipt schemas.",
-  "owner": "commandlayer.eth",
-  "ens": "summarizeagent.eth",
-  "version": "1.0.0",
-  "status": "protocol_reference",
-  "class": "commons",
-  "implements": [
-    "summarize"
-  ],
-  "schemas": {
-    "request": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m/commons/summarize/requests/summarize.request.schema.json",
-    "receipt": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m/commons/summarize/receipts/summarize.receipt.schema.json"
-  },
-  "schemas_mirror": {
-    "request": "https://commandlayer.org/schemas/v1.0.0/commons/summarize/requests/summarize.request.schema.json",
-    "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/summarize/receipts/summarize.receipt.schema.json"
-  },
-  "entry": "x402://summarizeagent.eth/summarize/v1",
-  "capabilities": {
-    "operations": [
-      "extract_key_points",
-      "compress_long_form",
-      "produce_bullet_summaries",
-      "produce_paragraph_summaries"
-    ],
-    "input_types": [
-      "text/plain",
-      "text/markdown",
-      "application/json"
-    ],
-    "output_types": [
-      "text/plain",
-      "text/markdown",
-      "application/json"
-    ]
-  },
-  "meta": {
-    "publisher": "CommandLayer",
-    "contact": "dev@commandlayer.org",
-    "pgp_fingerprint": "5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A",
-    "tags": [
-      "summarize",
-      "compression",
-      "protocol-reference"
-    ]
-  },
-  "networks": [
-    "eip155:1"
-  ],
-  "license": "Apache-2.0",
-  "created_at": "2025-11-22T00:00:00Z",
-  "updated_at": "2025-11-22T00:00:00Z"
-}
-
-
-```
-Example usage (TypeScript):
+### **Example usage (TypeScript):**
 ```
 import card from "./agents/v1.0.0/commons/summarizeagent.eth.json";
 
@@ -330,9 +259,35 @@ console.log(card.schemas.request);
 // ipfs://bafybei.../commons/summarize/requests/summarize.request.schema.json
 
 ```
+### **Example Agent Card (Summarize):**
+```
+{
+  "$schema": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/agent.card.base.schema.json",
+  "$id": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/summarizeagent.eth.json",
+  "id": "summarizeagent.eth",
+  "slug": "summarizeagent",
+  "display_name": "Summarize Agent (Protocol Reference)",
+  "description": "Official protocol-level reference agent for the summarize verb.",
+  "owner": "commandlayer.eth",
+  "ens": "summarizeagent.eth",
+  "version": "1.0.0",
+  "status": "protocol_reference",
+  "class": "commons",
+  "implements": ["summarize"],
+  "schemas": {
+    "request": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m/commons/summarize/requests/summarize.request.schema.json",
+    "receipt": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m/commons/summarize/receipts/summarize.receipt.schema.json"
+  },
+  "entry": "x402://summarizeagent.eth/summarize/v1",
+  "networks": ["eip155:1"],
+  "license": "Apache-2.0"
+}
+
+```
+
 ---
 
-### Versioning & Immutability
+## Versioning & Immutability
 
 Versioning follows **protocol alignment:**
 
@@ -346,7 +301,7 @@ Published cards **cannot be modified**; integrity is cryptographically enforced.
 
 ---
 
-### Release Integrity
+## Release Integrity
 
 | Component | Status |
 |----------|--------|
@@ -382,7 +337,31 @@ cl.checksum.agentcard=sha256:cffb7a4534c0848767eacdf5e3a1775b73a093baa8117e09957
 
 cl.owner=commandlayer.eth
 ```
-### License
+## Governance
+
+Agent Cards follow a neutral, standards-oriented stewardship model:
+
+- No single runtime, operator, or economic model is privileged
+- Canonical decisions align to ERC-8004 and x402 ecosystem needs
+- Breaking changes require major versioning (immutability by default)
+- Community proposals evaluated via open discussion and security review
+- Governance ensures longevity and neutrality.
+
+
+----
+
+## Status
+
+**Stable — v1.0.0 published**
+
+- 10 Commons Agents
+
+- Commercial tier scaffolded
+
+----
+
+
+## License
 
 **Apache License 2.0**
 
@@ -396,19 +375,9 @@ Chosen to protect:
 
 Agent identity is a **public good.**
 
-----
-
-### Status
-
-**Stable — v1.0.0 published**
-
-- 10 Commons Agents
-
-- Commercial tier scaffolded
-
 ---
 
-### Contributing
+## Contributing
 
 All proposals must include:
 
@@ -424,15 +393,15 @@ Security: `SECURITY.md`
 Commons schema proposals should be opened in **Protocol-Commons.**
 
 ---
+## References
 
-### Governance
+## References
 
-This registry follows a neutral, standards-oriented stewardship model.  
-Future revisions will align with community participation, open discovery requirements, and decentralized identity norms.
-
-No single runtime or economic model is privileged.
-
-
+- [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
+- [x402 — Machine-to-Machine Value Transport](https://github.com/ethereum/x402)
+- [JSON Schema 2020-12 — Validation Standard](https://json-schema.org/specification-links)
+- [IPFS — Content Addressing](https://docs.ipfs.tech/concepts/content-addressing/)
+- [ENS — Naming System for Web3](https://docs.ens.domains/)
 
 
 
