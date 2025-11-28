@@ -36,6 +36,16 @@ Agent Cards are **machine-readable** identity documents describing how an autono
 
 - Both tiers use the same metadata contract and identical discovery mechanisms.
 
+
+
+| Layer                  | Repository            | License               |
+| ---------------------- | --------------------- | --------------------- |
+| Protocol — Commons     | `protocol-commons`    | MIT                   |
+| Identity — Agent Cards | `agent-cards`         | Apache-2.0            |
+| Execution — Commercial | `protocol-commercial` | Proprietary (planned) |
+
+
+
  **Execution lives outside this repository and can vary by implementation.**
 
 ## Why Agent Cards Matter
