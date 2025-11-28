@@ -47,7 +47,7 @@ dev@commandlayer.org (use PGP if sensitive)
 
 ---
 
-Status: **Security-Critical**
+Status: **Core Infrastructure — Strict Governance Required**
 
 
 
