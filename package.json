@@ -5,24 +5,19 @@
   "license": "Apache-2.0",
   "author": "Gregory Soucy <dev@commandlayer.org>",
   "type": "module",
- "scripts": {
-  "validate:cards": "node scripts/validate-cards.mjs",
-  "typecheck": "tsc --noEmit",
-  "generate:checksums": "node scripts/generate-checksums.mjs",
-  "build": "tsc -p tsconfig.json",
-  "validate": "ts-node scripts/validate.ts",
-  "validate:agents": "ts-node scripts/validate.ts --mode=agents",
-  "validate:checksums": "ts-node scripts/validate.ts --mode=checksums"
-}
-
+  "scripts": {
+    "validate:cards": "node scripts/validate-cards.mjs",
+    "typecheck": "tsc --noEmit",
+    "generate:checksums": "node scripts/generate-checksums.mjs",
+    "validate": "npm run validate:cards && npm run typecheck"
+  },
   "dependencies": {
     "ajv": "^8.17.0",
     "ajv-formats": "^3.0.1"
   },
   "devDependencies": {
     "typescript": "^5.6.0",
-     "glob": "^11.0.0",
-    "ts-node": "^10.9.2",
+    "glob": "^11.0.0",
     "@types/node": "^22.0.0"
   }
 }
