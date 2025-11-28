@@ -34,7 +34,10 @@
     "ens": { "type": "string" },
     "version": { "type": "string" },
     "status": { "type": "string" },
-    "class": { "type": "string", "enum": ["commons", "commercial"] },
+    "class": {
+      "type": "string",
+      "enum": ["commons", "commercial"]
+    },
     "implements": {
       "type": "array",
       "items": { "type": "string" },
