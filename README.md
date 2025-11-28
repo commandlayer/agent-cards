@@ -14,9 +14,12 @@
 
 ---
 
-### Purpose
+Agent Cards turn **ENS names** into **verifiable**, **executable agent identities** — the discovery + invocation contract for autonomous agents.
 
-**“The universal discovery contract for autonomous agents.”**
+
+## Purpose
+
+Machine discoverability + verifiable execution = the **universal invoke contract for agents.**
 
 Agent Cards bind canonical verbs to verifiable x402 execution — enabling trustless:
 
@@ -56,8 +59,7 @@ One universal contract for agent interop.
 Agent Cards are **machine-readable** identity documents describing how an autonomous agent implements a canonical verb — defined in Protocol-Commons (open) or Protocol-Commercial (permissioned) — including the metadata required for trustless discovery, validation, and invocation.
 
 
-### This repository contains the official reference Agent Cards:
-
+### Contents of this repository
 
 - **Commons** (open, foundation layer)
 
@@ -77,7 +79,7 @@ Agent Cards are **machine-readable** identity documents describing how an autono
 
  **Execution lives outside this repository and can vary by implementation.**
 
-### Why Agent Cards Matter
+## Why Agent Cards Matter
 
 Autonomous agents only work together if they share:
 
@@ -104,7 +106,11 @@ and verify execution provenance — without trusting the operator.
 
 Agent Cards bridge **semantic definitions** and **runtime execution:**
 
+```
+[ Semantic Layer ]   →   [ Identity Layer ]   →   [ Execution Layer ]   →   [ Trusted Output ]
+(Commons / Commercial)     (ENS + Agent Card)       (x402 Runtime)           (Structured Receipt)
 
+```
 This layering enables **neutral**, **interoperable**, **trust-minimized** agent ecosystems.
 
 ### End-to-end invocation flow
@@ -395,16 +401,8 @@ Commons schema proposals should be opened in **Protocol-Commons.**
 ---
 ## References
 
-## References
-
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Validation Standard](https://json-schema.org/specification-links)
 - [IPFS — Content Addressing](https://docs.ipfs.tech/concepts/content-addressing/)
 - [ENS — Naming System for Web3](https://docs.ens.domains/)
-
-
-
-
-
-
