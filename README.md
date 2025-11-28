@@ -1,6 +1,6 @@
 # CommandLayer — Agent Cards
-**Canonical identity metadata for autonomous agents**  
-**Standards-aligned · Deterministic · Verifiable**
+**Canonical identity metadata for autonomous agents**  **Standards-aligned · Deterministic · Verifiable**
+
 
 <p align="center">
 <a><img alt="Stability" src="https://img.shields.io/badge/Status-Stable%20v1.0.0-brightgreen"/></a>
@@ -16,9 +16,9 @@
 ## Purpose
 **“The universal discovery contract for autonomous agents.”**
 
-**Agent Cards are the identity and discovery layer for autonomous agents — binding canonical verbs to verifiable x402 execution.**
+Agent Cards are the identity and discovery layer for autonomous agents — binding canonical verbs to verifiable x402 execution.
 
-**They enable machine-to-machine interoperability without bilateral agreements or custom APIs.**
+They enable machine-to-machine interoperability without bilateral agreements or custom APIs.
 - `Identity` • `Discovery` • `Invocation` • `Verification` 
 - **One universal contract for agent interop**
 
@@ -40,7 +40,7 @@ Agent Cards are **machine-readable** identity documents describing how an autono
 | ---------------------- | --------------------- | --------------------- |
 | Protocol — Commons     | `protocol-commons`    | MIT                   |
 | Identity — Agent Cards | `agent-cards`         | Apache-2.0            |
-| Execution — Commercial | `protocol-commercial` | Proprietary (planned) |
+| Execution — Commercial | `protocol-commercial` | Proprietary           |
 
 
 
