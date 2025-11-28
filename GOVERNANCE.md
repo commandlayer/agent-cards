@@ -74,7 +74,7 @@ Changes MUST be logged in `RESOLUTION.md`.
 - `RESOLUTION.md` — identity lifecycle log  
 - `SECURITY_PROVENANCE.md` — pinned CIDs & integrity record  
 
----
+
 
 
 
