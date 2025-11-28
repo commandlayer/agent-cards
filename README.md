@@ -18,20 +18,25 @@
 
 **Agent Cards are the identity and discovery layer for autonomous agents — binding canonical verbs to verifiable execution.** Execution is designed to resolve through an x402 entrypoint — standards-first, no proprietary routing required.
 
-- Identity • Discovery • Invocation • Verification  
+**Execution is designed to resolve through an x402 entrypoint — standards-first, no proprietary routing required.**
+
+**Agent Cards enable machine-to-machine interoperability without bilateral agreements or custom APIs.**
+
+- `Identity` • `Discovery` • `Invocation` • `Verification` 
 - **One universal contract for agent interop**
 
 
 Agent Cards are **machine-readable** identity documents describing how an autonomous agent implements a canonical verb — defined in Protocol-Commons (open) or Protocol-Commercial (permissioned) — including the metadata required for trustless discovery, validation, and invocation.
 
-This repository contains the official reference Agent Cards:
+### This repository contains the official reference Agent Cards:
+
 - **Commons** (open, foundation layer)
 
 - **Commercial** (permissioned, monetizable layer)
 
-Both tiers use the same metadata contract and identical discovery mechanisms.
+- Both tiers use the same metadata contract and identical discovery mechanisms.
 
-Execution lives outside this repository and can vary by implementation.
+ **Execution lives outside this repository and can vary by implementation.**
 
 ## Why Agent Cards Matter
 
@@ -41,7 +46,7 @@ Autonomous agents only work together if they share:
 - a **global identity system** (ENS)
 - a **verifiable trust layer** (x402)
 
-Agent Cards bind all three — turning the internet into an **interoperable machine economy.**
+**Agent Cards bind all three** — turning the internet into an **interoperable machine economy.**
 
 - Deterministic identity  
 - Typed requests + receipts  
