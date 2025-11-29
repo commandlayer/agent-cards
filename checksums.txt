@@ -1,0 +1,2 @@
+7259108e30fbe1cae0a05f9414bca29d8276bc4a3f2e7b310f48035daf7ce5a2  .well-known/agent.json
+05f4867575d97160aa5b3d36d2d0926e34f66b6a5c77f3aa13ffc5d79fba8106  schemas/v1.0.0/commons/agent.card.base.schema.json
