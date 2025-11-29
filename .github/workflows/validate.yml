@@ -23,8 +23,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate Agent Cards JSON
-        run: node ./scripts/validate-cards.mjs
+      - name: Validate Agent Cards (schemas + TypeScript)
+        run: npm run validate
 
-      - name: Validate checksums match Agent Cards
-        run: node ./scripts/generate-checksums.mjs --verify
+      - name: Verify checksums match Agent Cards
+        run: npm run generate:checksums -- --verify
