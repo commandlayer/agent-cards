@@ -359,30 +359,29 @@ Published cards **cannot be modified**; integrity is cryptographically enforced.
 Reproducibility is mandatory.
 
 ---
-## On-chain Discovery
+### **On-Chain Discovery — ENS TXT Binding (Normative)**
 
-**Live ENS TXT example (summarizeagent.eth)**
+```txt
+cl.verb=<verb>
+cl.version=<card-version>
 
-```
-cl.verb=summarize
-cl.version=1.0.0
+cl.entry=x402://<ens>/<verb>/v1
 
-cl.entry=x402://summarizeagent.eth/summarize
+cl.schema.request=https://commandlayer.org/schemas/v1.0.0/commons/<verb>/requests/<verb>.request.schema.json
+cl.schema.receipt=https://commandlayer.org/schemas/v1.0.0/commons/<verb>/receipts/<verb>.receipt.schema.json
+cl.cid.schemas=<cid-of-protocol-commons-schemas>
+cl.schemas.mirror.ipfs=https://ipfs.io/ipfs/<cid-of-protocol-commons-schemas>
 
-cl.schema.request=https://commandlayer.org/schemas/v1.0.0/commons/summarize/requests/summarize.request.schema.json
-cl.schema.receipt=https://commandlayer.org/schemas/v1.0.0/commons/summarize/receipts/summarize.receipt.schema.json
-cl.cid.schemas=bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m
-cl.schemas.mirror.ipfs=https://ipfs.io/ipfs/bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m
+cl.agentcard=https://commandlayer.org/agent-cards/agents/v1.0.0/<class>/<ens>.json
+cl.cid.agentcard=<cid-of-agent-card-folder>
+cl.agentcard.mirror.ipfs=https://ipfs.io/ipfs/<cid-of-agent-card-folder>/agents/v1.0.0/<class>/<ens>.json
 
-cl.agentcard=https://commandlayer.org/agent-cards/agents/v1.0.0/commons/summarizeagent.eth.json
-cl.cid.agentcard=bafybeiccpdmehf7532b6yiirjjqcvbu2zq53ftbejz65to356ltnuyc2we
-cl.agentcard.mirror.ipfs=https://ipfs.io/ipfs/bafybeiccpdmehf7532b6yiirjjqcvbu2zq53ftbejz65to356ltnuyc2we/agents/summarizeagent.eth.json
-
-cl.checksum.request=sha256:20bd4897a2b91c66de84b31d0f586d5b5b8fecc9573e4c5dae3b97a78552d3fa
-cl.checksum.receipt=sha256:ccb7f20562d2e34dff73a17794aabcf98f25f659e83a790e42cf9a31e97460b3
-cl.checksum.agentcard=sha256:cffb7a4534c0848767eacdf5e3a1775b73a093baa8117e09957ba5d9a145af19
+cl.checksum.request=sha256:<request-schema-sha256>
+cl.checksum.receipt=sha256:<receipt-schema-sha256>
+cl.checksum.agentcard=sha256:<agent-card-sha256>
 
 cl.owner=commandlayer.eth
+
 ```
 ## Governance
 
