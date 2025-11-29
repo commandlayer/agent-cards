@@ -135,27 +135,32 @@ Multi-Agent Workflow (A2A = Autonomous-to-Autonomous — no humans required in t
 
 ## Identity Contract
 
-Each Agent Card is a JSON file defining:
+Each Agent Card is a JSON document conforming to the `agent.card.base.schema.json` contract. Core fields:
 
-| Field | Description |
-|-------|-------------|
-| `verb` | Canonical action binding |
-| `schemas.request` / `receipt` | Typed IO guarantees via Protocol-Commons |
-| `x402.entry` | Runtime invocation URI |
-| `ens.name` | On-chain identity pointer |
-| `publisher` | Attribution + optional PGP metadata |
-| `cid` & `checksum` | Integrity enforcement |
-| `capabilities` | Non-normative IO description |
-| `version` | Deterministic lifecycle alignment |
+| Group            | Field                | Description |
+|-----------------|----------------------|-------------|
+| Identity         | `id`                 | Canonical agent identifier (usually the ENS name). |
+|                 | `slug`               | URL-safe, human-readable slug for local use. |
+|                 | `display_name`       | Human-readable name for the agent. |
+|                 | `description`        | Short description of what the agent does. |
+| Ownership        | `owner`              | ENS name or identifier controlling the card (e.g. `commandlayer.eth`). |
+|                 | `ens`                | ENS name the agent is bound to (e.g. `summarizeagent.eth`). |
+| Versioning       | `version`            | Semantic version of the Agent Card contract (e.g. `1.0.0`). |
+| Lifecycle        | `status`             | Lifecycle state (`protocol_reference`, `active`, `deprecated`, etc.). |
+|                 | `class`              | Tier of the agent (`commons` or `commercial`). |
+| Semantics        | `implements`         | Array of canonical verbs this agent implements (e.g. `["summarize"]`). |
+| Schemas          | `schemas.request`    | Canonical request schema URI (typically IPFS). |
+|                 | `schemas.receipt`    | Canonical receipt schema URI (typically IPFS). |
+| Schema Mirrors   | `schemas_mirror.request` | HTTP(S) mirror for the request schema. |
+|                 | `schemas_mirror.receipt` | HTTP(S) mirror for the receipt schema. |
+| Execution        | `entry`              | x402 entry URI for this agent (e.g. `x402://summarizeagent.eth/summarize/v1`). |
+| Capabilities     | `capabilities`       | Non-normative description of supported operations, input/output types, limits, etc. |
+| Metadata         | `meta`               | Free-form metadata (tags, links, provider info, PGP fingerprint, etc.). |
+| Networks         | `networks`           | Chains / networks this agent is valid on (e.g. `["eip155:1"]`). |
+| License          | `license`            | License for this Agent Card (e.g. `Apache-2.0`). |
+| Timestamps       | `created_at`         | ISO 8601 creation timestamp. |
+|                 | `updated_at`         | ISO 8601 last update timestamp. |
 
-All cards:
-
-- use **JSON Schema Draft 2020-12**
-- are **Ajv-validated + checksum-enforced**
-- must resolve all `$ref` dependencies
-- are **immutable** once published within a version family
-
----
 
 ## Repository Structure
 
@@ -270,6 +275,7 @@ console.log(card.schemas.request);
 {
   "$schema": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/agent.card.base.schema.json",
   "$id": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/summarizeagent.eth.json",
+
   "id": "summarizeagent.eth",
   "slug": "summarizeagent",
   "display_name": "Summarize Agent (Protocol Reference)",
@@ -279,15 +285,50 @@ console.log(card.schemas.request);
   "version": "1.0.0",
   "status": "protocol_reference",
   "class": "commons",
+
   "implements": ["summarize"],
+
   "schemas": {
     "request": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m/commons/summarize/requests/summarize.request.schema.json",
     "receipt": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m/commons/summarize/receipts/summarize.receipt.schema.json"
   },
+  "schemas_mirror": {
+    "request": "https://commandlayer.org/schemas/v1.0.0/commons/summarize/requests/summarize.request.schema.json",
+    "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/summarize/receipts/summarize.receipt.schema.json"
+  },
+
   "entry": "x402://summarizeagent.eth/summarize/v1",
+
+  "capabilities": {
+    "operations": [
+      "extract_key_points",
+      "compress_long_form",
+      "produce_bullet_summaries",
+      "produce_paragraph_summaries"
+    ],
+    "input_types": [
+      "text/plain",
+      "text/markdown",
+      "application/json"
+    ],
+    "output_types": [
+      "text/plain",
+      "text/markdown"
+    ]
+  },
+
+  "meta": {
+    "publisher": "commandlayer.eth",
+    "pgp_fingerprint": "5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A",
+    "tags": ["summarize", "compression", "protocol-reference"]
+  },
+
   "networks": ["eip155:1"],
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "created_at": "2025-11-22T00:00:00Z",
+  "updated_at": "2025-11-22T00:00:00Z"
 }
+
 
 ```
 
