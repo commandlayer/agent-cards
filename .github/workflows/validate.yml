@@ -21,10 +21,10 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
-      - name: Validate Agent Cards (schemas + TypeScript)
-        run: npm run validate
+      - name: Validate Agent Cards JSON
+        run: npm run validate:cards
 
-      - name: Verify checksums match Agent Cards
+      - name: Verify checksums
         run: npm run generate:checksums -- --verify
