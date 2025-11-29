@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://commandlayer.org/agent-cards/schemas/v1.0.0/_shared/agent.descriptor.schema.json",
+  "title": "Agent Cards Descriptor (v1.0.0)",
+  "type": "object",
+  "description": "Loose descriptor schema for .well-known/agent-cards-v1.0.0.json. Tighten in a future version once the format is fully locked.",
+  "additionalProperties": true
+}
