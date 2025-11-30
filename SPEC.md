@@ -1,5 +1,4 @@
-
-# SPEC — Agent-Cards v1.0.0  
+# Specification — Agent Cards
 CommandLayer Core Standards · Identity Layer
 
 > This document is **NORMATIVE and ENFORCEABLE**.
