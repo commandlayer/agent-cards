@@ -1,4 +1,18 @@
-# POLICY — Agent-Cards
+# Schemas Policy — Agent Cards
+
+This document governs the structure, evolution, and stability requirements for all Agent Card schema definitions and metadata within the Agent Cards layer of CommandLayer.
+
+Agent discoverability, trust, and execution depend on **consistent**, **auditable**, and **non-breaking** identity semantics. These rules guarantee that an Agent Card pinned today will still resolve correctly in the future.
+
+---
+
+## 1️⃣ Scope
+
+This policy applies to:
+
+- All Agent Card JSON documents under `/cards/`
+- All identity schema definitions under `/schemas/`
+- All shared primitives (iden
 CommandLayer Core Standards · Identity Layer
 
 This document defines **binding publication rules** for canonical Agent-Cards.
