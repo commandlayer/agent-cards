@@ -1,4 +1,4 @@
-# COMPLIANCE — Agent-Cards
+# Compliance — Agent Cards
 
 This document defines what it means to be **Agent-Cards compliant** — for both this repo and any external resolver or registry.
 
