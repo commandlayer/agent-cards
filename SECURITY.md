@@ -1,59 +1,57 @@
 # Security Policy — Agent-Cards
 
-Agent-Cards are machine-readable identity records binding ENS → canonical verbs →
-runtime entrypoints. They are security-sensitive trust anchors.
+Agent-Cards link **names → verbs → execution**.  
+Because they route real requests between agents, correctness matters.
 
-Any integrity failure can misroute value, identity, or execution.
+If something looks wrong, please tell us — we’re here to keep the ecosystem safe.
+
+---
+
+## What to Report
+
+Any issue that could misroute identity or execution:
+
+- Incorrect or non-resolving x402 entrypoints  
+- ENS TXT bindings that don’t match card metadata  
+- CID or checksum mismatches  
+- Inconsistency between:
+  - ENS TXT records
+  - Agent-Card JSON
+  - Protocol-Commons schemas  
+
+Even small errors can break automation.
 
 ---
 
 ## Contact
 
-📨 dev@commandlayer.org  
-🔐 PGP Fingerprint: `5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A`
+Email: **dev@commandlayer.org**  
+PGP Fingerprint: **5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A**
 
-Use encrypted communication for sensitive reports.
-
----
-
-## What Is In Scope
-
-- Incorrect x402 entrypoints
-- Broken or malicious ENS TXT bindings
-- Incorrect CID or checksum
-- Any execution-layer metadata that may cause:
-  - misrouting
-  - elevation of privilege
-  - impersonation
-  - irreversible outcomes
+Encrypted communication is encouraged.
 
 ---
 
-## Required Evidence
+## Response Targets
 
-All reports MUST include:
+- **72 hours** — acknowledgment  
+- **10 business days** — fix direction and timing  
 
-- ENS name affected (e.g., `summarizeagent.eth`)
-- Broken fields (e.g., `cl.entry`)
-- Version + CID + checksum if known
-- Network / repro instructions when applicable
-
-Response cadence:
-
-- Acknowledgment: **72 hours**
-- Mitigation path: **10 business days**
+Critical routing failures are prioritized.
 
 ---
 
 ## Integrity Controls
 
-- Cards validated in strict CI before publish
-- `cl.cid.agentcard` and `cl.checksum.agentcard`
-  **must** match release artifacts
-- ENS changes logged in `RESOLUTION.md`
+We protect the ecosystem through:
+
+- Strict JSON Schema validation in CI  
+- Matching CIDs + checksums in manifests  
+- ENS TXT changes logged in `RESOLUTION.md`  
+- Versioning for all changes (no silent edits)
+
+These controls ensure **trust without needing trust in any one operator**.
 
 ---
 
-## Status
-
-Core Infrastructure · **Strict Governance Required**
+**Status:** Stable • Public Good • Open Participation
