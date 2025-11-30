@@ -1,217 +1,117 @@
-
 # COMPLIANCE — Agent-Cards
 
-This document defines what it means to be **Agent-Cards compliant** — for both this repo and any external resolver or registry claiming to use CommandLayer identity correctly.
+This document defines what it means to be **Agent-Cards compliant** — for both this repo and any external resolver or registry.
 
 ---
 
 ## 1. Scope
 
-These rules apply to:
+Rules apply to:
 
-- All Agent-Card JSON documents under `agents/v*/**/*.json`
-- All checksums under `checksums/`
-- All registry metadata in `meta/`
-- All `.well-known` descriptors shipped with this repo
-- The ENS TXT records governed by Agent-Cards:
+- Cards under `agents/v*/**/*.json`
+- Checksums under `checksums/`
+- Release metadata under `meta/`
 
-  ```txt
-  cl.entry
-  cl.agentcard
-  cl.cid.agentcard
-  cl.agentcard.mirror.ipfs
-  cl.checksum.request
-  cl.checksum.receipt
-  cl.checksum.agentcard
-  cl.owner
-If you’re touching those fields, you’re in compliance territory.
+**ENS TXT Summary**  
+This document only summarizes TXT responsibilities.  
+The canonical definitions and enforcement rules are specified in:  
+- `SPEC.md` (Agent-Cards)
+
+SPEC.md is authoritative for identity + invocation TXT binding.
+
+---
 
 ## 2. Card Contract Requirements
 
-A card is **schema-compliant** if it:
+A card is compliant if it:
 
-- Validates under agent.card.base.schema.json (Draft 2020-12) in strict Ajv mode.
+- Validates under `agent.card.base.schema.json` in **strict Ajv mode**
+- Includes all mandatory fields defined in SPEC.md
+- Accurately reflects referenced schemas, TXT metadata, and CID state
 
-- Includes all required fields:
+Passing validation but conflicting with TXT/CID metadata is **not compliant**.
 
-    - `id`, `slug`, `display_name`, `description`
+---
 
-    - `owner`, `ens`, `version`, `status`, `class`
+## 3. CIDs & Checksums
 
-    - `implements`
+Every published card MUST:
 
-    - `schemas`, `schemas_mirror`
+- Have a checksum entry under `checksums/`
+- Appear in `meta/manifest.json`
+- Reflect the CID and IPFS mirror declared on ENS
 
-    - `entry`
+Silent edits to card content without:
+- New version, checksums, CID, and governance entry  
+→ **non-compliant**
 
-    - `capabilities`, `meta`
+---
 
-    - `networks`, `license`
+## 4. Commons vs Commercial Classes
 
-    - `created_at`, `updated_at`
+`class` defines interpretation:
 
-Non-empty is not enough; the values must be coherent with:
+| Class | Meaning |
+|-------|---------|
+| `commons` | Canonical open semantics |
+| `commercial` | May involve proprietary runtime behaviors |
 
--  underlying Protocol-Commons / Commercial schemas
+**JSON contract identical**  
+Interpretation + governance differ.
 
-- ENS TXT bindings
+A Commons card MUST NOT rely on proprietary execution.
 
-- Published CIDs and checksums
+---
 
-If your JSON passes schema validation but lies about its bindings, you are not compliant.
+## 5. Security & Privacy
 
- ## 3. ENS TXT Responsibilities
-For the primary verb (implements[0]) and ENS name ens, the TXT records MUST follow SPEC.md.
+Cards MUST NOT include:
 
-At minimum:
+- Secrets, credentials, or API tokens
+- Embedded executable scripts
+- PII or private network locations
 
-```
-cl.verb=<verb>
-cl.version=<card-version>
+Resolvers SHOULD verify:
+- TXT ↔ JSON ↔ CID consistency
+- Checksums match published content
 
-cl.entry=x402://<ens>/<verb>/v1
+---
 
-cl.schema.request=...
-cl.schema.receipt=...
-cl.cid.schemas=...
-cl.schemas.mirror.ipfs=...
+## 6. Governance Traceability
 
-cl.agentcard=...
-cl.cid.agentcard=...
-cl.agentcard.mirror.ipfs=...
+A change is legitimate only if:
 
-cl.checksum.request=sha256:<request-schema-sha256>
-cl.checksum.receipt=sha256:<receipt-schema-sha256>
-cl.checksum.agentcard=sha256:<agent-card-sha256>
+- Logged in `RESOLUTION.md`
+- CIDs + checksums updated + signed
+- TXT changes justified + reviewable
 
-cl.owner=<owner>
-```
-Compliance requires that:
+No entry → Not canonical.
 
-`cl.verb` = `implements[0]`
+---
 
-`cl.version` = card `version`
+## 7. Deviation Handling
 
-`cl.entry` = card `entry`
+On discovery of:
+- TXT/JSON mismatch  
+- CID/checksum error  
+- Security concern  
 
-`cl.schema.*` = `schemas_mirror.*`
+Steps:
+1. Do not silently modify public state  
+2. File an Issue or follow SECURITY.md  
+3. Steward determines next version + revocation  
+4. Updates logged in `RESOLUTION.md`
 
-`cl.cid.schemas` = canonical schemas CID
+---
 
-`cl.agentcard` = HTTPS mirror for this card
+## 8. Compliance Checklist
 
-cl.cid.agentcard`= CID root for this card’s folder
+You may claim **Agent-Cards compliant** if:
 
-`cl.checksum.*` = SHA-256 values from release manifests
+- Cards validate in strict mode  
+- TXT ↔ JSON ↔ CID fully consistent  
+- Commons vs Commercial class used correctly  
+- All modifications logged and signed  
+- Security guidelines followed  
 
-`cl.owner` = `owner`
-
-
-If **any** of these diverge, the identity binding is **INVALID**, and resolvers MUST treat the card as untrusted.
-
-## 4. CIDs & Checksums
-
-Each published card MUST have:
-
-- A corresponding checksum file under `checksums/`
-
-- An entry in `meta/manifest.json` or equivalent registry
-
-Compliance means:
-
-- The CID advertised via ENS and the mirrors actually point to the same JSON.
-
-- The checksum matches the content byte-for-byte.
-
-- Any change to card content results in:
-
-    - A new version `(version, created_at/updated_at)`
-
-    - Updated checksum
-
-    - Updated CID
-
-    - Logged entry in `RESOLUTION.md`
-
-Silent edits to existing card content are non-compliant.
-
-## 5. Commons vs Commercial
-
-The `class` field enforces semantics:
-
-**commons**
-
-- Only implements canonical Protocol-Commons verbs.
-- Intended as open, neutral, reference-grade identities.
-
-**commercial**
-
-- Implements verbs defined in the commercial layer.
-- Can express more economic / proprietary behaviors in their runtimes.
-
-Compliance requires:
-
-- No Commercial behavior is misrepresented as Commons.
-- Commons cards don’t depend on proprietary or private execution semantics.
-
-The JSON contract is identical; **interpretation** and **governance** differ.
-
-## 6. Security & Privacy
-Agent-Cards are identity anchors, not application logs.
-
-They MUST NOT contain:
-
-- Secrets, credentials, or auth tokens.
-- Direct private network addresses (localhost, RFC1918 ranges, etc.).
-- User-specific PII.
-- Embedded executable code or scripts.
-
-Resolvers and registries that cache or mirror cards SHOULD:
-
-- Validate checksums and CIDs before trusting content.
-- Reject cards where TXT/JSON/CID are inconsistent.
-- Follow the security processes in SECURITY.md for suspected compromise.
-
-## 7. Governance Traceability
-
-A change is **legitimate** only if:
-
-- There is an entry in `RESOLUTION.md` describing:
-    - Agent name(s)
-    - Action (Added, Updated, Deprecated, Removed)
-    - Reason and Resolution
-    - Approver(s)
-
-- Any ENS TXT mutation has a corresponding governance record.
-- Card content, checksums, CIDs, and TXT records match the described state.
-
-If there is no entry in `RESOLUTION.md`, the change is not considered official, even if technically possible.
-
-## 8. Deviation Handling
-If you discover:
-
-- Incorrect TXT ↔ JSON mapping
-- CID / checksum mismatches
-- Schema or class misuse
-- Security issues affecting routing or identity
-
-Then:
-
-1. **Do not** silently “fix” it in public.
-2. File an Issue, or if sensitive, follow SECURITY.md and email dev@commandlayer.org (PGP encouraged).
-3. Work with maintainers to:
-    - Decide if a new card version is required.
-    - Update checksums, manifests, and ENS TXT.
-    - Append a `RESOLUTION.md` entry.
-
-## 9. Compliance Checklist
-
-You can credibly claim **Agent-Cards compliant** if:
-
- All cards validate against agent.card.base.schema.json in strict mode.
-
- - ENS TXT fields and JSON fields are fully consistent.
- - CIDs and checksums match actual content.
-  -  ommons vs Commercial classes are used correctly.
- - All changes are logged in RESOLUTION.md.
- - Security practices in SECURITY.md and SECURITY_PROVENANCE.md are followed.
+Uncertain? Consider the implementation **experimental**.
