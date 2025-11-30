@@ -1,7 +1,7 @@
 {
   "id": "x402://commandlayer.eth/commons-agent/v1",
   "name": "CommandLayer Commons Agent",
-  "description": "Well-known descriptor for the CommandLayer Commons Agent, which exposes the Commons v1.0.0 verb registry and agent-cards.",
+  "description": "Well-known descriptor for the CommandLayer Commons Agent, which exposes the Commons v1.0.0 verb registry and Agent Cards.",
   "owner": "commandlayer.eth",
   "ens": "commandlayer.eth",
   "version": "1.0.0",
