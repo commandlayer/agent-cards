@@ -1,66 +1,93 @@
-# Agent-Cards Policy
+# POLICY — Agent-Cards
+CommandLayer Core Standards · Identity Layer
 
-Agent Cards define agent identity, metadata, and execution entrypoints
-for canonical verbs.
-
-They MUST remain:
-- Discoverable
-- Versioned
-- Cryptographically verifiable
+This document defines **binding publication rules** for canonical Agent-Cards.
+It supplements, but does not override, the normative `SPEC.md`.
 
 ---
 
 ## 1. Required Fields
 
-Each card MUST include:
+All published Agent-Cards MUST include:
 
+- `id`
+- `slug`
+- `display_name`
+- `description`
 - `owner`
+- `ens`
 - `version`
-- `entrypoints` keyed by canonical verb
-- Checksums for request + receipt schemas
-- x402 URL template
+- `status`
+- `class`
+- `implements` (non-empty; primary verb = `implements[0]`)
+- `entry` (canonical x402 URI)
+- `schemas.*` and `schemas_mirror.*`
+- `capabilities`
+- `meta`
+- `networks`
+- `license`
+- `created_at`
+- `updated_at`
+
+Absence of ANY required field = **NON-COMPLIANT**.
 
 ---
 
-## 2. Structure & Validation
+## 2. Validation Requirements
 
-- JSON Schema Draft 2020-12
-- Ajv strict validation
+- JSON Schema Draft **2020-12**
+- Ajv **strict** validation
 - `"additionalProperties": false`
+- `$id` MUST resolve over HTTPS
+- Entry MUST follow:
 
-Corresponding canonical verbs MUST already exist in Protocol-Commons.
+x402://<ens>/<verb>/v1
+
+yaml
+Copy code
+
+The primary verb MUST already exist in **Protocol-Commons**.
 
 ---
 
-## 3. ENS Binding Rules
+## 3. ENS TXT Binding Rules
 
-MUST publish the following TXT entries:
-
+Required TXT records:
 ```
 cl.entry
 cl.agentcard
 cl.cid.agentcard
 cl.agentcard.mirror.ipfs
+cl.checksum.request
+cl.checksum.receipt
 cl.checksum.agentcard
 cl.owner
 ```
 
-No business metadata in ENS; only universal discovery material is permitted.
+**ONLY** universal discovery fields permitted.  
+
+ **No marketing, pricing, business metadata in ENS.**
 
 ---
 
 ## 4. Immutability & Versioning
 
-A versioned card MUST NOT be modified.
+Once published:
 
-Updates MUST:
-- Increment version
-- Update CID + checksum
-- Be logged in `RESOLUTION.md`
+- Files MUST NOT mutate
+- CIDs MUST remain content-correct
+- ENS TXT MUST continue resolving to valid artifacts
 
+Version updates MUST:
 
+✔ Increment `version`  
+✔ Update CIDs + checksums  
+✔ Pass strict CI  
+✔ Log lifecycle event in `RESOLUTION.md`  
+✔ Receive governance approval  
 
+Silent edits are prohibited.
 
+---
 
-
-
+_Last updated: v1.0.0 — Stable-Lock_
