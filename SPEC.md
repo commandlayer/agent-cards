@@ -33,9 +33,10 @@ Those concerns belong to runtimes, commercial layers, or application logic.
 
 Agent-Cards sit between semantics and execution:
 
-```
+```text
 [ Semantic Layer ] → [ Identity Layer ] → [ Execution Layer ]
 (Protocol-Commons) (Agent-Cards) (x402 runtimes / agents)
+
 ```
 
 - **Protocol-Commons** defines *what* actions exist (`summarize`, `analyze`, …)  
