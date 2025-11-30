@@ -1,9 +1,8 @@
-Here we go — full SPEC.md for Agent-Cards v1.0.0, ready to bash in and commit.
 
 # SPEC — Agent-Cards v1.0.0  
 CommandLayer Core Standards · Identity Layer
 
- This document is NORMATIVE and ENFORCEABLE.
+> This document is **NORMATIVE and ENFORCEABLE**.
 
 ## RFC 2119 Keywords
 MUST / MUST NOT / SHOULD / SHOULD NOT / MAY retain their RFC-defined meanings.
@@ -34,11 +33,10 @@ Those concerns belong to runtimes, commercial layers, or application logic.
 
 Agent-Cards sit between semantics and execution:
 
-
-
+```
 [ Semantic Layer ] → [ Identity Layer ] → [ Execution Layer ]
 (Protocol-Commons) (Agent-Cards) (x402 runtimes / agents)
-
+```
 
 - **Protocol-Commons** defines *what* actions exist (`summarize`, `analyze`, …)  
 - **Agent-Cards** define *who* performs them + *where* to call them  
@@ -137,7 +135,8 @@ Any deviation from this pattern is NON-COMPLIANT.
 
 These fields are descriptive, not contractual.
 
-6.1 Capabilities
+### 6.1 Capabilities
+
 | Field          | Type   | Required | Description                                                                        |
 | -------------- | ------ | -------- | ---------------------------------------------------------------------------------- |
 | `capabilities` | object | Yes      | Non-normative description of supported operations, input/output types, and limits. |
@@ -150,7 +149,7 @@ Typical subfields MAY include:
 - `output_types`: array of MIME types produced
 - `limits`: max token size, latency hints, etc.
 
-**6.2 Meta**
+### 6.2 Meta
 
 | Field  | Type   | Required | Description                                                       |
 | ------ | ------ | -------- | ----------------------------------------------------------------- |
@@ -166,6 +165,7 @@ Typical subfields MAY include:
 Meta MUST NOT contain secrets, credentials, or private endpoints.
 
 ## 7. Network & License
+
 | Field      | Type   | Required | Description                                                                   |
 | ---------- | ------ | -------- | ----------------------------------------------------------------------------- |
 | `networks` | array  | Yes      | List of CAIP-2 chain identifiers the agent is valid on (e.g. `["eip155:1"]`). |
@@ -177,6 +177,7 @@ Rules:
 - License MUST be an OSI/FSF-recognized or clearly documented license string.
 
 ## 8. Timestamps
+
 | Field        | Type   | Required | Description                                        |
 | ------------ | ------ | -------- | -------------------------------------------------- |
 | `created_at` | string | Yes      | ISO 8601 creation timestamp of this card instance. |
@@ -188,7 +189,7 @@ Rules:
 
 ## 9. ENS TXT Mapping (Discovery Contract)
 
-Agent-Cards rely on ENS TXT for discoverability. For the primary verb (`implements[0])`, the ENS name in`ens` MUST publish the following TXT keys:
+For the primary verb (`implements[0]`), the ENS name in `ens` MUST publish the following TXT keys:
 
 ```
 cl.verb=<verb>
@@ -203,7 +204,7 @@ cl.schemas.mirror.ipfs=https://ipfs.io/ipfs/<cid-of-commons-schemas>
 
 cl.agentcard=https://commandlayer.org/agent-cards/agents/v1.0.0/<class>/<ens>.json
 cl.cid.agentcard=<cid-of-agent-card-folder>
-cl.agentcard.mirror.ipfs=https://ipfs.io/ipfs/<cid-of-agent-card-folder>/agents/<class>/<ens>.json
+cl.agentcard.mirror.ipfs=https://ipfs.io/ipfs/<cid-of-agent-card-folder>/agents/v1.0.0/<class>/<ens>.json
 
 cl.checksum.request=sha256:<request-schema-sha256>
 cl.checksum.receipt=sha256:<receipt-schema-sha256>
@@ -300,8 +301,9 @@ Security incidents (malicious TXT, poisoning attempts, CID mismatches) MUST be r
 ## 14. Example — Summarize Agent (Commons)
 
 Non-normative but illustrative example:
-```
-{
+
+```json
+{ 
   "$schema": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/agent.card.base.schema.json",
   "$id": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/summarizeagent.eth.json",
 
