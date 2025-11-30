@@ -1,5 +1,5 @@
 
-# ONBOARDING — Agent-Cards
+# Onboarding — Agent Cards
 
 Welcome to **Agent-Cards** — the identity + invocation layer for autonomous agents.
 
