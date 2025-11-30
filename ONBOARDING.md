@@ -1,6 +1,4 @@
-## 3️⃣ `agent-cards/ONBOARDING.md`
 
-```markdown
 # ONBOARDING — Agent-Cards
 
 Welcome to **CommandLayer Agent-Cards** — the identity layer for autonomous agents.
@@ -38,14 +36,16 @@ Agent-Cards sit in the middle of the stack:
 [ Semantics ]   Protocol-Commons    (what actions mean)
 [ Identity  ]   Agent-Cards         (who does what, and where)
 [ Execution ]   x402 runtimes       (how it runs and returns receipts)
+```
 Agent-Cards answer:
 
 “Given this ENS name and verb, who am I talking to, and how do I call them safely?”
 
-They do not enforce business rules or pricing.
+They do **not** enforce business rules or pricing.
 
-3. Repo Layout
-text
+## 3. Repo Layout
+
+```text
 Copy code
 agent-cards/
 │
@@ -82,86 +82,69 @@ agent-cards/
 └─ README.md
 Authoritative documents:
 
-SPEC.md — normative identity contract and ENS TXT rules
+`SPEC.md` — normative identity contract and ENS TXT rules
+`POLICY.md` — what a valid card must look like
+`GOVERNANCE.md` — who can change identity records
+`SECURITY*.md` — how integrity is guaranteed and reported
+`RESOLUTION.md` — lifecycle log for cards and bindings
+```
 
-POLICY.md — what a valid card must look like
+## 4. Agent-Card Contract (Quick Overview)
 
-GOVERNANCE.md — who can change identity records
+Every card conforms to `agent.card.base.schema.json` and MUST define:
 
-SECURITY*.md — how integrity is guaranteed and reported
+- Identity and ownership:
 
-RESOLUTION.md — lifecycle log for cards and bindings
+    - `id`, `slug`, `display`_`name`, `description`
+    - `owner`, `ens`, `version`, `status`, `class`
 
-4. Agent-Card Contract (Quick Overview)
-Every card conforms to agent.card.base.schema.json and MUST define:
+- Verb binding:
+    - `implements` — array of canonical verbs
 
-Identity and ownership:
+- Schema binding:
+    - `schemas` (IPFS) + `schemas_mirror` (HTTPS)
 
-id, slug, display_name, description
+- Execution:
+    - `entry` — x402 URI `x402://<ens>/<verb>/v1`
 
-owner, ens, version, status, class
+- Capabilities + metadata:
+    - `capabilities`, `meta`
 
-Verb binding:
+- Environment:
+    - `networks`, `license`
+    - `created_at`, `updated_at`
 
-implements — array of canonical verbs
+See `SPEC.md` for the full, normative definition.
 
-Schema binding:
+## 5. How To Add or Change an Agent-Card
 
-schemas (IPFS) + schemas_mirror (HTTPS)
-
-Execution:
-
-entry — x402 URI x402://<ens>/<verb>/v1
-
-Capabilities + metadata:
-
-capabilities, meta
-
-Environment:
-
-networks, license
-
-created_at, updated_at
-
-See SPEC.md for the full, normative definition.
-
-5. How To Add or Change an Agent-Card
-Never overwrite identity in place without a paper trail.
+**Never** overwrite identity in place without a paper trail.
 
 For any new or updated card:
 
-Open an Issue
+**1. Open an Issue**
 
 Describe the agent, verb(s), and ENS name.
-
 Clarify whether it is commons or commercial.
-
 State whether this is new, update, or deprecation.
 
-Prepare the Card
+**2. Prepare the Card**
 
 Start from an existing card as a template (e.g., summarizeagent.eth.json).
-
 Fill in all required fields per SPEC.md.
-
 Ensure entry matches the required x402 pattern.
-
 Bind to canonical schemas (Protocol-Commons / Commercial).
 
-Update Checksums & Manifest
+**3. Update Checksums & Manifest**
 
 Add or update SHA-256 checksum under checksums/....
-
 Update meta/manifest.json with the new card and any mirrors/CIDs.
 
-Set ENS TXT Records
-
+**4. Set ENS TXT Records**
 Publish TXT fields (cl.entry, cl.agentcard, cl.cid.agentcard, etc.) per SPEC.md.
-
 Ensure they match the card content exactly.
 
-Validation
-
+**5. Validation**
 Run the validation script:
 
 bash
@@ -170,11 +153,11 @@ npm install
 npm run validate
 Fix any schema or checksum errors.
 
-Update RESOLUTION.md
+**6. Update RESOLUTION.md**
 
 Add a log entry describing the change (agent, action, reason, approver).
 
-Submit PR
+**7. Submit PR**
 
 Link the Issue.
 
@@ -182,19 +165,20 @@ Include validation notes and ENS TXT plan.
 
 Mark whether it’s a new agent, update, or deprecation.
 
-6. Local Dev / Validation
+## 6. Local Dev / Validation
 Standard workflow:
-
-bash
-Copy code
+```
 git clone https://github.com/commandlayer/agent-cards.git
 cd agent-cards
 
 npm install
 npm run validate
-If validation fails, the card is not canonical — fix it before shipping.
+```
 
-7. What “Good” Looks Like
+If validation fails, the card is **not** canonical — fix it before shipping.
+
+## 7. What “Good” Looks Like
+
 A solid Agent-Card contribution:
 
 Has clean, minimal metadata — no marketing fluff, no secrets.
@@ -209,12 +193,9 @@ Respects the difference between commons and commercial.
 
 When in doubt, start with Commons reference agents (e.g. summarize/analyze) to mirror structure.
 
-8. Support
+## 8. Support
 Governance / security contact: dev@commandlayer.org
 
 PGP fingerprint: 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
 
-If you are unsure whether a card should be Commons vs Commercial, or how to structure ENS TXT, open an Issue and keep the change small and reviewable.
 
-yaml
-Copy code
