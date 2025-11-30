@@ -31,11 +31,11 @@ Example Entry:
 
 ## Change Rules
 
-1️⃣ No silent changes  
-2️⃣ Backward-compatible unless explicitly unsafe  
-3️⃣ ENS TXT mutations **must** reference this file  
-4️⃣ Checksums, CIDs, and entrypoints are **security-critical**  
-5️⃣ All changes require CI validation evidence
+1.  No silent changes  
+2. Backward-compatible unless explicitly unsafe  
+3. ENS TXT mutations **must** reference this file  
+4. Checksums, CIDs, and entrypoints are **security-critical**  
+5. All changes require CI validation evidence
 
 ---
 
