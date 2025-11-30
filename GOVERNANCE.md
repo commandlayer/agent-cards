@@ -1,4 +1,4 @@
-# GOVERNANCE — AGENT-CARDS
+# Governance — Agent Cards
 CommandLayer Core Standards · Identity Layer
 
 **Status:** v1.0.0 — Stable-Lock  
