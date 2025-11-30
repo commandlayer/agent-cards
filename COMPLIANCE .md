@@ -34,21 +34,21 @@ A card is **schema-compliant** if it:
 
 - Includes all required fields:
 
-    id, slug, display_name, description
+    - `id`, `slug`, `display_name`, `description`
 
-    owner, ens, version, status, class
+    - `owner`, `ens`, `version`, `status`, `class`
 
-    implements
+    - `implements`
 
-    schemas, schemas_mirror
+    - `schemas`, `schemas_mirror`
 
-    entry
+    - `entry`
 
-    capabilities, meta
+    - `capabilities`, `meta`
 
-    networks, license
+    - `networks`, `license`
 
-    created_at, updated_at
+    - `created_at`, `updated_at`
 
 Non-empty is not enough; the values must be coherent with:
 
@@ -215,7 +215,3 @@ You can credibly claim **Agent-Cards compliant** if:
   -  ommons vs Commercial classes are used correctly.
  - All changes are logged in RESOLUTION.md.
  - Security practices in SECURITY.md and SECURITY_PROVENANCE.md are followed.
-
-If any of the above are false, you’re running in experimental territory and should not present your setup as canonical or production-grade.
-
-
