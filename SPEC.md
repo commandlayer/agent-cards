@@ -215,21 +215,18 @@ cl.owner=commandlayer.eth
 ```
 
  **ENS TXT Binding Rules (Normative)**
-
- - `cl.verb` **MUST** equal `implements[0]`
- - `cl.version` **MUST** equal the card `version`
- - `cl.entry` **MUST** equal the `entry` field
- - `cl.schema.request` / `cl.schema.receipt` **MUST** equal `schemas_mirror.*`
- - `cl.cid.schemas` **MUST** equal the Protocol-Commons CID for this version
- - `cl.agentcard` **MUST** equal the HTTPS mirror for this card
- - `cl.cid.agentcard` **MUST** equal the CID root containing this card
- - `cl.checksum.*` **MUST** match SHA-256 values from release manifests
- - `cl.owner` **MUST** equal the `owner` field
-
- If ANY field diverges → the identity binding is **INVALID**.
-
-
- Any mismatch MUST cause resolvers to reject the card as untrusted.
+ 
+Agent-Cards govern the TXT records that bind **identity** and **invocation:**
+```
+cl.entry
+cl.agentcard
+cl.cid.agentcard
+cl.agentcard.mirror.ipfs
+cl.checksum.agentcard
+cl.owner
+```
+TXT values MUST reflect the published Agent-Card metadata exactly.
+Resolvers MUST treat any mismatch as **UNTRUSTED** identity binding.
 
 ## 10. Commons vs Commercial Classes
 
