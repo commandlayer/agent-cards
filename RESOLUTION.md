@@ -1,4 +1,4 @@
-# RESOLUTION — Agent-Cards
+# Resolution Log — Agent Cards
 *Complete lifecycle log for discoverable agent identity records.*
 
 Identity must be **provable, auditable, and traceable**.
