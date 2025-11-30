@@ -1,36 +1,42 @@
 # Security & Provenance — Agent-Cards
 
-This document defines custody, disclosure rules, ENS authority, and cryptographic
-integrity requirements for the CommandLayer Agent-Cards layer.
-
-## Ownership & Contact
-
-- **Owner:** commandlayer.eth
-- **Security Contact:** dev@commandlayer.org
-- **PGP Fingerprint:** 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
+Agent-Cards let agents find and trust each other through ENS.  
+This document explains how the layer stays correct, verifiable, and aligned across the ecosystem.
 
 ---
 
-## Integrity Requirements
+## Contact
 
-Each published card **MUST** provide:
+We welcome responsible disclosure:
 
-- `cl.cid.agentcard` — content-addressed release artifact
-- `cl.checksum.agentcard` — SHA-256 integrity hash
+Email: dev@commandlayer.org  
+PGP: 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
 
-All Agent-Cards **MUST**:
-- Validate under strict Ajv against the canonical card schema
-- Match a CID listed in the official manifest (v1.0.0)
-- Pass schema and example validation in CI
+Even subtle issues can impact routing and identity.
 
-Any mismatch **MUST** be treated as invalid.
+---
+
+## Integrity Rules
+
+Each released Agent-Card includes:
+
+- **CID** of its pinned artifact set
+- **SHA-256 checksum** verifying content integrity
+- Full validation under strict Ajv against the card schema
+
+Validation covers:
+
+- Structure matches the schema
+- Schemas match the referenced Protocol-Commons verbs
+- ENS TXT entries match card metadata
+
+If these disagree, resolvers should treat the card as untrusted.
 
 ---
 
 ## ENS TXT Authority
 
-Agent-Cards governs:
-
+Agent-Cards use the following TXT fields:
 ```
 cl.entry
 cl.agentcard
@@ -40,28 +46,26 @@ cl.checksum.agentcard
 cl.owner
 ```
 
-C
-Updates **MUST**:
-- Be signed (PGP or on-chain signature)
-- Be logged in `RESOLUTION.md` with timestamp, rationale, approver
-- Follow the governance change process
+Updates must:
 
-Unauthorized ENS mutation **voids authenticity**.
+- Be signed (PGP or on-chain)
+- Be logged in `RESOLUTION.md`
+- Follow governance change processes
 
----
-
-## Vulnerability Disclosure
-
-Security issues should be reported privately:
-
-**Email:** dev@commandlayer.org  
-**PGP:** 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
-
-We will:
-- Acknowledge valid issues within **72 hours**
-- Provide remediation plan within **10 business days**
+Unauthorized mutation breaks provenance.
 
 ---
 
-Release Status: **Security-Critical · Stable**
+## Security Values
 
+We keep identity metadata:
+
+- Minimal
+- Non-invasive
+- Public-good oriented
+
+No credentials. No personal data. No hidden routing.
+
+---
+
+**Status:** Stable · Open to the ecosystem
