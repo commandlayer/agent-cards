@@ -35,7 +35,7 @@ Inconsistency means **do not trust** the binding.
 
 ---
 
-## 📌 ENS TXT Summary
+##  ENS TXT Summary
 
 Agent-Cards govern TXT keys that bind **identity + invocation**.  
 Canonical definitions — including required keys and enforcement — are specified in:
