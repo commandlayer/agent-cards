@@ -80,6 +80,7 @@ agent-cards/
 ├─ SECURITY_PROVENANCE.md
 ├─ RESOLUTION.md
 └─ README.md
+
 Authoritative documents:
 
 `SPEC.md` — normative identity contract and ENS TXT rules
