@@ -1,86 +1,73 @@
-# RESOLUTION — Agent-Cards  
-*A complete lifecycle log for discoverable agent identity artifacts.*
+# RESOLUTION — Agent-Cards
+*Complete lifecycle log for discoverable agent identity records.*
 
-This file records all additions, modifications, deprecations, and removals of
-Agent-Cards and their associated ENS bindings.  
-If a change is **not** documented here, it is **not** considered valid
-under governance.
+Identity must be **provable, auditable, and traceable**.
+All ENS TXT-backed identity changes **must** appear here.
+
+If it’s not in `RESOLUTION.md` → it **did not** happen.
 
 ---
 
-## Format
+## Entry Requirements
 
 Each entry MUST include:
 
-- **Date** — when the decision occurred  
-- **Agent Name(s)** — affected ENS-bound identity  
-- **Action** — Added, Updated, Deprecated, Replaced, or Removed  
-- **Reason** — interoperability need, security fix, metadata correction, etc.  
-- **Resolution** — final state or migration plan  
-- **Approver(s)** — Governance Council sign-off  
+- **Date** — governance approval date  
+- **Agent Name(s)** — ENS-bound identity  
+- **Action** — Added · Updated · Deprecated · Replaced · Removed  
+- **Reason** — e.g. security, schema correction, publisher change  
+- **Resolution** — new valid state or migration path  
+- **Approver(s)** — sign-off authority  
 
-Example:
+Example Entry:
 
-> 2025-11-27 — summarizeagent.eth  
-> **Action:** Added  
-> **Reason:** Part of initial Commons deployment  
-> **Resolution:** Adopted as canonical identity for “summarize” capability  
-> **Approver:** commandlayer.eth
+> **2025-11-27** — summarizeagent.eth  
+> Action: Added  
+> Reason: Initial Commons identity  
+> Resolution: Adopted as protocol reference for `summarize`  
+> Approver: commandlayer.eth
 
 ---
 
-## Rules of Record
+## Change Rules
 
-1. **No silent changes**  
-Identity and discovery must remain trustworthy.  
-Every live entry **must** be tracked in this file.
-
-2. **Backward compatible, by default**  
-Deprecation does not imply removal — compatibility is preserved
-unless explicitly unsafe.
-
-3.  **Transparent authority**  
-ENS TXT changes **must** link back to this record.
-
-4.  **Security-first execution**  
-Any modification to checksum, CID, or `cl.entry` is a **security-sensitive** action.
+1️⃣ No silent changes  
+2️⃣ Backward-compatible unless explicitly unsafe  
+3️⃣ ENS TXT mutations **must** reference this file  
+4️⃣ Checksums, CIDs, and entrypoints are **security-critical**  
+5️⃣ All changes require CI validation evidence
 
 ---
 
 ## Log
 
-> *(No entries yet — initial release v1.0.0)*
+> *(Initial release — no lifecycle changes yet)*
 
-This section will track:
-
-| Date | Agent Name(s) | Action | Reason | Resolution | Approver |
-|------|---------------|--------|--------|------------|----------|
+| Date | Agent Name(s) | Action | Reason | Resolution | Approver(s) |
+|------|----------------|--------|--------|------------|--------------|
 | — | — | — | — | — | — |
 
 ---
 
-## Requirements for Future Changes
+## Requirements for Merge Approval
 
 Any PR affecting:
 
-- `cl.entry`  
-- `cl.agentcard`  
-- `cl.cid.agentcard`  
-- `cl.agentcard.mirror.ipfs`  
-- `cl.checksum.agentcard`  
-- Version metadata  
-- Schema binding  
+- `cl.entry`
+- `cl.agentcard`
+- `cl.cid.agentcard`
+- `cl.agentcard.mirror.ipfs`
+- `cl.checksum.agentcard`
+- Version metadata
+- Schema bindings
 
-MUST come with:
+MUST include:
 
-- Updated checksum & CID evidence  
-- Validation output (CI or local strictly enforced)  
+- Updated CID + checksum proofs  
 - ENS TXT mutation plan  
-- Link to this resolution entry  
+- Passing CI output  
+- A related row added above  
 
 ---
 
-### Status: **Stable · Security-Critical**  
-Maintainers **must** treat identity provenance as a trust anchor.
-
----
+**Status:** Stable · Security-Critical
