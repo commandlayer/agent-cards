@@ -1,71 +1,64 @@
 # Security & Provenance — Agent-Cards
 
-Agent-Cards let agents find and trust each other through ENS.  
-This document explains how the layer stays correct, verifiable, and aligned across the ecosystem.
+Agent-Cards anchor **trustless discovery** for autonomous agents using ENS.  
+This document defines how identity integrity is protected and verified.
 
 ---
 
 ## Contact
 
-We welcome responsible disclosure:
+Responsible disclosure is encouraged:
 
 Email: dev@commandlayer.org  
-PGP: 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
+PGP fingerprint: 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
 
-Even subtle issues can impact routing and identity.
-
----
-
-## Integrity Rules
-
-Each released Agent-Card includes:
-
-- **CID** of its pinned artifact set
-- **SHA-256 checksum** verifying content integrity
-- Full validation under strict Ajv against the card schema
-
-Validation covers:
-
-- Structure matches the schema
-- Schemas match the referenced Protocol-Commons verbs
-- ENS TXT entries match card metadata
-
-If these disagree, resolvers should treat the card as untrusted.
+Identity correctness is non-optional — even small errors impact routing.
 
 ---
 
-## ENS TXT Authority
+## Provenance Guarantees
 
-Agent-Cards use the following TXT fields:
-```
-cl.entry
-cl.agentcard
-cl.cid.agentcard
-cl.agentcard.mirror.ipfs
-cl.checksum.agentcard
-cl.owner
-```
+Each published card is:
 
-Updates must:
+- **Pinned** content-addressed (`CID`)
+- **Checksummed** (SHA-256)
+- **Strictly validated** against `agent.card.base.schema.json`
+- Governed by **RESOLUTION.md** for lifecycle and traceability
 
-- Be signed (PGP or on-chain)
-- Be logged in `RESOLUTION.md`
-- Follow governance change processes
+Resolvers MUST verify:
 
-Unauthorized mutation breaks provenance.
+- JSON ↔ TXT ↔ CID values match exactly
+- Schema shapes match Protocol-Commons bindings
+- x402 entry URIs follow canonical format
+
+Inconsistency means **do not trust** the binding.
+
+---
+
+## 📌 ENS TXT Summary
+
+Agent-Cards govern TXT keys that bind **identity + invocation**.  
+Canonical definitions — including required keys and enforcement — are specified in:
+
+- `SPEC.md` (Agent-Cards)
+
+Any mismatch MUST result in the card being treated as **UNTRUSTED**.
 
 ---
 
 ## Security Values
 
-We keep identity metadata:
+Agent-Cards are identity infrastructure — not logs or payloads.
 
-- Minimal
-- Non-invasive
-- Public-good oriented
+They MUST NOT include:
 
-No credentials. No personal data. No hidden routing.
+- Secrets or credentials
+- Execution configuration or private endpoints
+- User-specific personal data
+- Embedded scripts
+
+Security incidents MUST follow `SECURITY.md`.
 
 ---
 
-**Status:** Stable · Open to the ecosystem
+**Status:** Stable • Stewarded for the long run • v1.0.0 locked
