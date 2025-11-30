@@ -47,7 +47,7 @@ One universal contract for agent interop.
             | ERC-8004 TXT discovery
             v
 +------------------------+
-|   x402 Entry / URI     | (verifiable invocation)
+|   x402 Transport Layer | (verifiable invocation)
 +-----------+------------+
             v
 +------------------------+
@@ -328,10 +328,7 @@ console.log(card.schemas.request);
   "created_at": "2025-11-22T00:00:00Z",
   "updated_at": "2025-11-22T00:00:00Z"
 }
-
-
 ```
-
 ---
 
 ## Versioning & Immutability
@@ -339,9 +336,7 @@ console.log(card.schemas.request);
 Versioning follows **protocol alignment:**
 
 - v1.0.0 aligns to Commons v1.0.0
-
 - Additive updates → patch/minor releases
-
 - Breaking changes → new major version directory (e.g. v2.x)
 
 Published cards **cannot be modified**; integrity is cryptographically enforced.
