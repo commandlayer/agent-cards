@@ -26,6 +26,14 @@
     "updated_at"
   ],
   "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri"
+    },
+    "$id": {
+      "type": "string",
+      "format": "uri"
+    },
     "id": { "type": "string" },
     "slug": { "type": "string" },
     "display_name": { "type": "string" },
