@@ -4,47 +4,37 @@ CommandLayer Core Standards · Identity Layer
 **Status:** v1.0.0 — Stable-Lock  
 Applies To: All canonical Agent-Cards
 
-> This document is **NORMATIVE and ENFORCEABLE**.  
-> Governance is custodial today and **designed to decentralize** over time.
+> This document is **NORMATIVE and ENFORCEABLE**.
 
 ---
 
 ## 1. Stewardship Authority
 
 **Founding Steward:** `commandlayer.eth`  
-**Governance**: CommandLayer Standards Council
-
 Authority scope:
 
-- Base schema rules
-- ENS TXT canonical binding keys + semantics
-- Release publishing + version integrity
-- Revocation + security incident adjudication
+- Identity + invocation TXT binding rules
+- Release publication + version integrity
+- Revocation + incident adjudication
 
-**Identity MUST remain:**
-
-- Standards-first (ERC-8004 + x402 alignment)
-- Verifiable by any resolver
-- Immutable once published
-
-> Stewardship protects **trust** until broader governance emerges.
+Identity MUST remain verifiable by any resolver and immutable once published.
 
 ---
 
 ## 2. Versioning Classes
 
-| Change Class | Examples | Version Rule | Logging |
-|-------------|----------|--------------|--------|
-| **Normative** (breaking) | Base schema shape, key semantics | Major: `v1 → v2` | `RESOLUTION.md` |
-| **Capability additions** | Allowed operations, input/output hints | Minor: `v1.0 → v1.1` | `RESOLUTION.md` |
-| **Metadata correctness** | Doc changes, contact fields | Patch: `v1.0.0 → v1.0.1` | Commit message |
+| Class | Examples | Version Rule | Logging |
+|------|----------|--------------|--------|
+| **Normative** | TXT semantics, identity rules | Major | `RESOLUTION.md` |
+| **Capability** | Additional optional fields | Minor | `RESOLUTION.md` |
+| **Metadata** | Contact fields, docs | Patch | Commit msg |
 
-Any visible change MUST:
+Changes MUST:
 
-✔ Update `updated_at`  
-✔ Regenerate checksums + manifest  
-✔ Pass Ajv strict validation  
-✔ Receive signed governance approval  
+- Update `updated_at`
+- Regenerate checksums + manifest
+- Pass strict Ajv validation
+- Receive signed governance approval
 
 ---
 
@@ -53,112 +43,79 @@ Any visible change MUST:
 Once released:
 
 - Version folders MUST NOT change  
-- `$id` and CID MUST remain stable forever  
-- ENS TXT MUST continue to resolve correctly  
-- Entry format MUST remain canonical:  
-  `x402://<ens>/<verb>/v1`
+- `$id` + CID MUST remain stable  
+- TXT MUST resolve correctly  
+- Entry format MUST remain:
+```
+x402://<ens>/<verb>/v1
+```
 
-Violations:
-
-- Resolver MUST reject card as **untrusted**
-- Immediate governance revocation required
+Violations require immediate revocation.
 
 ---
 
-## 4. ENS TXT Canonical Contract
+## 4. ENS TXT Binding — Agent-Cards *(NORMATIVE)*
 
-Agent-Cards define the **canonical truth** for resolver discovery.  
-The following TXT records are **NORMATIVE and REQUIRED**:
+Agent-Cards govern the TXT records that bind **identity** and **invocation**:
+```
+cl.entry
+cl.agentcard
+cl.cid.agentcard
+cl.agentcard.mirror.ipfs
+cl.checksum.agentcard
+cl.owner
+```
 
-| TXT Key | MUST Equal | Description | Validation |
-|--------|------------|-------------|------------|
-| `cl.entry` | `entry` | Canonical x402 invocation URI | MUST match pattern: `x402://<ens>/<verb>/v1` |
-| `cl.agentcard` | HTTPS mirror of Agent-Card JSON | Public identity document | MUST match `$id` of the card |
-| `cl.cid.agentcard` | CID root containing the card | Integrity anchor | MUST resolve + match manifest |
-| `cl.agentcard.mirror.ipfs` | IPFS URL to the same card | Decentralized fallback | MUST be under the same CID root |
-| `cl.checksum.request` | SHA-256 of request schema | Schema integrity | MUST match manifest |
-| `cl.checksum.receipt` | SHA-256 of receipt schema | Receipt integrity | MUST match manifest |
-| `cl.checksum.agentcard` | SHA-256 of card JSON | Identity integrity | MUST match manifest |
-| `cl.owner` | `owner` field of Agent-Card | Authority reference | MUST reflect governance-approved owner |
-
-### Enforcement (Normative)
-
-Resolvers MUST reject a card as **UNTRUSTED** if:
-
-- Any required TXT record is **missing**
-- A value **does not match** the Agent-Card metadata
-- A checksum or CID **does not match** the manifest
-- HTTPS/IPFS mirrors **do not resolve**
-
-**Correct TXT = trusted identity**  
-**Anything else = untrusted**
-
-
-
-### Enforcement
-
-If **any** field is:
-
-- Missing
-- Stale
-- CID mismatched
-- Checksum invalid
-- Value in conflict with card metadata
-
-→ Binding is **INVALID**  
-→ Resolver MUST NOT treat as canonical
+TXT values MUST match the published Agent-Card metadata exactly.  
+Resolvers MUST treat mismatches as **UNTRUSTED** identity bindings.
 
 ---
 
 ## 5. Publication Change Flow
 
-1. Issue opened with motivation  
-2. Updated card passes strict CI  
+1. Issue opened  
+2. Updated card passes CI  
 3. New CID + checksums generated and signed  
-4. Governance review and approval  
-5. ENS TXT updated  
-6. New version tag + RESOLUTION.md entry  
+4. Governance approval  
+5. TXT updated  
+6. New version + RESOLUTION.md entry  
 
-**Atomic or rejected.**  
-No silent edits.
+**Atomic or rejected.**
 
 ---
 
 ## 6. Deprecation & Revocation
 
-### Deprecation
+Deprecation:
 - `"status": "deprecated"`
-- Logged in `RESOLUTION.md`
-- Backward-compatible fallback recommended
+- Logged in RESOLUTION.md
 
-### Revocation
-- Only for security / correctness failure
-- ENS TXT MUST mark disablement
-- Replacement version MAY follow
-- Logged immediately
-
-> Deprecation is **graceful**.  
-> Revocation is **safety-critical**.
+Revocation:
+- Security / correctness failures
+- TXT MUST indicate disablement
+- Replacement MAY follow
 
 ---
 
 ## 7. Transparency + Accountability
 
-Governance relies on these artifacts:
+Governance relies on:
 
-| Document | Purpose |
-|---------|---------|
-| `SPEC.md` | Normative identity requirements |
-| `POLICY.md` | Metadata + ENS correctness rules |
-| `SECURITY.md` | Reporting + mitigation requirements |
-| `SECURITY_PROVENANCE.md` | Signed CIDs + checksums |
-| `RESOLUTION.md` | Lifecycle + incident log |
-| `VERSIONING.md` | Change class → version mapping |
+- `SPEC.md`, `POLICY.md`
+- `SECURITY*.md`
+- `SECURITY_PROVENANCE.md`
+- `RESOLUTION.md`
+- `VERSIONING.md`
 
-All must update **in sync** with each release.
+All MUST stay in sync.
 
 ---
 
 _Last updated: v1.0.0 — Stable-Lock_  
 Signed: **commandlayer.eth**  
 *Founding Steward — CommandLayer Standards*
+
+
+
+
+
