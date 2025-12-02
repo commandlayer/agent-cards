@@ -301,7 +301,7 @@ Non-normative but illustrative example:
 
 ```json
 { 
-  "$schema": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/agent.card.base.schema.json",
+  "$schema": "https://commandlayer.org/agent-cards/schemas/v1.0.0/_shared/agent.card.base.schema.json",
   "$id": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/summarizeagent.eth.json",
 
   "id": "summarizeagent.eth",

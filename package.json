@@ -11,13 +11,12 @@
     "generate:checksums": "node scripts/generate-checksums.mjs",
     "validate": "npm run validate:cards && npm run typecheck"
   },
-  "dependencies": {
-    "ajv": "^8.17.0",
-    "ajv-formats": "^3.0.1"
-  },
   "devDependencies": {
-    "typescript": "^5.6.0",
+    "@types/node": "^22.0.0",
+    "ajv": "^8.17.1",
+    "ajv-cli": "^5.0.0",
+    "ajv-formats": "^3.0.1",
     "glob": "^11.0.0",
-    "@types/node": "^22.0.0"
+    "typescript": "^5.6.0"
   }
 }
