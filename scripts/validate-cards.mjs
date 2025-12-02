@@ -10,7 +10,6 @@ const ajv = new Ajv2020({
   strict: true,
   allErrors: true
 });
-
 addFormats(ajv);
 
 function loadJson(relativePath) {
