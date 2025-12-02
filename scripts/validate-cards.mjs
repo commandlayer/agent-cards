@@ -56,10 +56,6 @@ function getAllAgentCardFiles(rootDir) {
 
 // Validate all Agent Cards against the base schema
 function validateAgentCards() {
-<<<<<<< HEAD
-  // 🔧 Changed from commons → _shared
-=======
->>>>>>> 039e49d (fix: move agent.card.base.schema.json to _shared, update refs, validator, docs, and checksums)
   const baseSchema = loadJson("schemas/v1.0.0/_shared/agent.card.base.schema.json");
   const validate = ajv.compile(baseSchema);
 
