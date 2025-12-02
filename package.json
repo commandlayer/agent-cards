@@ -6,7 +6,7 @@
   "author": "Gregory Soucy <dev@commandlayer.org>",
   "type": "module",
   "scripts": {
-    "validate:cards": "node scripts/validate-cards.mjs",
+    "validate:cards": "bash scripts/validate-cards.sh",
     "typecheck": "tsc --noEmit",
     "generate:checksums": "node scripts/generate-checksums.mjs",
     "validate": "npm run validate:cards && npm run typecheck"
