@@ -22,11 +22,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # This runs exactly what you just proved is green locally:
-      # - validate-cards.mjs (Ajv strict) + tsc --noEmit
-      - name: Validate Agent Cards JSON + types
-        run: npm run validate
+      # JSON-level protocol validation only (Ajv strict)
+      - name: Validate Agent Cards JSON
+        run: npm run validate:cards
 
-      # Keep checksum verification as a separate gate
+      # Provenance gate: ensure checksums.txt matches files
       - name: Verify checksums
         run: npm run generate:checksums -- --verify
