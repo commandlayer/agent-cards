@@ -10,6 +10,7 @@ const ajv = new Ajv2020({
   strict: true,
   allErrors: true
 });
+
 addFormats(ajv);
 
 function loadJson(relativePath) {
@@ -56,7 +57,6 @@ function getAllAgentCardFiles(rootDir) {
 
 // Validate all Agent Cards against the base schema
 function validateAgentCards() {
-  // 🔧 Changed from commons → _shared
   const baseSchema = loadJson("schemas/v1.0.0/_shared/agent.card.base.schema.json");
   const validate = ajv.compile(baseSchema);
 
