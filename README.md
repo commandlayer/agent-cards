@@ -1,5 +1,5 @@
 # Agent Cards — CommandLayer
-
+ 
 **Canonical identity metadata for autonomous agents**  
 **Standards-aligned · Deterministic · Verifiable**
 
