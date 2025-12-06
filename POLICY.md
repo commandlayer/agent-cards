@@ -1,8 +1,11 @@
 # Schemas Policy — Agent Cards
+CommandLayer Core Standards · Identity Layer
 
-This document governs the structure, evolution, and stability requirements for all Agent Card schema definitions and metadata within the Agent Cards layer of CommandLayer.
+**Status:** v1.0.0 — Stable-Lock  
+**Applies To:** All canonical Agent-Cards
 
-Agent discoverability, trust, and execution depend on **consistent**, **auditable**, and **non-breaking** identity semantics. These rules guarantee that an Agent Card pinned today will still resolve correctly in the future.
+> This document is **NORMATIVE and ENFORCEABLE**.  
+> It supplements, but does not override, `SPEC.md` and `Governance.md`.
 
 ---
 
@@ -10,55 +13,60 @@ Agent discoverability, trust, and execution depend on **consistent**, **auditabl
 
 This policy applies to:
 
-- All Agent Card JSON documents under `/cards/`
-- All identity schema definitions under `/schemas/`
-- All shared primitives (iden
-CommandLayer Core Standards · Identity Layer
+- All Agent-Card JSON documents under:
+  - `agents/v*/commons/*.json`
+  - `agents/v*/commercial/*.json`
+- All identity schema definitions under:
+  - `schemas/**`
+- All shared primitives under:
+  - `schemas/_shared/**`
 
-This document defines **binding publication rules** for canonical Agent-Cards.
-It supplements, but does not override, the normative `SPEC.md`.
+Execution and runtime behaviors are **explicitly outside** this scope.
+
+Identity MUST remain deterministic, verifiable, and trust-preserving.
 
 ---
 
-## 1. Required Fields
+##  Required Fields (NORMATIVE)
 
-All published Agent-Cards MUST include:
+The following fields MUST exist in every published Agent-Card:
 
-- `id`
-- `slug`
-- `display_name`
-- `description`
-- `owner`
-- `ens`
-- `version`
-- `status`
-- `class`
-- `implements` (non-empty; primary verb = `implements[0]`)
-- `entry` (canonical x402 URI)
-- `schemas.*` and `schemas_mirror.*`
+| Field Group | Required Keys |
+|------------|----------------|
+| Identity | `id`, `slug`, `display_name`, `description` |
+| Ownership | `owner`, `ens` |
+| Versioning | `version` |
+| Lifecycle | `status`, `class` (`commons` or `commercial`) |
+| Semantics | `implements` (non-empty; primary verb = `implements[0]`) |
+| Execution | `entry` (canonical x402 URI), `networks` |
+| Schemas | `schemas.request`, `schemas.receipt` |
+| License | `license` |
+| Timestamps | `created_at`, `updated_at` |
+
+
+These fields MAY exist but **MUST NOT** be assumed for identity resolution.
+Absence of any **Required** field = **NON-COMPLIANT**.
+
+- `schemas_mirror.*`
 - `capabilities`
 - `meta`
-- `networks`
-- `license`
-- `created_at`
-- `updated_at`
 
-Absence of ANY required field = **NON-COMPLIANT**.
+`implements[0]` MUST correspond to a canonical verb defined in Protocol-Commons or Protocol-Commercial.
 
 ---
 
-## 2. Validation Requirements
+##  Validation Requirements
 
 - JSON Schema Draft **2020-12**
-- Ajv **strict** validation
-- `"additionalProperties": false`
-- `$id` MUST resolve over HTTPS
+- Ajv **strict** mode
+- `"additionalProperties": false"`
+- `$id` MUST resolve via HTTPS
 - Entry MUST follow:
 
-x402://<ens>/<verb>/v1
 
-yaml
-Copy code
+  ```
+ x402://<ens>/<verb>/v1
+```
 
 The primary verb MUST already exist in **Protocol-Commons**.
 
