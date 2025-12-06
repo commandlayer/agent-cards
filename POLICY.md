@@ -9,7 +9,7 @@ CommandLayer Core Standards · Identity Layer
 
 ---
 
-## 1️⃣ Scope
+##  Scope
 
 This policy applies to:
 
@@ -64,7 +64,7 @@ Absence of any **Required** field = **NON-COMPLIANT**.
 - Entry MUST follow:
 
 
-  ```
+```
  x402://<ens>/<verb>/v1
 ```
 
