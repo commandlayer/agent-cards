@@ -34,34 +34,27 @@ One universal contract for agent interop.
 
 ## Architecture Primer
 
-```text
-+------------------------+
-|  Protocol-Commons      | (canonical verbs)
-|  Protocol-Commercial   |
-+-----------+------------+
-            |
-            v
-+------------------------+
-|     Agent Cards        | (identity + metadata)
-+-----------+------------+
-            | ERC-8004 TXT discovery
-            v
-+------------------------+
-|   x402 Transport Layer | (verifiable invocation)
-+-----------+------------+
-            v
-+------------------------+
-| Structured Receipt     | (typed + trusted output)
-+------------------------+
 ```
+[ Canonical Verbs ]
+Protocol-Commons + Protocol-Commercial
+         ↓
+[ Identity + Metadata ]
+Agent Cards (ENS-bound)
+         ↓ ERC-8004 TXT discovery
+[ Verifiable Invocation ]
+x402 runtime (monetizable)
+         ↓
+[ Trusted Output ]
+Structured Receipt
 
-
-Agent Cards are **machine-readable** identity documents describing how an autonomous agent implements a canonical verb — defined in Protocol-Commons (open) or Protocol-Commercial (permissioned) — including the metadata required for trustless discovery, validation, and invocation.
+```
+Without this: agents become **isolated APIs.**
+With this: the **interoperable machine economy** emerges.
 
 
 ### Repository Layers & Licensing
 
-This stack cleanly separates **language**, **identity**, and **execution** — ensuring the protocol remains open while enabling sustainable economics.
+This stack  separates **language**, **identity**, and **execution** — keeping the protocol open and monetizeable only at runtime.
 
 | Layer                   | Repository            | License / Model                                     |
 |------------------------|----------------------|-----------------------------------------------------|
@@ -70,10 +63,10 @@ This stack cleanly separates **language**, **identity**, and **execution** — e
 | Identity — Agent Cards  | `agent-cards`        | Apache-2.0 — identity metadata as a public good     |
 | Execution — Runtime     | `protocol-runtime`   | Monetized at invocation endpoints (**toll road**)    |
 
-**All schemas are free and open. Identity is neutral and protected.**
-Value is created only when agents execute requests — not by owning the language.
 
-**Execution lives in `protocol-runtime` and other runtimes, not in this repository.**
+ - **Schemas are always free.**
+- **Identity is neutral and protected.**
+- **Value is created only on execution.**
 
 
 ----
@@ -269,6 +262,76 @@ console.log(card.schemas.request);
 // ipfs://bafybei.../commons/summarize/requests/summarize.request.schema.json
 
 ```
+### Quick start — resolve & validate an Agent Card from ENS
+
+Given an ENS name (e.g. `summarizeagent.eth`), you can resolve its Agent Card via
+the `cl.agentcard` TXT record, fetch the JSON, and validate it with Ajv before
+using it in your runtime.
+
+```ts
+import { ethers } from "ethers";
+import Ajv from "ajv";
+
+// Adjust this import to wherever you expose the base Agent Card schema
+// e.g. from your package, a local file, or a generated schema bundle.
+import agentCardBaseSchema from "./schemas/agent.card.base.schema.json";
+
+const RPC_URL = process.env.ETH_RPC_URL!;
+const provider = new ethers.JsonRpcProvider(RPC_URL);
+
+const ajv = new Ajv({ strict: true, allErrors: true });
+const validateAgentCard = ajv.compile(agentCardBaseSchema);
+
+export async function loadAgentCard(ens: string) {
+  // 0) ENS must resolve before trusting TXT records
+  const address = await provider.resolveName(ens);
+  if (!address) {
+    throw new Error(`ENS name does not resolve: ${ens}`);
+  }
+
+  // 1) ENS → resolver lookup
+  const resolver = await provider.getResolver(ens);
+  if (!resolver) {
+    throw new Error(`Resolver not configured for ${ens}`);
+  }
+
+  // 2) TXT → canonical invocation metadata for autonomous agents
+  const cardUrl = await resolver.getText("cl.agentcard");
+  if (!cardUrl) {
+    throw new Error(`Missing cl.agentcard TXT record for ${ens}`);
+  }
+
+  // 3) Fetch & parse Agent Card JSON
+  const res = await fetch(cardUrl);
+  if (!res.ok) {
+    throw new Error(`Agent Card fetch failed (${res.status})`);
+  }
+  const card = await res.json();
+
+  // 4) Schema validation (Ajv strict)
+  const valid = validateAgentCard(card);
+  if (!valid) {
+    throw new Error(
+      `Invalid Agent Card for ${ens}: ${ajv.errorsText(validateAgentCard.errors)}`
+    );
+  }
+
+  //  Hardening recommended in real deployments:
+  // - Verify CID + SHA-256 checksum
+  // - Enforce version pinning (e.g. card.version === "1.0.0")
+
+  // 5) Runtime usage
+  console.log("Agent:", card.id);          // e.g. "summarizeagent.eth"
+  console.log("x402 entry URI:", card.entry);
+  console.log("Schemas:", card.schemas);   // { request, receipt }
+
+  return card;
+}
+
+// Example usage
+loadAgentCard("summarizeagent.eth").catch(console.error);
+```
+
 ### **Example Agent Card (Summarize):**
 ```
 {
