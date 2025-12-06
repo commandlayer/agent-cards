@@ -37,7 +37,7 @@ One universal contract for agent interop.
 ```text
 +------------------------+
 |  Protocol-Commons      | (canonical verbs)
-|  Protocol-Commercial   | (monetized verbs)
+|  Protocol-Commercial   |
 +-----------+------------+
             |
             v
@@ -63,23 +63,18 @@ Agent Cards are **machine-readable** identity documents describing how an autono
 
 This stack cleanly separates **language**, **identity**, and **execution** — ensuring the protocol remains open while enabling sustainable economics.
 
-This stack cleanly separates **language**, **identity**, and **execution** — ensuring the protocol remains open while enabling sustainable economics.
+| Layer                   | Repository            | License / Model                                     |
+|------------------------|----------------------|-----------------------------------------------------|
+| Protocol — Commons      | `protocol-commons`   | MIT — free canonical semantic verbs & schemas        |
+| Protocol — Commercial   | `protocol-commercial`| Apache-2.0 — free economic verb schemas             |
+| Identity — Agent Cards  | `agent-cards`        | Apache-2.0 — identity metadata as a public good     |
+| Execution — Runtime     | `protocol-runtime`   | Monetized at invocation endpoints (**toll road**)    |
 
-| Layer                   | Repository            | License / Model                                   
-|-------------------------|----------------------|----------------------------------------------------|
-| Protocol — Commons      | `protocol-commons`   | MIT — free canonical semantic verbs & schemas      |
-| Protocol — Commercial   | `protocol-commercial`| Apache-2.0 — free economic verb schemas            |
-| Identity — Agent Cards  | `agent-cards`        | Apache-2.0 — identity metadata as a public good    |
-| Execution — Runtime     | `protocol-runtime`   | Monetized at invocation endpoints (**toll road**)  |
+**All schemas are free and open. Identity is neutral and protected.**
+Value is created only when agents execute requests — not by owning the language.
 
+**Execution lives in `protocol-runtime` and other runtimes, not in this repository.**
 
- **All schemas are free and open. Identity is neutral and protected.**
- Value is created only when agents execute requests — not by owning the language.
-
-
-
-
- **Execution lives outside this repository and can vary by implementation.**
 
 ----
 
