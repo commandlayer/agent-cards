@@ -130,29 +130,30 @@ Multi-Agent Workflow (A2A = Autonomous-to-Autonomous — no humans required in t
 
 Each Agent Card is a JSON document conforming to the `agent.card.base.schema.json` contract. Core fields:
 
-| Group            | Field                | Description |
-|-----------------|----------------------|-------------|
-| Identity         | `id`                 | Canonical agent identifier (usually the ENS name). |
-|                 | `slug`               | URL-safe, human-readable slug for local use. |
-|                 | `display_name`       | Human-readable name for the agent. |
-|                 | `description`        | Short description of what the agent does. |
-| Ownership        | `owner`              | ENS name or identifier controlling the card (e.g. `commandlayer.eth`). |
-|                 | `ens`                | ENS name the agent is bound to (e.g. `summarizeagent.eth`). |
-| Versioning       | `version`            | Semantic version of the Agent Card contract (e.g. `1.0.0`). |
-| Lifecycle        | `status`             | Lifecycle state (`protocol_reference`, `active`, `deprecated`, etc.). |
-|                 | `class`              | Tier of the agent (`commons` or `commercial`). |
-| Semantics        | `implements`         | Array of canonical verbs this agent implements (e.g. `["summarize"]`). |
-| Schemas          | `schemas.request`    | Canonical request schema URI (typically IPFS). |
-|                 | `schemas.receipt`    | Canonical receipt schema URI (typically IPFS). |
-| Schema Mirrors   | `schemas_mirror.request` | HTTP(S) mirror for the request schema. |
-|                 | `schemas_mirror.receipt` | HTTP(S) mirror for the receipt schema. |
-| Execution        | `entry`              | x402 entry URI for this agent (e.g. `x402://summarizeagent.eth/summarize/v1`). |
-| Capabilities     | `capabilities`       | Non-normative description of supported operations, input/output types, limits, etc. |
-| Metadata         | `meta`               | Free-form metadata (tags, links, provider info, PGP fingerprint, etc.). |
-| Networks         | `networks`           | Chains / networks this agent is valid on (e.g. `["eip155:1"]`). |
-| License          | `license`            | License for this Agent Card (e.g. `Apache-2.0`). |
-| Timestamps       | `created_at`         | ISO 8601 creation timestamp. |
-|                 | `updated_at`         | ISO 8601 last update timestamp. |
+| Group          | Field                    | Requirement  | Description                                                |
+| -------------- | ------------------------ | ------------ | ---------------------------------------------------------- |
+| **Identity**   | `id`                     | **Required** | Canonical agent identifier (usually the ENS name).         |
+|                | `slug`                   | **Required** | URL-safe identifier for local referencing.                 |
+|                | `display_name`           | **Required** | Human-readable title for the agent.                        |
+|                | `description`            | **Required** | Short summary of agent function.                           |
+| **Ownership**  | `owner`                  | **Required** | ENS name or identifier controlling the card.               |
+|                | `ens`                    | **Required** | ENS name bound to this agent.                              |
+| **Versioning** | `version`                | **Required** | Semantic version of the card definition.                   |
+| **Lifecycle**  | `status`                 | **Required** | `protocol_reference`, `active`, `deprecated`, etc.         |
+|                | `class`                  | **Required** | `commons` or `commercial`.                                 |
+| **Semantics**  | `implements`             | **Required** | Array of verbs implemented (primary verb MUST be index 0). |
+| **Execution**  | `entry`                  | **Required** | Canonical x402 URI. Format: `x402://<ens>/<verb>/v1`       |
+|                | `networks`               | **Required** | Supported chain identifiers (e.g. `["eip155:1"]`).         |
+| **Schemas**    | `schemas.request`        | **Required** | Canonical request schema URI (IPFS).                       |
+|                | `schemas.receipt`        | **Required** | Canonical receipt schema URI (IPFS).                       |
+| **License**    | `license`                | **Required** | License for this card (Apache-2.0).                        |
+| **Timestamps** | `created_at`             | **Required** | ISO 8601 creation time.                                    |
+|                | `updated_at`             | **Required** | ISO 8601 last-modified time.                               |
+| **Optional**   | `schemas_mirror.request` | Optional     | HTTPS mirror of request schema (MUST match IPFS).          |
+|                | `schemas_mirror.receipt` | Optional     | HTTPS mirror of receipt schema (MUST match IPFS).          |
+|                | `capabilities`           | Optional     | Non-normative runtime hints.                               |
+|                | `meta`                   | Optional     | Tags, URLs, publisher info, fingerprints, etc.             |
+
 
 
 ## Repository Structure
