@@ -69,6 +69,7 @@ This stack  separates **language**, **identity**, and **execution** — keeping 
 - **Value is created only on execution.**
 
 
+
 ----
 
 ## Why Agent Cards Matter
@@ -252,16 +253,7 @@ Agent Cards enable interoperable:
 
 They are **runtime-agnostic** and usable in any A2A environment.
 
-### **Example usage (TypeScript):**
-```
-import card from "./agents/v1.0.0/commons/summarizeagent.eth.json";
 
-console.log(card.id);          // "summarizeagent.eth"
-console.log(card.entry);       // "x402://summarizeagent.eth/summarize/v1"
-console.log(card.schemas.request);
-// ipfs://bafybei.../commons/summarize/requests/summarize.request.schema.json
-
-```
 ### Quick start — resolve & validate an Agent Card from ENS
 
 Given an ENS name (e.g. `summarizeagent.eth`), you can resolve its Agent Card via
@@ -316,9 +308,10 @@ export async function loadAgentCard(ens: string) {
     );
   }
 
-  //  Hardening recommended in real deployments:
-  // - Verify CID + SHA-256 checksum
+  // Hardening recommended in real deployments:
+  // - Verify CID + SHA-256 checksum against known values
   // - Enforce version pinning (e.g. card.version === "1.0.0")
+
 
   // 5) Runtime usage
   console.log("Agent:", card.id);          // e.g. "summarizeagent.eth"
@@ -332,6 +325,19 @@ export async function loadAgentCard(ens: string) {
 loadAgentCard("summarizeagent.eth").catch(console.error);
 ```
 
+### **Example usage (TypeScript):**
+
+
+```
+import card from "./agents/v1.0.0/commons/summarizeagent.eth.json";
+```
+```
+console.log(card.id);          // "summarizeagent.eth"
+console.log(card.entry);       // "x402://summarizeagent.eth/summarize/v1"
+console.log(card.schemas.request);
+// ipfs://bafybei.../commons/summarize/requests/summarize.request.schema.json
+
+```
 ### **Example Agent Card (Summarize):**
 ```
 {
@@ -392,6 +398,19 @@ loadAgentCard("summarizeagent.eth").catch(console.error);
 }
 ```
 ---
+## Governance
+
+Agent Cards follow a neutral, standards-oriented stewardship model:
+
+- **Public good** — Agent Cards are open. Anyone can resolve, validate, and build with them forever.
+- **Competitive runtime market** — Value happens at execution. No single operator controls who can run agents or get paid.
+- **Multi-sig ENS custody** — All canonical ENS names are held in secure, shared governance for long-term protection.
+- **Stable versions** — Published cards never mutate. Breaking changes = new major version.
+- **Open review** — Community proposals, validation, and security checks before acceptance.
+- **Standards aligned** — Built to last with ERC-8004 + x402 interoperability.
+- **No lock-ins. No gatekeepers. No rugs.** Agents built today will still work a decade from now.
+
+---
 
 ## Versioning & Immutability
 
@@ -440,17 +459,6 @@ cl.checksum.agentcard=sha256:<agent-card-sha256>
 cl.owner=commandlayer.eth
 
 ```
-## Governance
-
-Agent Cards follow a neutral, standards-oriented stewardship model:
-
-- No single runtime, operator, or economic model is privileged
-- Canonical decisions align to ERC-8004 and x402 ecosystem needs
-- Breaking changes require major versioning (immutability by default)
-- Community proposals evaluated via open discussion and security review
-- Governance ensures longevity and neutrality.
-
-
 ----
 
 ## Status
