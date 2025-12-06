@@ -59,25 +59,29 @@ One universal contract for agent interop.
 Agent Cards are **machine-readable** identity documents describing how an autonomous agent implements a canonical verb — defined in Protocol-Commons (open) or Protocol-Commercial (permissioned) — including the metadata required for trustless discovery, validation, and invocation.
 
 
-### Contents of this repository
+### Repository Layers & Licensing
 
-- **Commons** (open, foundation layer)
+This stack cleanly separates **language**, **identity**, and **execution** — ensuring the protocol remains open while enabling sustainable economics.
 
-- **Commercial** (permissioned, monetizable layer)
+This stack cleanly separates **language**, **identity**, and **execution** — ensuring the protocol remains open while enabling sustainable economics.
 
-- Both tiers use the same metadata contract and identical discovery mechanisms.
+| Layer                   | Repository            | License / Model                                   
+|-------------------------|----------------------|----------------------------------------------------|
+| Protocol — Commons      | `protocol-commons`   | MIT — free canonical semantic verbs & schemas      |
+| Protocol — Commercial   | `protocol-commercial`| Apache-2.0 — free economic verb schemas            |
+| Identity — Agent Cards  | `agent-cards`        | Apache-2.0 — identity metadata as a public good    |
+| Execution — Runtime     | `protocol-runtime`   | Monetized at invocation endpoints (**toll road**)  |
 
 
+ **All schemas are free and open. Identity is neutral and protected.**
+ Value is created only when agents execute requests — not by owning the language.
 
-| Layer                  | Repository            | License               |
-| ---------------------- | --------------------- | --------------------- |
-| Protocol — Commons     | `protocol-commons`    | MIT                   |
-| Identity — Agent Cards | `agent-cards`         | Apache-2.0            |
-| Execution — Commercial | `protocol-commercial` | Proprietary           |
 
 
 
  **Execution lives outside this repository and can vary by implementation.**
+
+----
 
 ## Why Agent Cards Matter
 
@@ -397,7 +401,7 @@ Agent Cards follow a neutral, standards-oriented stewardship model:
 
 - 10 Commons Agents
 
-- Commercial tier scaffolded
+- 5 Commercial Agents
 
 ----
 
