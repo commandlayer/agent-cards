@@ -17,7 +17,10 @@ Authority scope:
 - Release publication + version integrity
 - Revocation + incident adjudication
 
+Ownership of canonical ENS names will transition to a **multi-sig governance wallet** as community participation and security requirements increase over time.
+
 Identity MUST remain verifiable by any resolver and immutable once published.
+
 
 ---
 
@@ -105,7 +108,6 @@ Governance relies on:
 - `SECURITY*.md`
 - `SECURITY_PROVENANCE.md`
 - `RESOLUTION.md`
-- `VERSIONING.md`
 
 All MUST stay in sync.
 
