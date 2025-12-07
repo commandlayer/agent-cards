@@ -17,7 +17,8 @@ This document only summarizes TXT responsibilities.
 The canonical definitions and enforcement rules are specified in:  
 - `SPEC.md` (Agent-Cards)
 
-SPEC.md is authoritative for identity + invocation TXT binding.
+SPEC.md is authoritative for identity + invocation TXT binding.  
+Where any conflict occurs between this document and SPEC.md, **SPEC.md prevails**.
 
 ---
 
@@ -29,7 +30,8 @@ A card is compliant if it:
 - Includes all mandatory fields defined in SPEC.md
 - Accurately reflects referenced schemas, TXT metadata, and CID state
 
-Passing validation but conflicting with TXT/CID metadata is **not compliant**.
+Passing validation but conflicting with TXT/CID metadata is **not compliant**.  
+Where validation behavior and SPEC.md interpretation conflict, **SPEC.md prevails**.
 
 ---
 
@@ -41,6 +43,12 @@ Every published card MUST:
 - Appear in `meta/manifest.json`
 - Reflect the CID and IPFS mirror declared on ENS
 
+Minimum TXT checksum fields MUST include:
+
+- `cl.checksum.agentcard`
+- `cl.checksum.request`
+- `cl.checksum.receipt`
+
 Silent edits to card content without:
 - New version, checksums, CID, and governance entry  
 → **non-compliant**
@@ -51,9 +59,9 @@ Silent edits to card content without:
 
 `class` defines interpretation:
 
-| Class | Meaning |
-|-------|---------|
-| `commons` | Canonical open semantics |
+| Class       | Meaning                         |
+|------------|----------------------------------|
+| `commons`  | Canonical open semantics         |
 | `commercial` | May involve proprietary runtime behaviors |
 
 **JSON contract identical**  
@@ -72,8 +80,15 @@ Cards MUST NOT include:
 - PII or private network locations
 
 Resolvers SHOULD verify:
+
 - TXT ↔ JSON ↔ CID consistency
 - Checksums match published content
+- TXT includes a valid `cl.owner` binding
+
+A compliant card MUST have:
+
+- `cl.owner=<ens-or-address>`  
+`cl.owner` MUST reflect current governance custody for the canonical identity.
 
 ---
 
@@ -98,9 +113,11 @@ On discovery of:
 
 Steps:
 1. Do not silently modify public state  
-2. File an Issue or follow SECURITY.md  
+2. File an Issue or follow `SECURITY.md`  
 3. Steward determines next version + revocation  
 4. Updates logged in `RESOLUTION.md`
+
+Resolvers SHOULD treat affected bindings as **UNTRUSTED** until governance resolution is recorded.
 
 ---
 
@@ -110,6 +127,15 @@ You may claim **Agent-Cards compliant** if:
 
 - Cards validate in strict mode  
 - TXT ↔ JSON ↔ CID fully consistent  
+- Required TXT fields present, including:
+  - `cl.entry`
+  - `cl.agentcard`
+  - `cl.cid.agentcard`
+  - `cl.agentcard.mirror.ipfs`
+  - `cl.checksum.agentcard`
+  - `cl.checksum.request`
+  - `cl.checksum.receipt`
+  - `cl.owner`
 - Commons vs Commercial class used correctly  
 - All modifications logged and signed  
 - Security guidelines followed  
