@@ -56,7 +56,6 @@ Any PR affecting:
 - `cl.entry`
 - `cl.agentcard`
 - `cl.cid.agentcard`
-- `cl.agentcard.mirror.ipfs`
 - `cl.checksum.agentcard`
 - Version metadata
 - Schema bindings
