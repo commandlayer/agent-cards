@@ -30,22 +30,38 @@ Those concerns belong to runtimes, commercial layers, or application logic.
 
 ## 2. Architecture Position
 
-Agent-Cards sit between semantics and execution:
+Agent-Cards unify identity for **both** semantic paths — Commons and Commercial:
 
 ```text
-[ Semantic Layer ] → [ Identity Layer ] → [ Execution Layer ]
-(Protocol-Commons) (Agent-Cards) (x402 runtimes / agents)
-
+                    (Commons Verbs)          (Commercial Verbs)
+                    Protocol-Commons         Protocol-Commercial
+                             \                   /
+                              \                 /
+                               ↓               ↓
+                             [ Identity Layer ]
+                               Agent-Cards
+                                     ↓
+                           [ Runtime Layer ]
+                           Protocol-Runtime (x402, etc.)
+                                     ↓
+                             Structured Receipts
 ```
 
-- **Protocol-Commons** defines *what* actions exist (`summarize`, `analyze`, …)  
-- **Agent-Cards** define *who* performs them + *where* to call them  
-- **x402 runtimes** perform execution and return typed receipts  
 
-**Agent-Cards answer: “Who is this agent and how do I invoke it?”**
+- **Protocol-Commons** defines what canonical actions mean
+(public goods: free, neutral, version-locked)
 
----
+- **Protocol-Commercial** defines economic actions and their schema contracts
+(market-aligned verbs, paid flows)
 
+- **Agent-Cards** bind those actions to who performs them and how to call them
+(ENS identity + invocation metadata)
+
+- **Protocol-Runtime** delivers execution and proof
+(agents run, receipts verify)
+
+**Agent-Cards answer:**
+“Given `<ens>`+ `<verb>`, who do I call and where do I route the request?”
 ## 3. JSON Contract (Base Schema)
 
 All Agent-Cards MUST conform to:
@@ -95,13 +111,13 @@ Aliases are NOT represented here. No synonyms, no alternates.
 
 | Field                         | Type   | Required | Description |
 |-------------------------------|--------|----------|-------------|
-| `schemas_mirror.request`      | string | Yes      | HTTPS mirror for the request schema, typically under `https://commandlayer.org/…`. |
-| `schemas_mirror.receipt`      | string | Yes      | HTTPS mirror for the receipt schema, typically under `https://commandlayer.org/…`. |
+| `schemas_mirror.request`      | string | No      | HTTPS mirror for the request schema, typically under `https://commandlayer.org/…`. |
+| `schemas_mirror.receipt`      | string | No      | HTTPS mirror for the receipt schema, typically under `https://commandlayer.org/…`. |
 
 Rules:
 
 - `schemas.*` MUST correspond to the **canonical** schema locations (usually IPFS `$id` URIs).  
-- `schemas_mirror.*` MUST be HTTPS-resolvable mirrors of the same schemas.  
+- `schemas_mirror.*` SHOULD be HTTPS-resolvable mirrors of the same schemas.  
 - These values MUST match the Protocol-Commons manifests for the relevant version (e.g. v1.0.0).
 
 ---
@@ -187,45 +203,25 @@ Rules:
 - `updated_at` MUST be ≥ `created_at`.
 - Any visible change to the card MUST update updated_at and MUST be recorded in governance logs `(RESOLUTION.md).`
 
-## 9. ENS TXT Mapping (Discovery Contract)
+## 9. ENS TXT Binding (NORMATIVE — Identity + Invocation Only)
 
-For the primary verb (`implements[0]`), the ENS name in `ens` MUST publish the following TXT keys:
+The ENS name specified in `ens` MUST publish:
 
-```
-cl.verb=<verb>
-cl.version=<card-version>
+- `cl.entry` — canonical x402 invocation URI
+- `cl.agentcard` — HTTPS URL for the Agent-Card JSON
+- `cl.cid.agentcard` — CID of the Agent-Card JSON
+- `cl.agentcard.mirror.ipfs` — IPFS fallback of the Agent-Card JSON
+- `cl.checksum.agentcard` — SHA-256 of the Agent-Card JSON
+- `cl.owner` — ENS name responsible for this identity
 
-cl.entry=x402://<ens>/<verb>/v1
+TXT values MUST match the published Agent-Card exactly.
 
-cl.schema.request=https://commandlayer.org/schemas/v1.0.0/commons/<verb>/requests/<verb>.request.schema.json
-cl.schema.receipt=https://commandlayer.org/schemas/v1.0.0/commons/<verb>/receipts/<verb>.receipt.schema.json
-cl.cid.schemas=<cid-of-commons-schemas>
-cl.schemas.mirror.ipfs=https://ipfs.io/ipfs/<cid-of-commons-schemas>
+Resolvers MUST treat any mismatch or omission as an **UNTRUSTED identity binding**.
 
-cl.agentcard=https://commandlayer.org/agent-cards/agents/v1.0.0/<class>/<ens>.json
-cl.cid.agentcard=<cid-of-agent-card-folder>
-cl.agentcard.mirror.ipfs=https://ipfs.io/ipfs/<cid-of-agent-card-folder>/agents/v1.0.0/<class>/<ens>.json
+- **No schema TXT keys in Agent-Cards.**
+  
+- They belong in Protocol-Commons.
 
-cl.checksum.request=sha256:<request-schema-sha256>
-cl.checksum.receipt=sha256:<receipt-schema-sha256>
-cl.checksum.agentcard=sha256:<agent-card-sha256>
-
-cl.owner=commandlayer.eth
-```
-
- **ENS TXT Binding Rules (Normative)**
- 
-Agent-Cards govern the TXT records that bind **identity** and **invocation:**
-```
-cl.entry
-cl.agentcard
-cl.cid.agentcard
-cl.agentcard.mirror.ipfs
-cl.checksum.agentcard
-cl.owner
-```
-TXT values MUST reflect the published Agent-Card metadata exactly.
-Resolvers MUST treat any mismatch as **UNTRUSTED** identity binding.
 
 ## 10. Commons vs Commercial Classes
 
@@ -246,16 +242,30 @@ The JSON contract is identical; governance and semantics differ.
 
 An Agent-Card is **CONFORMANT** if:
 
-1. It validates against `agent.card.base.schema.json` under **Ajv strict** (2020-12).
-2. All required fields `id`, `slug`, `display_name`, `description`, `owner`, `ens`, `version`, `status`, `class`, `implements`, `schemas`, `schemas_mirror`, `entry`, `capabilities`, `meta`, `networks`, `license`, `created_at`, `updated_at`
- are present and non-empty.
+1. It validates against `agent.card.base.schema.json` under **Ajv strict** mode (JSON Schema 2020-12).
 
-3. `entry` is a valid x402 URI of form `x402://<ens>/<verb>/v1.`
-4. All verbs in `implements[]` are defined in the relevant protocol layer.
-5. ENS TXT entries for the `ens` name match card fields and associated schema/manifest entries.
-6. All CIDs and checksums resolve to pinned artifacts in the official manifests.
+2. All required fields are present and non-empty:
 
-A library, runtime, or registry MAY claim:
+   - `id`, `slug`, `display_name`, `description`
+   - `owner`, `ens`
+   - `version`, `status`, `class`
+   - `implements` (non-empty; `implements[0]` = primary verb)
+   - `schemas.request`, `schemas.receipt`
+   - `entry`
+   - `networks`
+   - `license`
+   - `created_at`, `updated_at`
+
+3. If present, the following **optional** fields MUST be internally consistent:
+
+   - `schemas_mirror.request`, `schemas_mirror.receipt` MUST mirror the canonical `schemas.*` locations.
+   - `capabilities` and `meta` MUST NOT contain secrets, credentials, or private endpoints.
+
+4. `entry` is a valid x402 URI of the form:
+
+   ```text
+   x402://<ens>/<verb>/v1
+```
 
 **Agent-Cards-Compatible**
 
