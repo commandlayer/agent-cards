@@ -6,11 +6,15 @@ Applies To: All canonical Agent-Cards
 
 > This document is **NORMATIVE and ENFORCEABLE**.
 
+SPEC.md defines the authoritative identity semantics.  
+Where any conflict occurs between this document and SPEC.md, **SPEC.md prevails**.
+
 ---
 
 ## 1. Stewardship Authority
 
 **Founding Steward:** `commandlayer.eth`  
+
 Authority scope:
 
 - Identity + invocation TXT binding rules
@@ -21,16 +25,15 @@ Ownership of canonical ENS names will transition to a **multi-sig governance wal
 
 Identity MUST remain verifiable by any resolver and immutable once published.
 
-
 ---
 
 ## 2. Versioning Classes
 
-| Class | Examples | Version Rule | Logging |
-|------|----------|--------------|--------|
-| **Normative** | TXT semantics, identity rules | Major | `RESOLUTION.md` |
-| **Capability** | Additional optional fields | Minor | `RESOLUTION.md` |
-| **Metadata** | Contact fields, docs | Patch | Commit msg |
+| Class          | Examples                      | Version Rule | Logging          |
+|----------------|-------------------------------|--------------|------------------|
+| **Normative**  | TXT semantics, identity rules | Major        | `RESOLUTION.md`  |
+| **Capability** | Additional optional fields    | Minor        | `RESOLUTION.md`  |
+| **Metadata**   | Contact fields, docs          | Patch        | Commit msg       |
 
 Changes MUST:
 
@@ -49,8 +52,9 @@ Once released:
 - `$id` + CID MUST remain stable  
 - TXT MUST resolve correctly  
 - Entry format MUST remain:
-```
+```text
 x402://<ens>/<verb>/v1
+
 ```
 
 Violations require immediate revocation.
