@@ -133,11 +133,12 @@ You may claim **Agent-Cards compliant** if:
   - `cl.cid.agentcard`
   - `cl.agentcard.mirror.ipfs`
   - `cl.checksum.agentcard`
-  - `cl.checksum.request`
-  - `cl.checksum.receipt`
+  - `cl.checksum.schema.request`
+  - `cl.checksum.schema.receipt`
   - `cl.owner`
 - Commons vs Commercial class used correctly  
 - All modifications logged and signed  
 - Security guidelines followed  
+
 
 Uncertain? Consider the implementation **experimental**.
