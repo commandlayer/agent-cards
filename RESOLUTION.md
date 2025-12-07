@@ -23,7 +23,7 @@ Example Entry:
 
 > **2025-11-27** — summarizeagent.eth  
 > Action: Added  
-> Reason: Initial Commons identity  
+> Reason: Initial Commons identity   
 > Resolution: Adopted as protocol reference for `summarize`  
 > Approver: commandlayer.eth
 
