@@ -72,19 +72,22 @@ The primary verb MUST already exist in **Protocol-Commons**.
 
 ---
 
-## 3. ENS TXT Binding Rules
+## ENS TXT Binding Rules (NORMATIVE)
 
-Required TXT records:
-```
-cl.entry
-cl.agentcard
-cl.cid.agentcard
-cl.agentcard.mirror.ipfs
-cl.checksum.request
-cl.checksum.receipt
-cl.checksum.agentcard
-cl.owner
-```
+The following TXT records are **required** for canonical Agent-Card identity:
+
+- `cl.entry` — canonical x402 invocation URI  
+- `cl.agentcard` — HTTPS location of the Agent-Card JSON document  
+- `cl.cid.agentcard` — CID for cryptographic identity verification  
+- `cl.agentcard.mirror.ipfs` — IPFS fallback for trustless resolution  
+- `cl.checksum.request` — SHA-256 of the canonical request schema  
+- `cl.checksum.receipt` — SHA-256 of the canonical receipt schema  
+- `cl.checksum.agentcard` — SHA-256 of the Agent-Card JSON  
+- `cl.owner` — ENS identifier responsible for the Agent-Card
+
+TXT values **MUST** exactly match the published Agent-Card and referenced
+schemas. Any mismatch or omission renders the identity **UNTRUSTED**.
+
 
 **ONLY** universal discovery fields permitted.  
 
