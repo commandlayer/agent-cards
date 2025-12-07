@@ -436,29 +436,26 @@ Published cards **cannot be modified**; integrity is cryptographically enforced.
 Reproducibility is mandatory.
 
 ---
-### **On-Chain Discovery — ENS TXT Binding (Normative)**
+### **On-Chain Discovery — ENS TXT Binding**
 
 ```txt
-cl.verb=<verb>
-cl.version=<card-version>
+cl.verb=format
+cl.version=1.0.0
 
-cl.entry=x402://<ens>/<verb>/v1
+cl.entry=x402://formatagent.eth/format/v1
 
-cl.schema.request=https://commandlayer.org/schemas/v1.0.0/commons/<verb>/requests/<verb>.request.schema.json
-cl.schema.receipt=https://commandlayer.org/schemas/v1.0.0/commons/<verb>/receipts/<verb>.receipt.schema.json
-cl.cid.schemas=<cid-of-protocol-commons-schemas>
-cl.schemas.mirror.ipfs=https://ipfs.io/ipfs/<cid-of-protocol-commons-schemas>
+cl.schema.request=https://commandlayer.org/schemas/v1.0.0/commons/format/requests/format.request.schema.json
+cl.schema.receipt=https://commandlayer.org/schemas/v1.0.0/commons/format/receipts/format.receipt.schema.json
+cl.cid.schemas=bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m
 
-cl.agentcard=https://commandlayer.org/agent-cards/agents/v1.0.0/<class>/<ens>.json
-cl.cid.agentcard=<cid-of-agent-card-folder>
-cl.agentcard.mirror.ipfs=https://ipfs.io/ipfs/<cid-of-agent-card-folder>/agents/v1.0.0/<class>/<ens>.json
+cl.agentcard=https://commandlayer.org/agent-cards/agents/v1.0.0/commons/formatagent.eth.json
+cl.cid.agentcard=bafybeiccpdmehf7532b6yiirjjqcvbu2zq53ftbejz65to356ltnuyc2we
 
-cl.checksum.request=sha256:<request-schema-sha256>
-cl.checksum.receipt=sha256:<receipt-schema-sha256>
-cl.checksum.agentcard=sha256:<agent-card-sha256>
+cl.checksum.schema.request=sha256:b451b0c05cb77f7ad66906f351b560400447de136c1ad2ce27c63fc3bcaf0d9a
+cl.checksum.schema.receipt=sha256:93b5174144f372c03f7975898d3c989fd2be997db93c40a7f83b6a0dfe99f7d4
+cl.checksum.agentcard=sha256:739e0a399de539f0d9ba584e675d82572ccd0df7d5e60e54d834f20190879bac
 
 cl.owner=commandlayer.eth
-
 ```
 ----
 
