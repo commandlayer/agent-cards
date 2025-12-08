@@ -34,6 +34,20 @@ Resolvers MUST verify:
 Inconsistency means **do not trust** the binding.
 
 ---
+## Checksums & Manifests
+
+- `checksums/infra.v1.0.0.checksums.txt`  
+  Canonical SHA-256 for `.well-known/agent.json` and all v1.0.0 **schema** files.
+
+- `checksums/checksums.txt`  
+  Canonical SHA-256 for all v1.0.0 **Agent-Card JSON documents** under `agents/v1.0.0/**`.
+
+- `checksums/*.eth.sha256`  
+  **Per-ENS** checksum files for registry and automated verification.
+
+These files are **NORMATIVE** — tooling MUST verify integrity or treat bindings as **UNTRUSTED**.
+
+---
 
 ##  ENS TXT Summary
 
