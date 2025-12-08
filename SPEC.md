@@ -263,11 +263,10 @@ An Agent-Card is **CONFORMANT** if:
 
 4. `entry` is a valid x402 URI of the form:
 
-   ```text
-   x402://<ens>/<verb>/v1
-```
+   `x402://<ens>/<verb>/v1`
 
-**Agent-Cards-Compatible**
+  **Agent-Cards-Compatible**
+
 
 if it can:
 
@@ -275,6 +274,7 @@ if it can:
 - Validate all three layers (TXT, card, schemas) coherently
 - Invoke via x402 entrypoints and validate receipts
 
+---
 ## 12. Failure Modes
 
 An Agent-Card MUST be treated as INVALID if any of the following hold:
