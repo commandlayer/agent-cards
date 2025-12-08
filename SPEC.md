@@ -155,7 +155,7 @@ These fields are descriptive, not contractual.
 
 | Field          | Type   | Required | Description                                                                        |
 | -------------- | ------ | -------- | ---------------------------------------------------------------------------------- |
-| `capabilities` | object | Yes      | Non-normative description of supported operations, input/output types, and limits. |
+| `capabilities` | object | Optional      | Non-normative description of supported operations, input/output types, and limits. |
 
 
 Typical subfields MAY include:
@@ -169,7 +169,7 @@ Typical subfields MAY include:
 
 | Field  | Type   | Required | Description                                                       |
 | ------ | ------ | -------- | ----------------------------------------------------------------- |
-| `meta` | object | Yes      | Free-form metadata (tags, publisher info, PGP fingerprint, etc.). |
+| `meta` | object | Optional      | Free-form metadata (tags, publisher info, PGP fingerprint, etc.). |
 
 Typical subfields MAY include:
 
