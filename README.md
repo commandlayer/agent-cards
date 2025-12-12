@@ -3,14 +3,10 @@
 **Canonical identity metadata for autonomous agents**  
 **Standards-aligned · Deterministic · Verifiable**
 
-<div align="center">
-
-[![Status](https://img.shields.io/badge/Status-Stable%20v1.0.0-brightgreen)](#)
-[![npm](https://img.shields.io/npm/v/@commandlayer/agent-cards)](https://www.npmjs.com/package/@commandlayer/agent-cards)
-[![CI](https://github.com/commandlayer/agent-cards/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/commandlayer/agent-cards/actions/workflows/validate.yml)
-[![License](https://img.shields.io/badge/License-Apache--2.0-blue)](./LICENSE)
-
-</div>
+[![Status](https://img.shields.io/badge/Status-Stable%20v1.0.0-brightgreen)](https://github.com/commandlayer/agent-cards)
+[![NPM Version](https://img.shields.io/npm/v/@commandlayer/agent-cards)](https://www.npmjs.com/package/@commandlayer/agent-cards)
+[![CI Status](https://github.com/commandlayer/agent-cards/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/commandlayer/agent-cards/actions/workflows/validate.yml)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](https://github.com/commandlayer/agent-cards/blob/main/LICENSE)
 
 ---
 
