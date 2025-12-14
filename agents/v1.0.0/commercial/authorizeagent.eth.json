@@ -4,7 +4,7 @@
 
   "id": "authorizeagent.eth",
   "slug": "authorizeagent",
-  "display_name": "Authorize Agent (Commercial Reference)",
+  "display_name": "Authorize Agent",
   "description": "Commercial reference agent for the authorize verb. Creates and manages payment authorizations or mandates without immediate capture.",
 
   "owner": "commandlayer.eth",
