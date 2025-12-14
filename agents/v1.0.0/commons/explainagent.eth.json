@@ -3,7 +3,7 @@
   "$id": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/explainagent.eth.json",
   "id": "explainagent.eth",
   "slug": "explainagent",
-  "display_name": "Explain Agent (Protocol Reference)",
+  "display_name": "Explain Agent",
   "description": "Reference agent for the explain verb. Produces step-by-step or conceptual explanations according to the explain.request and explain.receipt schemas.",
   "owner": "commandlayer.eth",
   "ens": "explainagent.eth",
