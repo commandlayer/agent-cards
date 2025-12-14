@@ -4,7 +4,7 @@
 
   "id": "shipagent.eth",
   "slug": "shipagent",
-  "display_name": "Ship Agent (Commercial Reference)",
+  "display_name": "Ship Agent",
   "description": "Commercial reference agent for the ship verb. Orchestrates label creation, tracking, and shipment status for orders.",
 
   "owner": "commandlayer.eth",
