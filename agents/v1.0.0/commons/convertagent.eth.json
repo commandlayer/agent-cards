@@ -3,7 +3,7 @@
   "$id": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/convertagent.eth.json",
   "id": "convertagent.eth",
   "slug": "convertagent",
-  "display_name": "Convert Agent (Protocol Reference)",
+  "display_name": "Convert Agent",
   "description": "Reference agent for the convert verb. Transforms content or data between formats according to the convert.request and convert.receipt schemas.",
   "owner": "commandlayer.eth",
   "ens": "convertagent.eth",
