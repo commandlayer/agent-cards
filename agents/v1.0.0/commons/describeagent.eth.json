@@ -3,7 +3,7 @@
   "$id": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/describeagent.eth.json",
   "id": "describeagent.eth",
   "slug": "describeagent",
-  "display_name": "Describe Agent (Protocol Reference)",
+  "display_name": "Describe Agent",
   "description": "Reference agent for the describe verb. Produces neutral, descriptive text for content, entities, or behaviors according to the describe.request and describe.receipt schemas.",
   "owner": "commandlayer.eth",
   "ens": "describeagent.eth",
