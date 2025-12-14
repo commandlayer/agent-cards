@@ -4,7 +4,7 @@
 
   "id": "purchaseagent.eth",
   "slug": "purchaseagent",
-  "display_name": "Purchase Agent (Commercial Reference)",
+  "display_name": "Purchase Agent",
   "description": "Commercial reference agent for the purchase verb. Executes direct purchases without complex cart semantics, using purchase.request and purchase.receipt.",
 
   "owner": "commandlayer.eth",
