@@ -4,7 +4,7 @@
 
   "id": "checkoutagent.eth",
   "slug": "checkoutagent",
-  "display_name": "Checkout Agent (Commercial Reference)",
+  "display_name": "Checkout Agent",
   "description": "Commercial reference agent for the checkout verb. Turns carts into canonical orders and payment intents using checkout.request and checkout.receipt schemas.",
 
   "owner": "commandlayer.eth",
