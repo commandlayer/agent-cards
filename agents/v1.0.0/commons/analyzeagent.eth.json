@@ -3,7 +3,7 @@
   "$id": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/analyzeagent.eth.json",
   "id": "analyzeagent.eth",
   "slug": "analyzeagent",
-  "display_name": "Analyze Agent (Protocol Reference)",
+  "display_name": "Analyze Agent",
   "description": "Reference agent for the analyze verb. Performs structured analysis, insights extraction, and labeling according to the analyze.request and analyze.receipt schemas.",
   "owner": "commandlayer.eth",
   "ens": "analyzeagent.eth",
