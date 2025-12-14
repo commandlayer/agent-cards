@@ -3,7 +3,7 @@
   "$id": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/formatagent.eth.json",
   "id": "formatagent.eth",
   "slug": "formatagent",
-  "display_name": "Format Agent (Protocol Reference)",
+  "display_name": "Format Agent",
   "description": "Reference agent for the format verb. Applies structural and stylistic formatting to content according to the format.request and format.receipt schemas.",
   "owner": "commandlayer.eth",
   "ens": "formatagent.eth",
