@@ -1,7 +1,7 @@
 {
-  "id": "x402://commandlayer.eth/commons-agent/v1",
-  "name": "CommandLayer Commons Agent",
-  "description": "Well-known descriptor for the CommandLayer Commons Agent, which exposes the Commons v1.0.0 verb registry and Agent Cards.",
+  "id": "x402://commandlayer.eth/agent-cards/v1",
+  "name": "CommandLayer Agent Cards Registry",
+  "description": "Well-known descriptor for the CommandLayer Agent Cards registry (Commons + Commercial).",
   "owner": "commandlayer.eth",
   "ens": "commandlayer.eth",
   "version": "1.0.0",
@@ -9,26 +9,23 @@
   "networks": ["eip155:1"],
 
   "registry": {
-    "card_registry": {
+    "manifest": {
       "http": "https://commandlayer.org/agent-cards/meta/manifest.json",
-      "ipfs": "ipfs://bafybeiXXXXXXXXXXXX/meta/manifest.json"
+      "ipfs": "ipfs:///meta/manifest.json"
     },
     "commons_agent": {
       "http": "https://commandlayer.org/agent-cards/meta/commons-agent.json",
-      "ipfs": "ipfs://bafybeiXXXXXXXXXXXX/meta/commons-agent.json"
+      "ipfs": "ipfs:///meta/commons-agent.json"
+    },
+    "commercial_agent": {
+      "http": "https://commandlayer.org/agent-cards/meta/commercial-agent.json",
+      "ipfs": "ipfs:///meta/commercial-agent.json"
     }
   },
 
-  "schemas": {
-    "cid": "bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m",
-    "root": "schemas/v1.0.0",
-    "http_root": "https://commandlayer.org/schemas/v1.0.0",
-    "ipfs_root": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m"
-  },
-
   "meta": {
-    "protocol_commons_version": "1.0.0",
     "agent_cards_version": "1.0.0",
+    "agent_cards_cid": "",
     "license": "Apache-2.0"
   }
 }

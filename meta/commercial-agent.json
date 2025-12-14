@@ -1,7 +1,7 @@
 {
-  "id": "x402://commandlayer.eth/commons-agent/v1",
-  "name": "CommandLayer Commons Agent",
-  "description": "Registry-level agent exposing the CommandLayer Commons Agent Cards (v1.0.0).",
+  "id": "x402://commandlayer.eth/commercial-agent/v1",
+  "name": "CommandLayer Commercial Agent",
+  "description": "Registry-level agent exposing the CommandLayer Commercial Agent Cards (v1.0.0).",
   "owner": "commandlayer.eth",
   "ens": "commandlayer.eth",
   "version": "1.0.0",
@@ -16,8 +16,8 @@
   },
 
   "agents_root": {
-    "http": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/",
-    "ipfs": "ipfs:///agents/v1.0.0/commons/"
+    "http": "https://commandlayer.org/agent-cards/agents/v1.0.0/commercial/",
+    "ipfs": "ipfs:///agents/v1.0.0/commercial/"
   },
 
   "meta": {
