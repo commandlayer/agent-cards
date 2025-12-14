@@ -3,7 +3,7 @@
   "$id": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/classifyagent.eth.json",
   "id": "classifyagent.eth",
   "slug": "classifyagent",
-  "display_name": "Classify Agent (Protocol Reference)",
+  "display_name": "Classify Agent",
   "description": "Reference agent for the classify verb. Applies labels, categories, and tags according to the classify.request and classify.receipt schemas.",
   "owner": "commandlayer.eth",
   "ens": "classifyagent.eth",
