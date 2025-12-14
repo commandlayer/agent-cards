@@ -3,7 +3,7 @@
   "$id": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/summarizeagent.eth.json",
   "id": "summarizeagent.eth",
   "slug": "summarizeagent",
-  "display_name": "Summarize Agent (Protocol Reference)",
+  "display_name": "Summarize Agent",
   "description": "Official protocol-level reference agent for the summarize verb. Produces concise summaries from longer content according to the summarize.request and summarize.receipt schemas.",
   "owner": "commandlayer.eth",
   "ens": "summarizeagent.eth",
