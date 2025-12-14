@@ -4,7 +4,7 @@
 
   "id": "verifyagent.eth",
   "slug": "verifyagent",
-  "display_name": "Verify Agent (Commercial Reference)",
+  "display_name": "Verify Agent",
   "description": "Commercial reference agent for the verify verb. Confirms payments, invoices, and settlements against a provider’s canonical ledger using commercial verify.request and verify.receipt schemas.",
 
   "owner": "commandlayer.eth",
