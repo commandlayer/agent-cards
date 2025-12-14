@@ -11,13 +11,13 @@
   "registry": {
     "card_registry": {
       "http": "https://commandlayer.org/agent-cards/meta/manifest.json",
-      "ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/meta/manifest.json"
+      "ipfs": "ipfs:///meta/manifest.json"
     }
   },
 
   "agents_root": {
     "http": "https://commandlayer.org/agent-cards/agents/v1.0.0/commercial/",
-    "ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/agents/v1.0.0/commercial/"
+    "ipfs": "ipfs:///agents/v1.0.0/commercial/"
   },
 
   "meta": {
