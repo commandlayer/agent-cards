@@ -8,9 +8,10 @@ const ROOT_DIR = path.join(__dirname, "..");
 
 // Which paths to include in checksums
 const ROOTS = [
-  "schemas",
-  "examples",
-  ".well-known"
+ "agents",
+  "meta",
+  ".well-known",
+  "schemas"
 ];
 
 function listFiles(relativeRoot) {
