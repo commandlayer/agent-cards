@@ -3,7 +3,7 @@
   "$id": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/parseagent.eth.json",
   "id": "parseagent.eth",
   "slug": "parseagent",
-  "display_name": "Parse Agent (Protocol Reference)",
+  "display_name": "Parse Agent",
   "description": "Reference agent for the parse verb. Converts unstructured or semi-structured content into structured representations according to the parse.request and parse.receipt schemas.",
   "owner": "commandlayer.eth",
   "ens": "parseagent.eth",
