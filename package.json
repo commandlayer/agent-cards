@@ -3,8 +3,47 @@
   "version": "1.0.0",
   "description": "AgentCard schemas and .well-known/agent.json templates for CommandLayer-compatible agents.",
   "license": "Apache-2.0",
-  "author": "Gregory Soucy <dev@commandlayer.org>",
+  "author": "Greg Soucy <dev@commandlayer.org>",
   "type": "module",
+  "homepage": "https://commandlayer.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commandlayer/agent-cards.git"
+  },
+  "bugs": {
+    "url": "https://github.com/commandlayer/agent-cards/issues"
+  },
+  "keywords": [
+    "a2a",
+    "agent",
+    "agent-cards",
+    "agents",
+    "autonomous-agents",
+    "commandlayer",
+    "discovery",
+    "ens",
+    "ethereum",
+    "eth",
+    "erc8004",
+    "identity",
+    "interoperability",
+    "json-schema",
+    "receipts",
+    "schemas",
+    "well-known",
+    "x402"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    ".well-known/",
+    "agents/",
+    "schemas/",
+    "checksums/",
+    "README.md",
+    "LICENSE",
+  ],
   "scripts": {
     "validate:cards": "node scripts/validate-cards.mjs",
     "typecheck": "tsc --noEmit",
