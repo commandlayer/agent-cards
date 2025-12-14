@@ -3,7 +3,7 @@
   "$id": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/cleanagent.eth.json",
   "id": "cleanagent.eth",
   "slug": "cleanagent",
-  "display_name": "Clean Agent (Protocol Reference)",
+  "display_name": "Clean Agent",
   "description": "Official protocol-level reference agent for the clean verb. Performs content sanitization, normalization, redaction, and safe-preprocessing operations according to the clean.request and clean.receipt schemas.",
   "owner": "commandlayer.eth",
   "ens": "cleanagent.eth",
