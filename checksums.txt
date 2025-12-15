@@ -17,5 +17,5 @@ dc96aeffb629bec3c102771b8e5d99cd69d6b2bad7065d14b7c7ee2e8fc1eee2  agents/v1.0.0/
 d3cde6eef58761fe5b88e3df5cb448002a289735df8f1c164fdc3b74193c61b9  meta/commercial-agent.json
 783178e57e9b754d939d90b9564740b45175fe0d360cfa4191716eb60e466c2e  meta/commons-agent.json
 10c6ca12542dbdb21ccb1816ba7c98704789729e016b8dafe5ee2361f8b0e75c  meta/manifest.json
-7c1a6ac05bd1e9aabf7af009d2ff25bb3cc4e874a551e07f4d4c0442ffe6174e  schemas/v1.0.0/_shared/agent.card.base.schema.json
+ec6b2669daca50f99c9b8e04db7b8010169786788431cd74b68e547441216b8a  schemas/v1.0.0/_shared/agent.card.base.schema.json
 c22100701ae9ebad97cfc1cb468a0369e424a0cdcec2d62968b848ef5d14369c  schemas/v1.0.0/_shared/agent.descriptor.schema.json
