@@ -2,30 +2,22 @@ name: Validate Agent Cards
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   validate:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
 
       - name: Install dependencies
         run: npm install
 
-      # JSON-level protocol validation only (Ajv strict)
-      - name: Validate Agent Cards JSON
-        run: npm run validate:cards
-
-      # Provenance gate: ensure checksums.txt matches files
-      - name: Verify checksums
-        run: npm run generate:checksums -- --verify
+      - name: Validate (cards + checksums + typecheck)
+        run: npm run validate
