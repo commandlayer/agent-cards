@@ -4,66 +4,82 @@
   "title": "CommandLayer Agent Card (v1.0.0)",
   "type": "object",
   "additionalProperties": false,
-
   "required": [
     "id",
     "slug",
     "display_name",
     "description",
-
     "owner",
     "ens",
-
     "version",
     "status",
     "class",
-
     "implements",
     "entry",
     "schemas",
-
     "networks",
     "license",
-
     "created_at",
     "updated_at"
   ],
-
   "properties": {
-    "$schema": { "type": "string", "format": "uri" },
-    "$id": { "type": "string", "format": "uri" },
-
-    "id": { "type": "string" },
-    "slug": { "type": "string" },
-    "display_name": { "type": "string" },
-    "description": { "type": "string" },
-
-    "owner": { "type": "string" },
-    "ens": { "type": "string" },
-
-    "version": { "type": "string" },
-    "status": { "type": "string" },
-
+    "$schema": {
+      "type": "string",
+      "format": "uri"
+    },
+    "$id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "id": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "ens": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
     "class": {
       "type": "string",
-      "enum": ["commons", "commercial"]
+      "enum": [
+        "commons",
+        "commercial"
+      ]
     },
-
     "implements": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "minItems": 1
     },
-
     "entry": {
       "type": "string",
-      "pattern": "^x402://[^/]+/[^/]+/v[0-9]+$"
+      "pattern": "^x402://[^/]+/[^/]+/v[0-9]+(?:\\.[0-9]+){0,2}$"
     },
-
     "schemas": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["request", "receipt"],
+      "required": [
+        "request",
+        "receipt"
+      ],
       "properties": {
         "request": {
           "type": "string",
@@ -75,35 +91,45 @@
         }
       }
     },
-
     "schemas_mirror": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "request": { "type": "string", "format": "uri" },
-        "receipt": { "type": "string", "format": "uri" }
+        "request": {
+          "type": "string",
+          "format": "uri"
+        },
+        "receipt": {
+          "type": "string",
+          "format": "uri"
+        }
       }
     },
-
     "capabilities": {
       "type": "object",
       "additionalProperties": true
     },
-
     "meta": {
       "type": "object",
       "additionalProperties": true
     },
-
     "networks": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "minItems": 1
     },
-
-    "license": { "type": "string" },
-
-    "created_at": { "type": "string", "format": "date-time" },
-    "updated_at": { "type": "string", "format": "date-time" }
+    "license": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
   }
 }
