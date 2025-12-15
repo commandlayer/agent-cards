@@ -7,9 +7,10 @@
   "type": "module",
   "scripts": {
     "validate:cards": "node scripts/validate-cards.mjs",
-    "typecheck": "tsc --noEmit",
     "generate:checksums": "node scripts/generate-checksums.mjs",
-    "validate": "npm run validate:cards && npm run typecheck"
+    "validate:checksums": "node scripts/generate-checksums.mjs --verify",
+    "typecheck": "tsc --noEmit",
+    "validate": "npm run validate:cards && npm run validate:checksums && npm run typecheck"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
