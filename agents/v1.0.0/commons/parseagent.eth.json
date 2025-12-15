@@ -21,7 +21,7 @@
     "request": "https://commandlayer.org/schemas/v1.0.0/commons/parse/requests/parse.request.schema.json",
     "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/parse/receipts/parse.receipt.schema.json"
   },
-  "entry": "x402://parseagent.eth/parse/v1",
+  "entry": "x402://parseagent.eth/parse/v1.0.0",
   "capabilities": {
     "operations": [
       "extract_fields",

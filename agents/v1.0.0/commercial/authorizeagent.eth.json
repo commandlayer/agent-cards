@@ -24,7 +24,7 @@
     "receipt": "https://ipfs.io/ipfs/COMMERCIAL_SCHEMAS_CID/commercial/authorize/receipts/authorize.receipt.schema.json"
   },
 
-  "entry": "x402://authorizeagent.eth/authorize/v1",
+  "entry": "x402://authorizeagent.eth/authorize/v1.0.0",
 
   "capabilities": {
     "operations": [

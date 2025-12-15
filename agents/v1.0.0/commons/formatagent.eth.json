@@ -21,7 +21,7 @@
     "request": "https://commandlayer.org/schemas/v1.0.0/commons/format/requests/format.request.schema.json",
     "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/format/receipts/format.receipt.schema.json"
   },
-  "entry": "x402://formatagent.eth/format/v1",
+  "entry": "x402://formatagent.eth/format/v1.0.0",
   "capabilities": {
     "operations": [
       "apply_markdown",

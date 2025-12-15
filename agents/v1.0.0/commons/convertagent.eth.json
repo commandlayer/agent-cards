@@ -21,7 +21,7 @@
     "request": "https://commandlayer.org/schemas/v1.0.0/commons/convert/requests/convert.request.schema.json",
     "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/convert/receipts/convert.receipt.schema.json"
   },
-  "entry": "x402://convertagent.eth/convert/v1",
+  "entry": "x402://convertagent.eth/convert/v1.0.0",
   "capabilities": {
     "operations": [
       "format_to_format",

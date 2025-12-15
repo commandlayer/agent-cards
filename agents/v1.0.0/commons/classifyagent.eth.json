@@ -21,7 +21,7 @@
     "request": "https://commandlayer.org/schemas/v1.0.0/commons/classify/requests/classify.request.schema.json",
     "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/classify/receipts/classify.receipt.schema.json"
   },
-  "entry": "x402://classifyagent.eth/classify/v1",
+  "entry": "x402://classifyagent.eth/classify/v1.0.0",
   "capabilities": {
     "operations": [
       "assign_labels",

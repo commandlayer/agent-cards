@@ -24,7 +24,7 @@
     "receipt": "https://ipfs.io/ipfs/COMMERCIAL_SCHEMAS_CID/commercial/purchase/receipts/purchase.receipt.schema.json"
   },
 
-  "entry": "x402://purchaseagent.eth/purchase/v1",
+  "entry": "x402://purchaseagent.eth/purchase/v1.0.0",
 
   "capabilities": {
     "operations": [

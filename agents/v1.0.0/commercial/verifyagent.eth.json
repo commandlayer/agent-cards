@@ -26,7 +26,7 @@
     "receipt": "https://ipfs.io/ipfs/COMMERCIAL_SCHEMAS_CID/commercial/verify/receipts/verify.receipt.schema.json"
   },
 
-  "entry": "x402://verifyagent.eth/verify/v1",
+  "entry": "x402://verifyagent.eth/verify/v1.0.0",
 
   "capabilities": {
     "operations": [

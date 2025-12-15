@@ -21,7 +21,7 @@
     "request": "https://commandlayer.org/schemas/v1.0.0/commons/clean/requests/clean.request.schema.json",
     "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/clean/receipts/clean.receipt.schema.json"
   },
-  "entry": "x402://cleanagent.eth/clean/v1",
+  "entry": "x402://cleanagent.eth/clean/v1.0.0",
   "capabilities": {
     "operations": [
       "strip_noise",

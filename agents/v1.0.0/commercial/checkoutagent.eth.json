@@ -24,7 +24,7 @@
     "receipt": "https://ipfs.io/ipfs/COMMERCIAL_SCHEMAS_CID/commercial/checkout/receipts/checkout.receipt.schema.json"
   },
 
-  "entry": "x402://checkoutagent.eth/checkout/v1",
+  "entry": "x402://checkoutagent.eth/checkout/v1.0.0",
 
   "capabilities": {
     "operations": [

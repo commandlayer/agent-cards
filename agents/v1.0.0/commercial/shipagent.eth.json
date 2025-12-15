@@ -24,7 +24,7 @@
     "receipt": "https://ipfs.io/ipfs/COMMERCIAL_SCHEMAS_CID/commercial/ship/receipts/ship.receipt.schema.json"
   },
 
-  "entry": "x402://shipagent.eth/ship/v1",
+  "entry": "x402://shipagent.eth/ship/v1.0.0",
 
   "capabilities": {
     "operations": [

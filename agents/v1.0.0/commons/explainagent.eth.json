@@ -21,7 +21,7 @@
     "request": "https://commandlayer.org/schemas/v1.0.0/commons/explain/requests/explain.request.schema.json",
     "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/explain/receipts/explain.receipt.schema.json"
   },
-  "entry": "x402://explainagent.eth/explain/v1",
+  "entry": "x402://explainagent.eth/explain/v1.0.0",
   "capabilities": {
     "operations": [
       "simple_explanations",

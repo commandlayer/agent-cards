@@ -21,7 +21,7 @@
     "request": "https://commandlayer.org/schemas/v1.0.0/commons/summarize/requests/summarize.request.schema.json",
     "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/summarize/receipts/summarize.receipt.schema.json"
   },
-  "entry": "x402://summarizeagent.eth/summarize/v1",
+  "entry": "x402://summarizeagent.eth/summarize/v1.0.0",
   "capabilities": {
     "operations": [
       "extract_key_points",

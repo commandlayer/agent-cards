@@ -21,7 +21,7 @@
     "request": "https://commandlayer.org/schemas/v1.0.0/commons/describe/requests/describe.request.schema.json",
     "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/describe/receipts/describe.receipt.schema.json"
   },
-  "entry": "x402://describeagent.eth/describe/v1",
+  "entry": "x402://describeagent.eth/describe/v1.0.0",
   "capabilities": {
     "operations": [
       "describe_objects",

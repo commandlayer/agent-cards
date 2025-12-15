@@ -21,7 +21,7 @@
     "request": "https://commandlayer.org/schemas/v1.0.0/commons/fetch/requests/fetch.request.schema.json",
     "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/fetch/receipts/fetch.receipt.schema.json"
   },
-  "entry": "x402://fetchagent.eth/fetch/v1",
+  "entry": "x402://fetchagent.eth/fetch/v1.0.0",
   "capabilities": {
     "operations": [
       "http_get",

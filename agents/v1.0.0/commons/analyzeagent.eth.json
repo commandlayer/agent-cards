@@ -21,7 +21,7 @@
     "request": "https://commandlayer.org/schemas/v1.0.0/commons/analyze/requests/analyze.request.schema.json",
     "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/analyze/receipts/analyze.receipt.schema.json"
   },
-  "entry": "x402://analyzeagent.eth/analyze/v1",
+  "entry": "x402://analyzeagent.eth/analyze/v1.0.0",
   "capabilities": {
     "operations": [
       "derive_insights",
