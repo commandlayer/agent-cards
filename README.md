@@ -362,7 +362,7 @@ console.log(card.schemas.request);
     "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/summarize/receipts/summarize.receipt.schema.json"
   },
 
-  "entry": "x402://summarizeagent.eth/summarize/v1",
+  "entry": "x402://summarizeagent.eth/summarize/v1.0.0",
 
   "capabilities": {
     "operations": [
