@@ -1,10 +1,5 @@
-# Normalize line endings repo-wide
 * text=auto eol=lf
-
-# Ensure deterministic checksum files
 checksums.txt text eol=lf
-
-# Common text formats
 *.md text eol=lf
 *.json text eol=lf
 *.yml text eol=lf
