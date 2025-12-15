@@ -7,29 +7,17 @@ const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const ROOT_DIR = path.join(__dirname, "..");
 
 const ROOTS = ["agents", "meta", ".well-known", "schemas"];
-const EXCLUDE_FILES = new Set(["checksums.txt"]);
 
-function existsDir(p) {
+// Ignore platform / tooling junk + the checksum itself
+const EXCLUDE_PREFIXES = ["node_modules/", ".git/"];
+const EXCLUDE_BASENAMES = new Set([
+  "checksums.txt",
+  ".DS_Store",
+  "Thumbs.db",
+]);
+
+function isDir(p) {
   try { return fs.statSync(p).isDirectory(); } catch { return false; }
-}
-
-function listFilesUnder(relativeRoot) {
-  const result = [];
-  const rootPath = path.join(ROOT_DIR, relativeRoot);
-  if (!existsDir(rootPath)) return result;
-
-  function walk(currentPath) {
-    const entries = fs.readdirSync(currentPath, { withFileTypes: true });
-    for (const entry of entries) {
-      const full = path.join(currentPath, entry.name);
-      const rel = path.relative(ROOT_DIR, full).replace(/\\/g, "/");
-      if (entry.isDirectory()) walk(full);
-      else if (!EXCLUDE_FILES.has(rel)) result.push(rel);
-    }
-  }
-
-  walk(rootPath);
-  return result;
 }
 
 function sha256File(relPath) {
@@ -38,10 +26,45 @@ function sha256File(relPath) {
   return crypto.createHash("sha256").update(buf).digest("hex");
 }
 
+function listFilesUnder(relativeRoot) {
+  const out = [];
+  const rootPath = path.join(ROOT_DIR, relativeRoot);
+  if (!isDir(rootPath)) return out;
+
+  function walk(currentPath) {
+    const entries = fs.readdirSync(currentPath, { withFileTypes: true });
+
+    for (const entry of entries) {
+      const full = path.join(currentPath, entry.name);
+      const rel = path.relative(ROOT_DIR, full).replace(/\\/g, "/");
+
+      // directory traversal
+      if (entry.isDirectory()) {
+        // skip excluded directories early
+        if (EXCLUDE_PREFIXES.some((p) => rel.startsWith(p))) continue;
+        walk(full);
+        continue;
+      }
+
+      // file filters
+      if (EXCLUDE_PREFIXES.some((p) => rel.startsWith(p))) continue;
+      if (EXCLUDE_BASENAMES.has(path.basename(rel))) continue;
+
+      out.push(rel);
+    }
+  }
+
+  walk(rootPath);
+  return out;
+}
+
 function buildChecksumsText() {
   let files = [];
   for (const root of ROOTS) files = files.concat(listFilesUnder(root));
-  files.sort();
+
+  // stable sort, independent of locale
+  files.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
+
   const lines = files.map((relPath) => `${sha256File(relPath)}  ${relPath}`);
   return { text: lines.join("\n") + "\n", count: files.length };
 }
