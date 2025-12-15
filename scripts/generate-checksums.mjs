@@ -1,4 +1,3 @@
-// scripts/generate-checksums.mjs
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
@@ -7,30 +6,11 @@ import crypto from "node:crypto";
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const ROOT_DIR = path.join(__dirname, "..");
 
-const OUT_FILE = "checksums.txt";
-
-// Canonical roots to hash (only include ones that exist)
-const ROOTS = ["agents", "meta", ".well-known", "schemas", "examples"];
-
-// Always exclude these paths/files
-const EXCLUDE_PATH_SUBSTRINGS = [
-  "/node_modules/",
-  "/.git/",
-];
-const EXCLUDE_FILES = new Set([
-  OUT_FILE,
-]);
+const ROOTS = ["agents", "meta", ".well-known", "schemas"];
+const EXCLUDE_FILES = new Set(["checksums.txt"]);
 
 function existsDir(p) {
   try { return fs.statSync(p).isDirectory(); } catch { return false; }
-}
-
-function shouldInclude(relPosix) {
-  if (EXCLUDE_FILES.has(relPosix)) return false;
-  for (const s of EXCLUDE_PATH_SUBSTRINGS) {
-    if (relPosix.includes(s)) return false;
-  }
-  return true;
 }
 
 function listFilesUnder(relativeRoot) {
@@ -42,10 +22,9 @@ function listFilesUnder(relativeRoot) {
     const entries = fs.readdirSync(currentPath, { withFileTypes: true });
     for (const entry of entries) {
       const full = path.join(currentPath, entry.name);
-      const rel = path.relative(ROOT_DIR, full).replace(/\\/g, "/"); // POSIX
-
+      const rel = path.relative(ROOT_DIR, full).replace(/\\/g, "/");
       if (entry.isDirectory()) walk(full);
-      else if (shouldInclude(rel)) result.push(rel);
+      else if (!EXCLUDE_FILES.has(rel)) result.push(rel);
     }
   }
 
@@ -59,46 +38,32 @@ function sha256File(relPath) {
   return crypto.createHash("sha256").update(buf).digest("hex");
 }
 
-function buildChecksums() {
+function buildChecksumsText() {
   let files = [];
   for (const root of ROOTS) files = files.concat(listFilesUnder(root));
-  files.sort(); // deterministic
-
+  files.sort();
   const lines = files.map((relPath) => `${sha256File(relPath)}  ${relPath}`);
-  return lines.join("\n") + "\n";
-}
-
-function readExistingChecksums() {
-  const p = path.join(ROOT_DIR, OUT_FILE);
-  if (!fs.existsSync(p)) return null;
-  return fs.readFileSync(p, "utf8");
+  return { text: lines.join("\n") + "\n", count: files.length };
 }
 
 function main() {
-  const args = new Set(process.argv.slice(2));
-  const verify = args.has("--verify");
+  const verify = process.argv.includes("--verify");
+  const outputPath = path.join(ROOT_DIR, "checksums.txt");
 
-  const generated = buildChecksums();
-  const outputPath = path.join(ROOT_DIR, OUT_FILE);
+  const { text, count } = buildChecksumsText();
 
   if (verify) {
-    const existing = readExistingChecksums();
-    if (existing === null) {
-      console.error(`❌ ${OUT_FILE} not found. Run without --verify to generate it.`);
+    const existing = fs.existsSync(outputPath) ? fs.readFileSync(outputPath, "utf8") : "";
+    if (existing !== text) {
+      console.error("❌ checksums.txt does NOT match current repo contents.");
       process.exit(1);
     }
-    if (existing !== generated) {
-      console.error(`❌ ${OUT_FILE} is out of date.`);
-      console.error(`   Run: npm run generate:checksums`);
-      process.exit(1);
-    }
-    console.log(`✅ ${OUT_FILE} matches the current repo contents.`);
+    console.log("✅ checksums.txt matches the current repo contents.");
     return;
   }
 
-  fs.writeFileSync(outputPath, generated, "utf8");
-  const lineCount = generated.trimEnd().split("\n").length;
-  console.log(`✅ ${OUT_FILE} written with ${lineCount} entries.`);
+  fs.writeFileSync(outputPath, text, "utf8");
+  console.log(`✅ checksums.txt written with ${count} entries.`);
 }
 
 main();
