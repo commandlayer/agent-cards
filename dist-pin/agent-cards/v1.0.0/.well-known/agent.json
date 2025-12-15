@@ -11,15 +11,15 @@
   "registry": {
     "manifest": {
       "http": "https://commandlayer.org/agent-cards/meta/manifest.json",
-      "ipfs": "ipfs:///meta/manifest.json"
+      "ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/meta/manifest.json"
     },
     "commons_agent": {
       "http": "https://commandlayer.org/agent-cards/meta/commons-agent.json",
-      "ipfs": "ipfs:///meta/commons-agent.json"
+      "ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/meta/commons-agent.json"
     },
     "commercial_agent": {
       "http": "https://commandlayer.org/agent-cards/meta/commercial-agent.json",
-      "ipfs": "ipfs:///meta/commercial-agent.json"
+      "ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/meta/commercial-agent.json"
     }
   },
 

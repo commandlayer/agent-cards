@@ -7,7 +7,7 @@
   "license": "Apache-2.0",
 
   "agents_root": "agents/v1.0.0",
-  "agents_cid": "",
+  "agents_cid": "bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4",
 
   "entries": [
     {
@@ -18,7 +18,7 @@
       "status": "protocol_reference",
       "networks": ["eip155:1"],
       "agent_card": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/analyzeagent.eth.json",
-      "agent_card_ipfs": "ipfs:///agents/v1.0.0/commons/analyzeagent.eth.json"
+      "agent_card_ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/agents/v1.0.0/commons/analyzeagent.eth.json"
     },
     {
       "id": "classifyagent.eth",
@@ -28,7 +28,7 @@
       "status": "protocol_reference",
       "networks": ["eip155:1"],
       "agent_card": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/classifyagent.eth.json",
-      "agent_card_ipfs": "ipfs:///agents/v1.0.0/commons/classifyagent.eth.json"
+      "agent_card_ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/agents/v1.0.0/commons/classifyagent.eth.json"
     },
     {
       "id": "cleanagent.eth",
@@ -38,7 +38,7 @@
       "status": "protocol_reference",
       "networks": ["eip155:1"],
       "agent_card": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/cleanagent.eth.json",
-      "agent_card_ipfs": "ipfs:///agents/v1.0.0/commons/cleanagent.eth.json"
+      "agent_card_ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/agents/v1.0.0/commons/cleanagent.eth.json"
     },
     {
       "id": "convertagent.eth",
@@ -48,7 +48,7 @@
       "status": "protocol_reference",
       "networks": ["eip155:1"],
       "agent_card": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/convertagent.eth.json",
-      "agent_card_ipfs": "ipfs:///agents/v1.0.0/commons/convertagent.eth.json"
+      "agent_card_ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/agents/v1.0.0/commons/convertagent.eth.json"
     },
     {
       "id": "describeagent.eth",
@@ -58,7 +58,7 @@
       "status": "protocol_reference",
       "networks": ["eip155:1"],
       "agent_card": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/describeagent.eth.json",
-      "agent_card_ipfs": "ipfs:///agents/v1.0.0/commons/describeagent.eth.json"
+      "agent_card_ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/agents/v1.0.0/commons/describeagent.eth.json"
     },
     {
       "id": "explainagent.eth",
@@ -68,7 +68,7 @@
       "status": "protocol_reference",
       "networks": ["eip155:1"],
       "agent_card": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/explainagent.eth.json",
-      "agent_card_ipfs": "ipfs:///agents/v1.0.0/commons/explainagent.eth.json"
+      "agent_card_ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/agents/v1.0.0/commons/explainagent.eth.json"
     },
     {
       "id": "fetchagent.eth",
@@ -78,7 +78,7 @@
       "status": "protocol_reference",
       "networks": ["eip155:1"],
       "agent_card": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/fetchagent.eth.json",
-      "agent_card_ipfs": "ipfs:///agents/v1.0.0/commons/fetchagent.eth.json"
+      "agent_card_ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/agents/v1.0.0/commons/fetchagent.eth.json"
     },
     {
       "id": "formatagent.eth",
@@ -88,7 +88,7 @@
       "status": "protocol_reference",
       "networks": ["eip155:1"],
       "agent_card": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/formatagent.eth.json",
-      "agent_card_ipfs": "ipfs:///agents/v1.0.0/commons/formatagent.eth.json"
+      "agent_card_ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/agents/v1.0.0/commons/formatagent.eth.json"
     },
     {
       "id": "parseagent.eth",
@@ -98,7 +98,7 @@
       "status": "protocol_reference",
       "networks": ["eip155:1"],
       "agent_card": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/parseagent.eth.json",
-      "agent_card_ipfs": "ipfs:///agents/v1.0.0/commons/parseagent.eth.json"
+      "agent_card_ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/agents/v1.0.0/commons/parseagent.eth.json"
     },
     {
       "id": "summarizeagent.eth",
@@ -108,7 +108,7 @@
       "status": "protocol_reference",
       "networks": ["eip155:1"],
       "agent_card": "https://commandlayer.org/agent-cards/agents/v1.0.0/commons/summarizeagent.eth.json",
-      "agent_card_ipfs": "ipfs:///agents/v1.0.0/commons/summarizeagent.eth.json"
+      "agent_card_ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/agents/v1.0.0/commons/summarizeagent.eth.json"
     },
 
     {
@@ -119,7 +119,7 @@
       "status": "protocol_reference",
       "networks": ["eip155:1"],
       "agent_card": "https://commandlayer.org/agent-cards/agents/v1.0.0/commercial/authorizeagent.eth.json",
-      "agent_card_ipfs": "ipfs:///agents/v1.0.0/commercial/authorizeagent.eth.json"
+      "agent_card_ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/agents/v1.0.0/commercial/authorizeagent.eth.json"
     },
     {
       "id": "checkoutagent.eth",
@@ -129,7 +129,7 @@
       "status": "protocol_reference",
       "networks": ["eip155:1"],
       "agent_card": "https://commandlayer.org/agent-cards/agents/v1.0.0/commercial/checkoutagent.eth.json",
-      "agent_card_ipfs": "ipfs:///agents/v1.0.0/commercial/checkoutagent.eth.json"
+      "agent_card_ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/agents/v1.0.0/commercial/checkoutagent.eth.json"
     },
     {
       "id": "purchaseagent.eth",
@@ -139,7 +139,7 @@
       "status": "protocol_reference",
       "networks": ["eip155:1"],
       "agent_card": "https://commandlayer.org/agent-cards/agents/v1.0.0/commercial/purchaseagent.eth.json",
-      "agent_card_ipfs": "ipfs:///agents/v1.0.0/commercial/purchaseagent.eth.json"
+      "agent_card_ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/agents/v1.0.0/commercial/purchaseagent.eth.json"
     },
     {
       "id": "shipagent.eth",
@@ -149,7 +149,7 @@
       "status": "protocol_reference",
       "networks": ["eip155:1"],
       "agent_card": "https://commandlayer.org/agent-cards/agents/v1.0.0/commercial/shipagent.eth.json",
-      "agent_card_ipfs": "ipfs:///agents/v1.0.0/commercial/shipagent.eth.json"
+      "agent_card_ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/agents/v1.0.0/commercial/shipagent.eth.json"
     },
     {
       "id": "verifyagent.eth",
@@ -159,7 +159,7 @@
       "status": "protocol_reference",
       "networks": ["eip155:1"],
       "agent_card": "https://commandlayer.org/agent-cards/agents/v1.0.0/commercial/verifyagent.eth.json",
-      "agent_card_ipfs": "ipfs:///agents/v1.0.0/commercial/verifyagent.eth.json"
+      "agent_card_ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/agents/v1.0.0/commercial/verifyagent.eth.json"
     }
   ]
 }
