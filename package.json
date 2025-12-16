@@ -5,6 +5,42 @@
   "license": "Apache-2.0",
   "author": "Gregory Soucy <dev@commandlayer.org>",
   "type": "module",
+
+  "keywords": [
+    "agent",
+    "agents",
+    "agent-identity",
+    "agent-cards",
+    "ai-agents",
+    "autonomous-agents",
+    "commandlayer",
+    "ethereum",
+    "ens",
+    "erc8004",
+    "identity",
+    "interoperability",
+    "json-schema",
+    "machine-intent",
+    "m2m",
+    "protocol",
+    "receipts",
+    "schemas",
+    "trustless",
+    "x402",
+    "ipfs",
+    "immutable"
+  ],
+
+  "files": [
+    ".well-known/",
+    "agents/",
+    "meta/",
+    "schemas/",
+    "checksums.txt",
+    "LICENSE",
+    "README.md"
+  ],
+
   "scripts": {
     "validate:cards": "node scripts/validate-cards.mjs",
     "generate:checksums": "node scripts/generate-checksums.mjs",
@@ -12,6 +48,7 @@
     "typecheck": "tsc --noEmit",
     "validate": "npm run validate:cards && npm run validate:checksums && npm run typecheck"
   },
+
   "devDependencies": {
     "@types/node": "^22.0.0",
     "ajv": "^8.17.1",
@@ -19,6 +56,7 @@
     "glob": "^11.0.0",
     "typescript": "^5.6.0"
   },
+
   "overrides": {
     "fast-json-patch": "^3.1.1"
   }
