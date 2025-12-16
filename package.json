@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "AgentCard schemas and .well-known/agent.json templates for CommandLayer-compatible agents.",
   "license": "Apache-2.0",
-  "author": "Gregory Soucy <dev@commandlayer.org>",
+  "author": "Gregory Soucy,
   "type": "module",
 
   "keywords": [
