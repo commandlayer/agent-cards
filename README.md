@@ -138,7 +138,7 @@ Each Agent Card is a JSON document conforming to the `agent.card.base.schema.jso
 | **Lifecycle**  | `status`                 | **Required** | `protocol_reference`, `active`, `deprecated`, etc.         |
 |                | `class`                  | **Required** | `commons` or `commercial`.                                 |
 | **Semantics**  | `implements`             | **Required** | Array of verbs implemented (primary verb MUST be index 0). |
-| **Execution**  | `entry`                  | **Required** | Canonical x402 URI. Format: `x402://<ens>/<verb>/v1`       |
+| **Execution**  | `entry`                  | **Required** | Canonical x402 URI. Format: `x402://<ens>/<verb>/v<major>.<minor>.<patch>`       |
 |                | `networks`               | **Required** | Supported chain identifiers (e.g. `["eip155:1"]`).         |
 | **Schemas**    | `schemas.request`        | **Required** | Canonical request schema URI (IPFS).                       |
 |                | `schemas.receipt`        | **Required** | Canonical receipt schema URI (IPFS).                       |
@@ -330,7 +330,7 @@ import card from "./agents/v1.0.0/commons/summarizeagent.eth.json";
 ```
 ```
 console.log(card.id);          // "summarizeagent.eth"
-console.log(card.entry);       // "x402://summarizeagent.eth/summarize/v1"
+console.log(card.entry);       // "x402://summarizeagent.eth/summarize/v1.0.0"
 console.log(card.schemas.request);
 // ipfs://bafybei.../commons/summarize/requests/summarize.request.schema.json
 
@@ -438,7 +438,7 @@ Reproducibility is mandatory.
 cl.verb=format
 cl.version=1.0.0
 
-cl.entry=x402://formatagent.eth/format/v1
+cl.entry=x402://formatagent.eth/format/v1.0.0
 
 cl.schema.request=https://commandlayer.org/schemas/v1.0.0/commons/format/requests/format.request.schema.json
 cl.schema.receipt=https://commandlayer.org/schemas/v1.0.0/commons/format/receipts/format.receipt.schema.json

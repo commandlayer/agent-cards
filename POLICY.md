@@ -65,7 +65,7 @@ Absence of any **Required** field = **NON-COMPLIANT**.
 
 
 ```
- x402://<ens>/<verb>/v1
+ x402://<ens>/<verb>/v<major>.<minor>.<patch>
 ```
 
 The primary verb MUST already exist in **Protocol-Commons**.
