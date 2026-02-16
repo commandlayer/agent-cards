@@ -131,19 +131,19 @@ Rules:
 **Normative rule:**
 
 ```text
-entry = "x402://<ens>/<verb>/v1"
+entry = "x402://<ens>/<verb>/v<major>.<minor>.<patch>"
 ```
 
 Where:
 
 - <ens> MUST equal the card’s ens field.
 - <verb> MUST equal implements[0].
-- /v1 denotes the x402 route version, not the card version.
+- The route version is semver-pinned and SHOULD align with the published card release (e.g. `/v1.0.0`).
 
 Examples:
 
-- `x402://summarizeagent.eth/summarize/v1`
-- `x402://analyzeagent.eth/analyze/v1`
+- `x402://summarizeagent.eth/summarize/v1.0.0`
+- `x402://analyzeagent.eth/analyze/v1.0.0`
 
 Any deviation from this pattern is NON-COMPLIANT.
 
@@ -263,7 +263,7 @@ An Agent-Card is **CONFORMANT** if:
 
 4. `entry` is a valid x402 URI of the form:
 
-   `x402://<ens>/<verb>/v1`
+   `x402://<ens>/<verb>/v<major>.<minor>.<patch>`
 
   **Agent-Cards-Compatible**
 
@@ -335,7 +335,7 @@ Non-normative but illustrative example:
     "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/summarize/receipts/summarize.receipt.schema.json"
   },
 
-  "entry": "x402://summarizeagent.eth/summarize/v1",
+  "entry": "x402://summarizeagent.eth/summarize/v1.0.0",
 
   "capabilities": {
     "operations": [
