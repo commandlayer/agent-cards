@@ -21,6 +21,26 @@ Agent Cards v1.1.0 is intentionally flat:
 - current cards bind **directly** to `commandlayer.org` mirror URLs
 - current v1.1.0 uses **no `_shared`**
 
+## Validation and release trust
+
+The default reviewer path is the current canonical line.
+
+```bash
+npm install
+npm run validate
+```
+
+Validation commands are intentionally split by authority surface:
+
+- `npm run validate` — release-facing validation for the current canonical line; runs current discovery validation, current v1.1.0 card validation, checksum verification, and typecheck
+- `npm run validate:current` — current discovery + current v1.1.0 cards only
+- `npm run validate:legacy` — archival/compatibility validation for `agents/v1.0.0/`
+- `npm run validate:checksums` — verifies `checksums.txt` against tracked release artifacts
+- `npm run validate:release` — explicit alias for the full current release flow used by CI
+- `npm run validate:cards` — runs both current and legacy card schema/path validation when a maintainer wants a full repository sweep
+
+`npm run validate` is the command reviewers should trust most because it centers the current release line instead of the compatibility archive.
+
 ## How card bindings work
 
 For `v1.1.0`:
@@ -44,6 +64,20 @@ For `v1.1.0`:
 ### Commercial mirror pattern
 
 `https://commandlayer.org/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
+
+## Legacy preservation scope (`v1.0.0`)
+
+`v1.0.0` remains in the repository for compatibility and archival inspection. It is not the normative line.
+
+Known limitations of the legacy line are preserved explicitly:
+
+- `v1.0.0` uses the older `_shared` schema layout
+- the legacy schema is materially looser than `v1.1.0`
+- legacy cards may carry provenance-adjacent metadata such as `meta.pgp_fingerprint` that is no longer part of the current card schema
+- legacy commercial cards no longer claim mirror URLs where no canonical historical mirror binding was recorded; those placeholder URLs were removed instead of replaced with invented values
+- legacy validation exists to keep the archive coherent, not to define the current release story
+
+See `COMPLIANCE.md` and `SECURITY_PROVENANCE.md` for the compliance and provenance implications of that split.
 
 ## Repository layout
 
@@ -109,27 +143,10 @@ agent-cards/
 }
 ```
 
-## Validation
-
-```bash
-npm install
-npm run validate
-```
-
-Validation checks:
-
-- descriptor schema conformance
-- exact authoritative v1.1.0 card presence
-- version / path / `$schema` / `$id` alignment
-- direct Commons and Commercial source URL patterns
-- direct `commandlayer.org` mirror URL patterns
-- entry URI correctness
-- checksum determinism across cards, schemas, meta, discovery, and dist-pin
-
 ## Release artifacts
 
 - `meta/manifest.json` — authoritative release index
 - `.well-known/agent.json` — current discovery descriptor
 - `.well-known/agent-cards-v1.1.0.json` — versioned descriptor
 - `dist-pin/agent-cards/v1.1.0/` — publish bundle for repinning
-- `checksums.txt` — deterministic artifact digests
+- `checksums.txt` — deterministic artifact digests for cards, schemas, discovery, metadata, and pin bundle contents

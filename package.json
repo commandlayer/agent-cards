@@ -40,11 +40,14 @@
     "README.md"
   ],
   "scripts": {
-    "validate:cards": "node scripts/validate-cards.mjs",
+    "validate:cards": "node scripts/validate-cards.mjs --mode=all",
     "generate:checksums": "node scripts/generate-checksums.mjs",
     "validate:checksums": "node scripts/generate-checksums.mjs --verify",
     "typecheck": "tsc --noEmit",
-    "validate": "npm run validate:cards && npm run validate:checksums && npm run typecheck"
+    "validate": "npm run validate:release",
+    "validate:current": "node scripts/validate-cards.mjs --mode=current",
+    "validate:legacy": "node scripts/validate-cards.mjs --mode=legacy",
+    "validate:release": "npm run validate:current && npm run validate:checksums && npm run typecheck"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

@@ -1,10 +1,10 @@
 cfb2adbfe8de109f249e9019596b38cb38816375e50752c2188e480d140479d7  .well-known/agent-cards-v1.1.0.json
 9ed62edd51168143b431317454e4133ce3924fbb437fdbb1868be5a8d47b2670  .well-known/agent.json
-8cbbb8edf6b3ec2e65dc54ce5bdd467a63aaaad1d90bbd251a729b238ef56507  agents/v1.0.0/commercial/authorizeagent.eth.json
-bfad808d0e3b107df59887c9684303b87b4867d9887c9b1a035ca8b33b115cca  agents/v1.0.0/commercial/checkoutagent.eth.json
-0bbd1601794b3d18f63fc331b55888cb083e0f1a37d14c3c79679c237ec0414b  agents/v1.0.0/commercial/purchaseagent.eth.json
-15062e72b528e2f66e58a3d83ea617a4d9e699cb1eb25a0576cbf09f3808425d  agents/v1.0.0/commercial/shipagent.eth.json
-4079b22e3821dbfc141b1c9baaaf1cefb20b4c68af58725aacf8428e05d2e91a  agents/v1.0.0/commercial/verifyagent.eth.json
+938d748b85f5dc1e20e361caef618d18406d952868dcb87d81a9ecee34961bd3  agents/v1.0.0/commercial/authorizeagent.eth.json
+e49cb41f3808fc431450ff9a494b697d7d3fc1e757e9bf622a456cf958c27a58  agents/v1.0.0/commercial/checkoutagent.eth.json
+a5a0e3bbb0290023be7a4004fcaf27461e8d21e0f4d98fea3ccc19add0175634  agents/v1.0.0/commercial/purchaseagent.eth.json
+cc38e1e76a51c429a896247b003d874a4c29bc3564b2fcb435fa7edb999b17dd  agents/v1.0.0/commercial/shipagent.eth.json
+76ad9fcff2f85321bbf81cb86c2ea2bdf3c50b22dde9c990cbff2328e9c62a13  agents/v1.0.0/commercial/verifyagent.eth.json
 2b14d78ad82435da6846e119bc9bf82f5b7661ccef53f4b7c25aaa50411d8812  agents/v1.0.0/commons/analyzeagent.eth.json
 acb40f650362582daedda35fd1dbd78b7d1b6866e26cb3ee8ca090e0d18331e1  agents/v1.0.0/commons/classifyagent.eth.json
 88943a385de72550bbd7454ddc8aabc6b4bc101449b571a1966e9e8c8266040e  agents/v1.0.0/commons/cleanagent.eth.json

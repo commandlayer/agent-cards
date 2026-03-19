@@ -7,7 +7,8 @@ on:
     branches: ["main"]
 
 jobs:
-  validate:
+  validate-current-release:
+    name: Validate current release flow (v1.1.0)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,5 +20,21 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Validate (cards + checksums + typecheck)
+      - name: Validate current release flow
         run: npm run validate
+
+  validate-legacy-compatibility:
+    name: Validate legacy compatibility line (v1.0.0)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Validate legacy compatibility cards
+        run: npm run validate:legacy

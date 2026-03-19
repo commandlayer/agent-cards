@@ -1,33 +1,23 @@
 {
   "$schema": "https://commandlayer.org/agent-cards/schemas/v1.0.0/_shared/agent.card.base.schema.json",
   "$id": "https://commandlayer.org/agent-cards/agents/v1.0.0/commercial/verifyagent.eth.json",
-
   "id": "verifyagent.eth",
   "slug": "verifyagent",
   "display_name": "Verify Agent",
-  "description": "Commercial reference agent for the verify verb. Confirms payments, invoices, and settlements against a provider’s canonical ledger using commercial verify.request and verify.receipt schemas.",
-
+  "description": "Commercial reference agent for the verify verb. Confirms payments, invoices, and settlements against a provider\u2019s canonical ledger using commercial verify.request and verify.receipt schemas.",
   "owner": "commandlayer.eth",
   "ens": "verifyagent.eth",
   "version": "1.0.0",
   "status": "protocol_reference",
   "class": "commercial",
-
   "implements": [
     "verify"
   ],
-
   "schemas": {
     "request": "https://commandlayer.org/schemas/v1.0.0/commercial/verify/requests/verify.request.schema.json",
     "receipt": "https://commandlayer.org/schemas/v1.0.0/commercial/verify/receipts/verify.receipt.schema.json"
   },
-  "schemas_mirror": {
-    "request": "https://ipfs.io/ipfs/COMMERCIAL_SCHEMAS_CID/commercial/verify/requests/verify.request.schema.json",
-    "receipt": "https://ipfs.io/ipfs/COMMERCIAL_SCHEMAS_CID/commercial/verify/receipts/verify.receipt.schema.json"
-  },
-
   "entry": "x402://verifyagent.eth/verify/v1.0.0",
-
   "capabilities": {
     "operations": [
       "verify_payment",
@@ -42,7 +32,6 @@
       "application/json"
     ]
   },
-
   "meta": {
     "publisher": "CommandLayer",
     "contact": "dev@commandlayer.org",
@@ -53,14 +42,15 @@
       "payments",
       "settlement",
       "protocol-reference"
+    ],
+    "notes": [
+      "Legacy commercial v1.0.0 cards are preserved without mirror URLs because no canonical IPFS mirror binding was recorded for this line."
     ]
   },
-
   "networks": [
     "eip155:1"
   ],
   "license": "Apache-2.0",
-
   "created_at": "2025-11-22T00:00:00Z",
   "updated_at": "2025-11-22T00:00:00Z"
 }
