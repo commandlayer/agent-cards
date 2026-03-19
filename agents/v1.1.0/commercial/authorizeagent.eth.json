@@ -2,9 +2,6 @@
   "$schema": "https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json",
   "$id": "https://commandlayer.org/agent-cards/agents/v1.1.0/commercial/authorizeagent.eth.json",
   "id": "authorizeagent.eth",
-  "slug": "authorizeagent",
-  "display_name": "Authorize Agent",
-  "description": "Protocol reference card for the authorize verb. Binds ENS identity, direct Commercial v1.1.0 schema URLs, and the canonical x402 payment-aware entrypoint.",
   "owner": "commandlayer.eth",
   "ens": "authorizeagent.eth",
   "version": "1.1.0",
@@ -22,32 +19,6 @@
     "receipt": "https://commandlayer.org/schemas/v1.1.0/commercial/authorize/authorize.receipt.schema.json"
   },
   "entry": "x402://authorizeagent.eth/authorize/v1.1.0",
-  "capabilities": {
-    "operations": [
-      "create_authorization",
-      "refresh_authorization",
-      "cancel_authorization"
-    ],
-    "input_types": [
-      "application/json"
-    ],
-    "output_types": [
-      "application/json"
-    ]
-  },
-  "meta": {
-    "publisher": "CommandLayer",
-    "contact": "dev@commandlayer.org",
-    "tags": [
-      "commercial",
-      "authorize",
-      "protocol-reference"
-    ],
-    "links": [
-      "https://commandlayer.org/schemas/v1.1.0/commercial/authorize/authorize.request.schema.json",
-      "https://commandlayer.org/schemas/v1.1.0/commercial/authorize/authorize.receipt.schema.json"
-    ]
-  },
   "networks": [
     "eip155:1"
   ],

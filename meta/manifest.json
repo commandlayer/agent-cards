@@ -1,7 +1,7 @@
 {
   "name": "@commandlayer/agent-cards",
   "version": "1.1.0",
-  "description": "Canonical registry index for CommandLayer Agent Cards v1.1.0.",
+  "description": "Canonical registry index for the CommandLayer Agent Cards v1.1.0 release line.",
   "repository": "https://github.com/commandlayer/agent-cards",
   "homepage": "https://commandlayer.org/agent-cards",
   "owner": "commandlayer.eth",
@@ -10,7 +10,7 @@
   "updated_at": "2026-03-19T00:00:00Z",
   "release_lines": {
     "current": "v1.1.0",
-    "legacy": [
+    "legacy_compatibility": [
       "v1.0.0"
     ],
     "superseded": [
@@ -18,11 +18,11 @@
     ]
   },
   "roots": {
-    "cards_http": "https://commandlayer.org/agent-cards/agents/v1.1.0",
-    "schemas_http": "https://commandlayer.org/agent-cards/schemas/v1.1.0",
-    "meta_http": "https://commandlayer.org/agent-cards/meta",
+    "canonical_cards_http": "https://commandlayer.org/agent-cards/agents/v1.1.0",
+    "canonical_schemas_http": "https://commandlayer.org/agent-cards/schemas/v1.1.0",
+    "canonical_meta_http": "https://commandlayer.org/agent-cards/meta",
     "discovery_http": "https://commandlayer.org/agent-cards/.well-known",
-    "dist_pin": "dist-pin/agent-cards/v1.1.0"
+    "published_bundle": "dist-pin/agent-cards/v1.1.0"
   },
   "bindings": {
     "commons": {
@@ -294,17 +294,11 @@
       ]
     }
   ],
-  "publication": {
-    "model": "root-canonical-plus-derivative-dist-pin",
-    "canonical_roots": [
-      "agents/v1.1.0",
-      "meta",
-      "schemas/v1.1.0",
-      ".well-known"
-    ],
-    "derivative_bundle": "dist-pin/agent-cards/v1.1.0",
-    "bundle_generator": "npm run generate:dist-pin",
-    "release_validation": "npm run validate:release",
-    "pin_target": "dist-pin/agent-cards/v1.1.0"
+  "surface_roles": {
+    "root": "canonical source of truth for Agent Cards v1.1.0",
+    "meta_manifest": "canonical registry index",
+    "well_known": "discovery pointers only",
+    "dist_pin": "derivative published bundle for pinning/repinning",
+    "legacy_v1_0_0": "archival compatibility only"
   }
 }
