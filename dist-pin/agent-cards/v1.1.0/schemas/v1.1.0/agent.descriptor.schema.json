@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.descriptor.schema.json",
+  "title": "CommandLayer Agent Cards Descriptor (v1.1.0)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "description",
+    "owner",
+    "ens",
+    "version",
+    "contact",
+    "networks",
+    "registry",
+    "meta"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+\\.eth$"
+    },
+    "ens": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+\\.eth$"
+    },
+    "version": {
+      "type": "string",
+      "const": "1.1.0"
+    },
+    "contact": {
+      "type": "string",
+      "format": "email"
+    },
+    "networks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "registry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifest",
+        "commons_agent",
+        "commercial_agent"
+      ],
+      "properties": {
+        "manifest": {
+          "$ref": "#/$defs/httpLink"
+        },
+        "commons_agent": {
+          "$ref": "#/$defs/httpLink"
+        },
+        "commercial_agent": {
+          "$ref": "#/$defs/httpLink"
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "agent_cards_version",
+        "current_release",
+        "legacy_release",
+        "publish_state",
+        "license"
+      ],
+      "properties": {
+        "agent_cards_version": {
+          "type": "string"
+        },
+        "current_release": {
+          "type": "string"
+        },
+        "legacy_release": {
+          "type": "string"
+        },
+        "publish_state": {
+          "type": "string"
+        },
+        "license": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "httpLink": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "http"
+      ],
+      "properties": {
+        "http": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    }
+  }
+}

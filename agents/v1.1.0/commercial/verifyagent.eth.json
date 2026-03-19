@@ -1,0 +1,57 @@
+{
+  "$schema": "https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json",
+  "$id": "https://commandlayer.org/agent-cards/agents/v1.1.0/commercial/verifyagent.eth.json",
+  "id": "verifyagent.eth",
+  "slug": "verifyagent",
+  "display_name": "Verify Agent",
+  "description": "Protocol reference card for the verify verb. Binds ENS identity, direct Commercial v1.1.0 schema URLs, and the canonical x402 payment-aware entrypoint.",
+  "owner": "commandlayer.eth",
+  "ens": "verifyagent.eth",
+  "version": "1.1.0",
+  "status": "protocol_reference",
+  "class": "commercial",
+  "implements": [
+    "verify"
+  ],
+  "schemas": {
+    "request": "https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/verify/verify.request.schema.json",
+    "receipt": "https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/verify/verify.receipt.schema.json"
+  },
+  "schemas_mirror": {
+    "request": "https://commandlayer.org/schemas/v1.1.0/commercial/verify/verify.request.schema.json",
+    "receipt": "https://commandlayer.org/schemas/v1.1.0/commercial/verify/verify.receipt.schema.json"
+  },
+  "entry": "x402://verifyagent.eth/verify/v1.1.0",
+  "capabilities": {
+    "operations": [
+      "verify_payment",
+      "verify_identity",
+      "reconcile_outcome"
+    ],
+    "input_types": [
+      "application/json"
+    ],
+    "output_types": [
+      "application/json"
+    ]
+  },
+  "meta": {
+    "publisher": "CommandLayer",
+    "contact": "dev@commandlayer.org",
+    "tags": [
+      "commercial",
+      "verify",
+      "protocol-reference"
+    ],
+    "links": [
+      "https://commandlayer.org/schemas/v1.1.0/commercial/verify/verify.request.schema.json",
+      "https://commandlayer.org/schemas/v1.1.0/commercial/verify/verify.receipt.schema.json"
+    ]
+  },
+  "networks": [
+    "eip155:1"
+  ],
+  "license": "Apache-2.0",
+  "created_at": "2025-11-22T00:00:00Z",
+  "updated_at": "2026-03-19T00:00:00Z"
+}

@@ -6,7 +6,7 @@ import crypto from "node:crypto";
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const ROOT_DIR = path.join(__dirname, "..");
 
-const ROOTS = ["agents", "meta", ".well-known", "schemas"];
+const ROOTS = ["agents", "meta", ".well-known", "schemas", "dist-pin"];
 
 // Ignore platform / tooling junk + the checksum itself
 const EXCLUDE_PREFIXES = ["node_modules/", ".git/"];

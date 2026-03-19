@@ -1,11 +1,10 @@
 {
   "name": "@commandlayer/agent-cards",
-  "version": "1.0.0",
-  "description": "AgentCard schemas and .well-known/agent.json templates for CommandLayer-compatible agents.",
+  "version": "1.1.0",
+  "description": "CommandLayer Agent Cards: ENS-bound identity and discovery metadata for Commons and Commercial agent verbs.",
   "license": "Apache-2.0",
   "author": "Gregory Soucy",
   "type": "module",
-
   "keywords": [
     "agent",
     "agents",
@@ -30,17 +29,16 @@
     "ipfs",
     "immutable"
   ],
-
   "files": [
     ".well-known/",
     "agents/",
     "meta/",
     "schemas/",
+    "dist-pin/",
     "checksums.txt",
     "LICENSE",
     "README.md"
   ],
-
   "scripts": {
     "validate:cards": "node scripts/validate-cards.mjs",
     "generate:checksums": "node scripts/generate-checksums.mjs",
@@ -48,7 +46,6 @@
     "typecheck": "tsc --noEmit",
     "validate": "npm run validate:cards && npm run validate:checksums && npm run typecheck"
   },
-
   "devDependencies": {
     "@types/node": "^22.0.0",
     "ajv": "^8.17.1",
@@ -56,7 +53,6 @@
     "glob": "^11.0.0",
     "typescript": "^5.6.0"
   },
-
   "overrides": {
     "fast-json-patch": "^3.1.1"
   }
