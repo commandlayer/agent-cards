@@ -2,9 +2,6 @@
   "$schema": "https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json",
   "$id": "https://commandlayer.org/agent-cards/agents/v1.1.0/commercial/checkoutagent.eth.json",
   "id": "checkoutagent.eth",
-  "slug": "checkoutagent",
-  "display_name": "Checkout Agent",
-  "description": "Protocol reference card for the checkout verb. Binds ENS identity, direct Commercial v1.1.0 schema URLs, and the canonical x402 payment-aware entrypoint.",
   "owner": "commandlayer.eth",
   "ens": "checkoutagent.eth",
   "version": "1.1.0",
@@ -22,32 +19,6 @@
     "receipt": "https://commandlayer.org/schemas/v1.1.0/commercial/checkout/checkout.receipt.schema.json"
   },
   "entry": "x402://checkoutagent.eth/checkout/v1.1.0",
-  "capabilities": {
-    "operations": [
-      "price_cart",
-      "create_order",
-      "select_payment_method"
-    ],
-    "input_types": [
-      "application/json"
-    ],
-    "output_types": [
-      "application/json"
-    ]
-  },
-  "meta": {
-    "publisher": "CommandLayer",
-    "contact": "dev@commandlayer.org",
-    "tags": [
-      "commercial",
-      "checkout",
-      "protocol-reference"
-    ],
-    "links": [
-      "https://commandlayer.org/schemas/v1.1.0/commercial/checkout/checkout.request.schema.json",
-      "https://commandlayer.org/schemas/v1.1.0/commercial/checkout/checkout.receipt.schema.json"
-    ]
-  },
   "networks": [
     "eip155:1"
   ],

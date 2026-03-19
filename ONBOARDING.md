@@ -14,6 +14,7 @@ Use:
 - `.well-known/agent.json` only as the current discovery pointer
 
 Do not add new `_shared` helpers for v1.1.0.
+Do not add descriptive fields to current-line cards; if the detail is not a binding fact, keep it in external documentation or in the linked protocol schemas instead.
 
 ## Legacy / compatibility
 

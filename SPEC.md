@@ -4,16 +4,17 @@ This document defines the Agent Cards v1.1.0 identity and routing contract.
 
 ## 1. Scope
 
-Agent Cards describe:
+Agent Cards publish only canonical binding facts:
 
 - ENS-based identity
+- owner attribution
 - primary verb support
 - request and receipt schema bindings
 - public mirror bindings
 - x402 entry routing
-- minimal discovery metadata
+- lifecycle and release provenance needed to interpret the artifact
 
-They do not define semantic meaning. Commons and Commercial own the schema contract.
+They do not define semantic meaning, feature behavior, or implementation detail. Commons and Commercial own the schema contract.
 
 ## 2. Authority and release lines
 
@@ -36,14 +37,11 @@ Current Agent Cards v1.1.0 MUST NOT use `_shared`.
 
 ## 4. Required card fields
 
-Every v1.1.0 card MUST include:
+Every v1.1.0 card MUST include only the current binding contract fields:
 
 - `$schema`
 - `$id`
 - `id`
-- `slug`
-- `display_name`
-- `description`
 - `owner`
 - `ens`
 - `version`
@@ -107,6 +105,7 @@ A repo state is conformant when:
 
 - the authoritative v1.1.0 card set exists
 - current cards use no `_shared` references
+- current cards contain only the minimal canonical binding fields
 - cards point at direct published source URLs and direct `commandlayer.org` mirrors
 - `meta/manifest.json` describes the same current release line as the discovery descriptors
 - the derivative `dist-pin/agent-cards/v1.1.0/` bundle matches the canonical root release artifacts
