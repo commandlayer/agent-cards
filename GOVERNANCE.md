@@ -1,16 +1,16 @@
-# Governance — Agent Cards
+# Governance — CommandLayer Agent Cards
 
 ## Stewardship
 
 Founding steward: `commandlayer.eth`
 
-## Current release stance
+## Current release rule
 
-- Agent Cards current line: `v1.1.0`
-- Commons current line: `v1.1.0`
-- Commercial current line: `v1.1.0`
-- Agent Cards v1.1.0 is flat and direct by policy
+- the only current release line is `v1.1.0`
+- root current-line files are canonical
+- legacy remains archival only
+- `dist-pin/agent-cards/v1.1.0/` is derivative and must never outrank root authority
 
 ## Approval rule
 
-A canonical release change is acceptable only when cards, schemas, manifest, discovery, checksums, and dist-pin are updated together and validation passes.
+A release-line change is acceptable only when the canonical root files, manifest, discovery descriptors, derivative bundle, and checksums are all updated together and both `npm run validate` and `npm run validate:release` are green in an environment with the required network access.

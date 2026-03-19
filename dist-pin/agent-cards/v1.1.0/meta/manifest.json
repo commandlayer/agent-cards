@@ -1,7 +1,7 @@
 {
   "name": "@commandlayer/agent-cards",
   "version": "1.1.0",
-  "description": "Authoritative release index for CommandLayer Agent Cards v1.1.0.",
+  "description": "Canonical registry index for CommandLayer Agent Cards v1.1.0.",
   "repository": "https://github.com/commandlayer/agent-cards",
   "homepage": "https://commandlayer.org/agent-cards",
   "owner": "commandlayer.eth",
@@ -293,5 +293,18 @@
         "eip155:1"
       ]
     }
-  ]
+  ],
+  "publication": {
+    "model": "root-canonical-plus-derivative-dist-pin",
+    "canonical_roots": [
+      "agents/v1.1.0",
+      "meta",
+      "schemas/v1.1.0",
+      ".well-known"
+    ],
+    "derivative_bundle": "dist-pin/agent-cards/v1.1.0",
+    "bundle_generator": "npm run generate:dist-pin",
+    "release_validation": "npm run validate:release",
+    "pin_target": "dist-pin/agent-cards/v1.1.0"
+  }
 }

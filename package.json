@@ -44,7 +44,10 @@
     "generate:checksums": "node scripts/generate-checksums.mjs",
     "validate:checksums": "node scripts/generate-checksums.mjs --verify",
     "typecheck": "tsc --noEmit",
-    "validate": "npm run validate:cards && npm run validate:checksums && npm run typecheck"
+    "validate": "npm run validate:current && npm run validate:checksums && npm run typecheck",
+    "validate:current": "npm run validate:cards",
+    "generate:dist-pin": "node scripts/build-dist-pin.mjs",
+    "validate:release": "node scripts/validate-release.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

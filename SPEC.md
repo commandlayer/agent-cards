@@ -1,100 +1,58 @@
-# Specification — Agent Cards
+# Specification — CommandLayer Agent Cards
 
-This document defines the Agent Cards v1.1.0 identity and routing contract.
+## One-line model
 
-## 1. Scope
+This repo publishes canonical CommandLayer Agent Cards for the current **v1.1.0** line. Cards are minimal discovery and binding artifacts, `meta/manifest.json` is the registry index, `.well-known/` exposes discovery, root checksums verify integrity, legacy is archival, and `dist-pin/agent-cards/v1.1.0/` is a derivative publish bundle reproduced from the canonical root files.
 
-Agent Cards describe:
+## Canonical current surfaces
 
-- ENS-based identity
-- primary verb support
-- request and receipt schema bindings
-- public mirror bindings
-- x402 entry routing
-- minimal discovery metadata
+- `agents/v1.1.0/` — canonical current cards
+- `schemas/v1.1.0/agent.card.schema.json` — canonical card schema
+- `schemas/v1.1.0/agent.descriptor.schema.json` — canonical discovery schema
+- `meta/manifest.json` — authoritative registry index
+- `.well-known/agent.json` — current discovery descriptor
+- `.well-known/agent-cards-v1.1.0.json` — versioned discovery descriptor
 
-They do not define semantic meaning. Commons and Commercial own the schema contract.
+## Legacy surfaces
 
-## 2. Current schema files
+- `agents/v1.0.0/`
+- `schemas/v1.0.0/`
 
-Current Agent Cards v1.1.0 uses only:
+These remain for archival compatibility only. They are not the current release line.
 
-- `schemas/v1.1.0/agent.card.schema.json`
-- `schemas/v1.1.0/agent.descriptor.schema.json`
+## Card contract for v1.1.0
 
-Current Agent Cards v1.1.0 MUST NOT use `_shared`.
+Every canonical v1.1.0 card MUST:
 
-## 3. Required card fields
+- live under `agents/v1.1.0/<tier>/`
+- declare `version: "1.1.0"`
+- use `$schema: "https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json"`
+- use `$id` equal to the canonical HTTPS card path
+- use `entry: "x402://<ens>/<implements[0]>/v1.1.0"`
+- avoid `_shared` references
+- bind directly to tagged upstream Commons or Commercial raw schema URLs
+- bind directly to the matching `commandlayer.org` schema mirror URLs
 
-Every v1.1.0 card MUST include:
+## Registry and discovery contract
 
-- `$schema`
-- `$id`
-- `id`
-- `slug`
-- `display_name`
-- `description`
-- `owner`
-- `ens`
-- `version`
-- `status`
-- `class`
-- `implements`
-- `schemas.request`
-- `schemas.receipt`
-- `schemas_mirror.request`
-- `schemas_mirror.receipt`
-- `entry`
-- `networks`
-- `license`
-- `created_at`
-- `updated_at`
+- `meta/manifest.json` is the release index for the current line.
+- `.well-known/*` MUST point back to `meta/manifest.json`, `meta/commons-agent.json`, and `meta/commercial-agent.json`.
+- `meta/commons-agent.json` and `meta/commercial-agent.json` describe the tier roots for the current line only.
 
-## 4. Versioning rules
+## Publication contract
 
-- v1.1.0 cards live under `agents/v1.1.0/`
-- `version` MUST equal `1.1.0`
-- `$schema` MUST equal `https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json`
-- `$id` MUST match the card's canonical HTTPS path
-- `entry` MUST be `x402://<ens>/<implements[0]>/v1.1.0`
+- root files are authoritative
+- `dist-pin/agent-cards/v1.1.0/` is derivative
+- the derivative bundle MUST be produced by `scripts/build-dist-pin.mjs`
+- the derivative bundle MUST match the canonical root files byte-for-byte for the included surfaces
+- root `checksums.txt` covers the release surfaces in the repo, including the derivative bundle
+- bundle-local `dist-pin/agent-cards/v1.1.0/checksums.txt` covers the bundle contents only
 
-## 5. Binding rules
-
-### 5.1 Commons
-
-A Commons v1.1.0 card MUST bind directly to:
-
-- source request URL: `https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/v1.1.0/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json`
-- source receipt URL: `https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/v1.1.0/schemas/v1.1.0/commons/<verb>/<verb>.receipt.schema.json`
-- mirror request URL: `https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json`
-- mirror receipt URL: `https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.receipt.schema.json`
-
-### 5.2 Commercial
-
-A Commercial v1.1.0 card MUST bind directly to:
-
-- source request URL: `https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
-- source receipt URL: `https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/<verb>/<verb>.receipt.schema.json`
-- mirror request URL: `https://commandlayer.org/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
-- mirror receipt URL: `https://commandlayer.org/schemas/v1.1.0/commercial/<verb>/<verb>.receipt.schema.json`
-
-Commercial v1.1.0 is flat in the same style as Commons v1.1.0.
-
-## 6. Descriptor rules
-
-Current discovery descriptors MUST validate under `schemas/v1.1.0/agent.descriptor.schema.json` and point at:
-
-- `meta/manifest.json`
-- `meta/commons-agent.json`
-- `meta/commercial-agent.json`
-
-## 7. Conformance
+## Conformance
 
 A repo state is conformant when:
 
-- the authoritative v1.1.0 card set exists
-- current cards use no `_shared` references
-- cards point at direct published source URLs and direct `commandlayer.org` mirrors
-- discovery and manifest files describe the same current release line
-- `checksums.txt` matches repo contents
-- `npm run validate` passes
+- `npm run validate` passes for the current line
+- `npm run validate:release` verifies manifest alignment and bundle reproducibility
+- upstream release schema URLs resolve when release validation runs
+- mirrors resolve once publication is live and release validation is run with `--require-mirrors`
