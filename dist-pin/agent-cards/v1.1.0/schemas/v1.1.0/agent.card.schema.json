@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json",
+  "title": "CommandLayer Agent Card (v1.1.0)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "slug",
+    "display_name",
+    "description",
+    "owner",
+    "ens",
+    "version",
+    "status",
+    "class",
+    "implements",
+    "schemas",
+    "schemas_mirror",
+    "entry",
+    "networks",
+    "license",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "const": "https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json"
+    },
+    "$id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+\\.eth$"
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owner": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+\\.eth$"
+    },
+    "ens": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+\\.eth$"
+    },
+    "version": {
+      "type": "string",
+      "const": "1.1.0"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "protocol_reference",
+        "active",
+        "deprecated",
+        "revoked"
+      ]
+    },
+    "class": {
+      "type": "string",
+      "enum": [
+        "commons",
+        "commercial"
+      ]
+    },
+    "implements": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]*$"
+      }
+    },
+    "schemas": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "request",
+        "receipt"
+      ],
+      "properties": {
+        "request": {
+          "type": "string",
+          "format": "uri"
+        },
+        "receipt": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "schemas_mirror": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "request",
+        "receipt"
+      ],
+      "properties": {
+        "request": {
+          "type": "string",
+          "format": "uri"
+        },
+        "receipt": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "entry": {
+      "type": "string",
+      "pattern": "^x402://[^/]+/[^/]+/v1\\.1\\.0$"
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operations",
+        "input_types",
+        "output_types"
+      ],
+      "properties": {
+        "operations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "input_types": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "output_types": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publisher",
+        "contact",
+        "tags"
+      ],
+      "properties": {
+        "publisher": {
+          "type": "string"
+        },
+        "contact": {
+          "type": "string",
+          "format": "email"
+        },
+        "tags": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      }
+    },
+    "networks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "license": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}
