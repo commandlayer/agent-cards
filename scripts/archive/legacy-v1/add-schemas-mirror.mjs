@@ -1,3 +1,7 @@
+// Legacy helper preserved for v1.0.0 migration history only.
+// It populated schemas_mirror fields when cards still lived in the old flat agents/ layout.
+// Archived outside the active v1.1.0 release pipeline.
+
 import fs from "fs";
 import path from "path";
 

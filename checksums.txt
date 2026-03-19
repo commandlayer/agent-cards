@@ -58,7 +58,7 @@ b7b573a464b3ba9f643958b716e72ce9eeb095a7c5b87bf2620eb53e7dc6afb3  dist-pin/agent
 0735b66ce8352a56cb18b22f60393dc669f323bcaf8e44aa1ce797e2274d524c  dist-pin/agent-cards/v1.1.0/schemas/v1.1.0/agent.descriptor.schema.json
 d4aa942ad535e5e5fd9103bc21dc94f45a69e87df820bf78af2c3b6db583dcca  meta/commercial-agent.json
 56c4da1b3716d804495aa54244f71f995ee4b22438f125c85e6148f1e5c5cf4e  meta/commons-agent.json
-7bbc331142bff2e8ac6882617345d732cc4744e266a16e87decf6fe5dedf2be1  meta/manifest.json
+74cd664d1c64379bec39884eb13ffd7f9fb1553c4dc1e5bd7ca9af88a993cb80  meta/manifest.json
 ec6b2669daca50f99c9b8e04db7b8010169786788431cd74b68e547441216b8a  schemas/v1.0.0/_shared/agent.card.base.schema.json
 c22100701ae9ebad97cfc1cb468a0369e424a0cdcec2d62968b848ef5d14369c  schemas/v1.0.0/_shared/agent.descriptor.schema.json
 b7b573a464b3ba9f643958b716e72ce9eeb095a7c5b87bf2620eb53e7dc6afb3  schemas/v1.1.0/agent.card.schema.json

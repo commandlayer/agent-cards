@@ -3,7 +3,7 @@
 ## Release policy
 
 - `v1.1.0` is the current authoritative Agent Cards line
-- `v1.0.0` remains only as a legacy compatibility line
+- `v1.0.0` remains only as a compatibility line for older integrations
 - current v1.1.0 work must stay flat and self-contained
 - current v1.1.0 work must not reintroduce `_shared`
 

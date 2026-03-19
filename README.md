@@ -7,7 +7,7 @@ Agent Cards are CommandLayer's identity and routing layer. They bind ENS names t
 - **Current Agent Cards line:** `v1.1.0`
 - **Current Commons contract line:** `v1.1.0`
 - **Current Commercial contract line:** `v1.1.0`
-- **Legacy line retained for compatibility:** `v1.0.0`
+- **Compatibility line retained for older integrations:** `v1.0.0`
 
 ## Design rule for v1.1.0
 

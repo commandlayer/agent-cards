@@ -10,10 +10,7 @@
   "updated_at": "2026-03-19T00:00:00Z",
   "release_lines": {
     "current": "v1.1.0",
-    "legacy": [
-      "v1.0.0"
-    ],
-    "superseded": [
+    "compatibility": [
       "v1.0.0"
     ]
   },
