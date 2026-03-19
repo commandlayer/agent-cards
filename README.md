@@ -1,13 +1,36 @@
-# Agent Cards — CommandLayer
+# CommandLayer Agent Cards
 
-Agent Cards are CommandLayer's identity and routing layer. They bind ENS names to canonical verbs, published request/receipt schemas, and semver-pinned x402 entrypoints without redefining the semantic contract.
+Agent Cards are CommandLayer's canonical discovery and binding artifacts. They bind ENS names to a single verb, the authoritative request/receipt schemas for that verb, the public schema mirrors, and the semver-pinned x402 entrypoint. They do not act as product pages, feature summaries, or semantic substitutes for the linked protocol schemas.
 
-## Current version story
+## Authority Model
+
+- **Current canonical release line:** `v1.1.0`
+- **Canonical source of truth:** root artifacts in this repository for the `v1.1.0` line (`agents/`, `schemas/`, `meta/`, `.well-known/`, `checksums.txt`)
+- **Canonical registry index:** `meta/manifest.json`
+- **Current discovery pointer:** `.well-known/agent.json`
+- **Immutable versioned descriptor:** `.well-known/agent-cards-v1.1.0.json`
+- **`dist-pin/` role:** published bundle generated from the root canonical artifacts for pinning/repinning; it is derivative and not a second source of truth
+- **Legacy line:** `v1.0.0` is retained for archival compatibility only. It is superseded by `v1.1.0` and is not the primary release line.
+
+## Quick verification
 
 - **Current Agent Cards line:** `v1.1.0`
 - **Current Commons contract line:** `v1.1.0`
 - **Current Commercial contract line:** `v1.1.0`
-- **Legacy line retained for compatibility:** `v1.0.0`
+- **Legacy archival compatibility line:** `v1.0.0`
+
+## Minimalism policy for v1.1.0 cards
+
+A current-line card is intentionally narrow. It exists to publish canonical binding facts only:
+
+- identity: `id`, `ens`, `owner`
+- release line and lifecycle: `version`, `status`, `created_at`, `updated_at`
+- protocol class and verb binding: `class`, `implements`
+- linked schemas: `schemas`, `schemas_mirror`
+- routing: `entry`
+- minimal operational context: `networks`, `license`
+
+v1.1.0 cards intentionally omit descriptive and editorial metadata such as display copy, capabilities summaries, tags, and extra links. If a detail is owned by the Commons or Commercial schema contract, the card links to that contract instead of restating it.
 
 `v1.1.0` is the canonical line. The repository's default validation path, release bundle, discovery descriptors, and checksum coverage are all centered on `v1.1.0`. `v1.0.0` remains in-tree as an archival and compatibility line only.
 
@@ -30,6 +53,7 @@ For `v1.1.0`:
 - `schemas.request` and `schemas.receipt` point to the tagged upstream schema source URLs
 - `schemas_mirror.request` and `schemas_mirror.receipt` point to the public `commandlayer.org` mirrors
 - `entry` remains `x402://<ens>/<verb>/v1.1.0`
+- `meta/manifest.json` must exactly match the indexed cards for core binding fields
 
 ### Commons source pattern
 
@@ -37,75 +61,48 @@ For `v1.1.0`:
 
 ### Commons mirror pattern
 
-`https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json`
-
-### Commercial source pattern
-
-`https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
-
-### Commercial mirror pattern
-
-`https://commandlayer.org/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
-
-## Validation commands
+If you are preparing or auditing a release, also run:
 
 ```bash
-npm install
-npm run validate
+npm run validate:release
+# After mirrors are live:
+npm run validate:release -- --require-mirrors
 ```
 
-Default release-facing validation:
+That trust path is the intended clean-clone review flow:
 
-- `npm run validate` — validates the current canonical line (`v1.1.0`) discovery and cards, verifies release checksums, and runs typecheck
-- `npm run validate:current` — validates only the current canonical discovery and cards
-- `npm run validate:legacy` — validates only the preserved `v1.0.0` compatibility line
-- `npm run validate:checksums` — verifies deterministic checksums for release artifacts
-- `npm run validate:release` — runs the full release bundle: current line, legacy line, checksums, and typecheck
+1. `npm run validate` validates the current v1.1.0 line, checks checksum determinism, and typechecks the tooling.
+2. `meta/manifest.json` is the authoritative registry index for the current line.
+3. `agents/v1.1.0/` contains the canonical current cards.
+4. `.well-known/` exposes discovery descriptors that point back to the manifest and tier registries.
+5. `agents/v1.0.0/` is preserved only as archival legacy material.
+6. `dist-pin/agent-cards/v1.1.0/` is the reproducible publish bundle derived from the canonical root files.
 
-Validation checks for the current line include:
+## Authority model
 
-- descriptor schema conformance for the current discovery files
-- exact authoritative `v1.1.0` card presence
-- version / path / `$schema` / `$id` alignment
-- direct Commons and Commercial source URL patterns
-- direct `commandlayer.org` mirror URL patterns
-- entry URI correctness
-- checksum determinism across cards, schemas, meta, discovery, and dist-pin
-
-Legacy validation is intentionally secondary. It exists to confirm preserved `v1.0.0` artifacts remain structurally readable and free of committed placeholder junk; it is not the default authority path for the repository.
-
-## Legacy v1.0.0 status and limitations
-
-`v1.0.0` is preserved for archival compatibility, not as the normative current model.
-
-Readers should expect the following limitations in the legacy line:
-
-- the schema model is `_shared`-based and looser than `v1.1.0`
-- provenance-adjacent metadata may appear directly on cards, including `meta.pgp_fingerprint`
-- legacy schema binding conventions differ from the flat `v1.1.0` line
-- legacy cards are retained as historical artifacts, so the repository does not retrofit them into the current trust model
-- broken template placeholders are removed when found, but preservation does not imply parity with current release guarantees
-
-See `COMPLIANCE.md` for release criteria and `SECURITY_PROVENANCE.md` for the current trust anchors and the legacy PGP-field explanation.
-
-## Repository layout
+- **Canonical source of truth:** root `agents/v1.1.0/`, `meta/`, `.well-known/`, and `schemas/v1.1.0/`
+- **Registry index:** `meta/manifest.json`
+- **Discovery surface:** `.well-known/agent.json` and `.well-known/agent-cards-v1.1.0.json`
+- **Integrity surface:** root `checksums.txt`
+- **Legacy scope:** `agents/v1.0.0/` and `schemas/v1.0.0/`
+- **Publish bundle role:** `dist-pin/agent-cards/v1.1.0/` is derivative, never authoritative
 
 ```text
 agent-cards/
 ├── agents/
-│   ├── v1.0.0/
-│   └── v1.1.0/
+│   ├── v1.0.0/                  # archival compatibility line
+│   └── v1.1.0/                  # canonical cards
 │       ├── commons/
 │       └── commercial/
 ├── schemas/
-│   ├── v1.0.0/
-│   └── v1.1.0/
+│   ├── v1.0.0/                  # archival compatibility schemas
+│   └── v1.1.0/                  # canonical schemas
 │       ├── agent.card.schema.json
 │       └── agent.descriptor.schema.json
-├── meta/
-├── .well-known/
-├── dist-pin/agent-cards/v1.1.0/
-└── checksums.txt
+├── meta/                        # canonical registry metadata
+├── .well-known/                 # discovery pointers only
+├── dist-pin/agent-cards/v1.1.0/ # derivative publish bundle for pinning
+└── checksums.txt                # deterministic digests of release surfaces
 ```
 
 ## Example Commons v1.1.0 card
@@ -115,7 +112,10 @@ agent-cards/
   "$schema": "https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json",
   "$id": "https://commandlayer.org/agent-cards/agents/v1.1.0/commons/summarizeagent.eth.json",
   "id": "summarizeagent.eth",
+  "owner": "commandlayer.eth",
+  "ens": "summarizeagent.eth",
   "version": "1.1.0",
+  "status": "protocol_reference",
   "class": "commons",
   "implements": ["summarize"],
   "schemas": {
@@ -126,36 +126,43 @@ agent-cards/
     "request": "https://commandlayer.org/schemas/v1.1.0/commons/summarize/summarize.request.schema.json",
     "receipt": "https://commandlayer.org/schemas/v1.1.0/commons/summarize/summarize.receipt.schema.json"
   },
-  "entry": "x402://summarizeagent.eth/summarize/v1.1.0"
+  "entry": "x402://summarizeagent.eth/summarize/v1.1.0",
+  "networks": ["eip155:1"],
+  "license": "Apache-2.0",
+  "created_at": "2025-11-22T00:00:00Z",
+  "updated_at": "2026-03-19T00:00:00Z"
 }
 ```
 
-## Example Commercial v1.1.0 card
+- `npm run validate:current` — validate the canonical v1.1.0 cards and discovery descriptors
+- `npm run validate:checksums` — verify root `checksums.txt`
+- `npm run validate` — the default clean-clone trust command
+- `npm run generate:dist-pin` — rebuild the derivative publish bundle from canonical root files
+- `npm run validate:release` — release-scoped validation that:
+  - confirms `meta/manifest.json` matches every current card binding
+  - confirms `dist-pin/agent-cards/v1.1.0/` matches a freshly generated derivative bundle
+  - resolves every upstream tagged schema URL over the network
+  - optionally resolves mirrors when run with `--require-mirrors`
 
-```json
-{
-  "$schema": "https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json",
-  "$id": "https://commandlayer.org/agent-cards/agents/v1.1.0/commercial/checkoutagent.eth.json",
-  "id": "checkoutagent.eth",
-  "version": "1.1.0",
-  "class": "commercial",
-  "implements": ["checkout"],
-  "schemas": {
-    "request": "https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/checkout/checkout.request.schema.json",
-    "receipt": "https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/checkout/checkout.receipt.schema.json"
-  },
-  "schemas_mirror": {
-    "request": "https://commandlayer.org/schemas/v1.1.0/commercial/checkout/checkout.request.schema.json",
-    "receipt": "https://commandlayer.org/schemas/v1.1.0/commercial/checkout/checkout.receipt.schema.json"
-  },
-  "entry": "x402://checkoutagent.eth/checkout/v1.1.0"
-}
-```
+Routine CI stays on `npm run validate` so normal validation remains stable. Network binding checks are release-scoped and explicit.
 
-## Release artifacts
+## Release and publication model
 
-- `meta/manifest.json` — authoritative release index
-- `.well-known/agent.json` — current discovery descriptor
-- `.well-known/agent-cards-v1.1.0.json` — versioned descriptor
-- `dist-pin/agent-cards/v1.1.0/` — publish bundle for repinning
-- `checksums.txt` — deterministic artifact digests
+- descriptor schema conformance
+- exact authoritative v1.1.0 card presence
+- version / path / `$schema` / `$id` alignment
+- direct Commons and Commercial source URL patterns
+- direct `commandlayer.org` mirror URL patterns
+- exact manifest/card cross-validation for indexed current-line entries
+- entry URI correctness
+- checksum determinism across canonical root artifacts and the derivative dist-pin bundle
+
+## Release surfaces
+
+- root files and directories — canonical source of truth for the current `v1.1.0` line
+- `meta/manifest.json` — canonical registry index for the release
+- `.well-known/agent.json` — current discovery pointer to the canonical registry metadata
+- `.well-known/agent-cards-v1.1.0.json` — immutable versioned discovery descriptor for `v1.1.0`
+- `dist-pin/agent-cards/v1.1.0/` — derivative published bundle copied from canonical root artifacts for pinning/repinning
+- `agents/v1.0.0/`, `schemas/v1.0.0/`, and `dist-pin/agent-cards/v1.0.0/` — archival compatibility surfaces only
+- `checksums.txt` — deterministic artifact digests across canonical and published surfaces

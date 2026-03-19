@@ -1,24 +1,38 @@
-# Onboarding — Agent Cards
+# Onboarding — CommandLayer Agent Cards
 
-## Current model
+## Start here
 
-Agent Cards v1.1.0 is flat and release-oriented.
+Agent Cards v1.1.0 is the current canonical release line. Root repository artifacts are authoritative.
 
-Use:
+- root `agents/v1.1.0/`, `meta/`, `.well-known/`, and `schemas/v1.1.0/` are canonical
+- `meta/manifest.json` is the registry index
+- `.well-known/` is discovery
+- `checksums.txt` proves integrity
+- `agents/v1.0.0/` and `schemas/v1.0.0/` are archival legacy
+- `dist-pin/agent-cards/v1.1.0/` is a generated derivative publish bundle
 
 - `agents/v1.1.0/commons/*.json`
 - `agents/v1.1.0/commercial/*.json`
 - `schemas/v1.1.0/agent.card.schema.json`
 - `schemas/v1.1.0/agent.descriptor.schema.json`
+- `meta/manifest.json` as the canonical registry index
+- `.well-known/agent.json` only as the current discovery pointer
 
 Do not add new `_shared` helpers for v1.1.0.
+Do not add descriptive fields to current-line cards; if the detail is not a binding fact, keep it in external documentation or in the linked protocol schemas instead.
 
-## Update flow
+## Legacy / compatibility
 
-1. edit the card under the correct tier
+- `v1.0.0` is superseded by `v1.1.0`.
+- Keep `v1.0.0` artifacts only for archival compatibility.
+- Do not use `v1.0.0` paths in new examples, new release work, or the main update flow.
+
+## Update flow for the current line
+
+1. edit the canonical root artifact under the correct `v1.1.0` path
 2. keep `$schema`, `$id`, `version`, `entry`, and schema URLs aligned
-3. update manifest / registry / discovery files if routing changes
-4. refresh `dist-pin/agent-cards/v1.1.0/`
+3. update `meta/manifest.json` and related registry/discovery pointers if routing changes
+4. refresh the derivative publish bundle at `dist-pin/agent-cards/v1.1.0/`
 5. regenerate `checksums.txt`
 6. update `RESOLUTION.md`
 7. run `npm run validate`

@@ -2,9 +2,6 @@
   "$schema": "https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json",
   "$id": "https://commandlayer.org/agent-cards/agents/v1.1.0/commons/parseagent.eth.json",
   "id": "parseagent.eth",
-  "slug": "parseagent",
-  "display_name": "Parse Agent",
-  "description": "Protocol reference card for the parse verb. Binds ENS identity, direct Commons v1.1.0 schema URLs, and the canonical x402 entrypoint.",
   "owner": "commandlayer.eth",
   "ens": "parseagent.eth",
   "version": "1.1.0",
@@ -22,34 +19,6 @@
     "receipt": "https://commandlayer.org/schemas/v1.1.0/commons/parse/parse.receipt.schema.json"
   },
   "entry": "x402://parseagent.eth/parse/v1.1.0",
-  "capabilities": {
-    "operations": [
-      "extract_fields",
-      "produce_structure",
-      "identify_entities"
-    ],
-    "input_types": [
-      "text/plain",
-      "text/markdown",
-      "application/json"
-    ],
-    "output_types": [
-      "application/json"
-    ]
-  },
-  "meta": {
-    "publisher": "CommandLayer",
-    "contact": "dev@commandlayer.org",
-    "tags": [
-      "commons",
-      "parse",
-      "protocol-reference"
-    ],
-    "links": [
-      "https://commandlayer.org/schemas/v1.1.0/commons/parse/parse.request.schema.json",
-      "https://commandlayer.org/schemas/v1.1.0/commons/parse/parse.receipt.schema.json"
-    ]
-  },
   "networks": [
     "eip155:1"
   ],
