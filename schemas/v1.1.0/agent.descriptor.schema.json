@@ -67,6 +67,9 @@
         },
         "commercial_agent": {
           "$ref": "#/$defs/httpLink"
+        },
+        "snapshot": {
+          "$ref": "#/$defs/httpLink"
         }
       }
     },
@@ -78,7 +81,8 @@
         "current_release",
         "legacy_release",
         "publish_state",
-        "license"
+        "license",
+        "role"
       ],
       "properties": {
         "agent_cards_version": {
@@ -95,6 +99,13 @@
         },
         "license": {
           "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "current-pointer",
+            "frozen-snapshot"
+          ]
         }
       }
     }

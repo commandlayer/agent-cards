@@ -5,10 +5,9 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
+    "$schema",
+    "$id",
     "id",
-    "slug",
-    "display_name",
-    "description",
     "owner",
     "ens",
     "version",
@@ -18,9 +17,6 @@
     "schemas",
     "schemas_mirror",
     "entry",
-    "networks",
-    "license",
-    "created_at",
     "updated_at"
   ],
   "properties": {
@@ -36,18 +32,6 @@
       "type": "string",
       "pattern": "^[a-z0-9-]+\\.eth$"
     },
-    "slug": {
-      "type": "string",
-      "pattern": "^[a-z0-9-]+$"
-    },
-    "display_name": {
-      "type": "string",
-      "minLength": 1
-    },
-    "description": {
-      "type": "string",
-      "minLength": 1
-    },
     "owner": {
       "type": "string",
       "pattern": "^[a-z0-9-]+\\.eth$"
@@ -62,12 +46,7 @@
     },
     "status": {
       "type": "string",
-      "enum": [
-        "protocol_reference",
-        "active",
-        "deprecated",
-        "revoked"
-      ]
+      "const": "protocol_reference"
     },
     "class": {
       "type": "string",
@@ -86,126 +65,38 @@
       }
     },
     "schemas": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "request",
-        "receipt"
-      ],
-      "properties": {
-        "request": {
-          "type": "string",
-          "format": "uri"
-        },
-        "receipt": {
-          "type": "string",
-          "format": "uri"
-        }
-      }
+      "$ref": "#/$defs/schemaPair"
     },
     "schemas_mirror": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "request",
-        "receipt"
-      ],
-      "properties": {
-        "request": {
-          "type": "string",
-          "format": "uri"
-        },
-        "receipt": {
-          "type": "string",
-          "format": "uri"
-        }
-      }
+      "$ref": "#/$defs/schemaPair"
     },
     "entry": {
       "type": "string",
       "pattern": "^x402://[^/]+/[^/]+/v1\\.1\\.0$"
     },
-    "capabilities": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "operations",
-        "input_types",
-        "output_types"
-      ],
-      "properties": {
-        "operations": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "string"
-          }
-        },
-        "input_types": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "string"
-          }
-        },
-        "output_types": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "meta": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "publisher",
-        "contact",
-        "tags"
-      ],
-      "properties": {
-        "publisher": {
-          "type": "string"
-        },
-        "contact": {
-          "type": "string",
-          "format": "email"
-        },
-        "tags": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "string"
-          }
-        },
-        "links": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "format": "uri"
-          }
-        }
-      }
-    },
-    "networks": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "string"
-      }
-    },
-    "license": {
-      "type": "string"
-    },
-    "created_at": {
-      "type": "string",
-      "format": "date-time"
-    },
     "updated_at": {
       "type": "string",
       "format": "date-time"
+    }
+  },
+  "$defs": {
+    "schemaPair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "request",
+        "receipt"
+      ],
+      "properties": {
+        "request": {
+          "type": "string",
+          "format": "uri"
+        },
+        "receipt": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "id": "x402://commandlayer.eth/commons-agent/v1.1.0",
   "name": "CommandLayer Commons Agent Registry",
-  "description": "Registry descriptor for CommandLayer Commons Agent Cards v1.1.0.",
+  "description": "Registry descriptor for CommandLayer commons Agent Cards v1.1.0.",
   "owner": "commandlayer.eth",
   "ens": "commandlayer.eth",
   "version": "1.1.0",

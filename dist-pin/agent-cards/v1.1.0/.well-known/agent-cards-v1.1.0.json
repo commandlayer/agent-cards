@@ -1,7 +1,7 @@
 {
   "id": "x402://commandlayer.eth/agent-cards/v1.1.0",
   "name": "CommandLayer Agent Cards Registry Descriptor (v1.1.0)",
-  "description": "Versioned discovery descriptor for CommandLayer Agent Cards v1.1.0.",
+  "description": "Frozen discovery snapshot for CommandLayer Agent Cards v1.1.0.",
   "owner": "commandlayer.eth",
   "ens": "commandlayer.eth",
   "version": "1.1.0",
@@ -25,6 +25,7 @@
     "current_release": "v1.1.0",
     "legacy_release": "v1.0.0",
     "publish_state": "ready-to-pin",
-    "license": "Apache-2.0"
+    "license": "Apache-2.0",
+    "role": "frozen-snapshot"
   }
 }

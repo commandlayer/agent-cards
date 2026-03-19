@@ -35,23 +35,23 @@
     "meta/",
     "schemas/",
     "dist-pin/",
-    "checksums.txt",
+    "checksums-v1.0.0.txt",
+    "checksums-v1.1.0.txt",
     "LICENSE",
     "README.md"
   ],
   "scripts": {
-    "validate:cards": "node scripts/validate-cards.mjs",
-    "generate:checksums": "node scripts/generate-checksums.mjs",
-    "validate:checksums": "node scripts/generate-checksums.mjs --verify",
-    "typecheck": "tsc --noEmit",
-    "validate": "npm run validate:cards && npm run validate:checksums && npm run typecheck"
+    "validate:current": "node scripts/validate-cards.mjs --current",
+    "validate:legacy": "node scripts/validate-cards.mjs --legacy",
+    "validate:checksums": "node scripts/generate-checksums.mjs --verify --profile current",
+    "validate:release": "node scripts/validate-cards.mjs --release",
+    "generate:checksums:current": "node scripts/generate-checksums.mjs --profile current",
+    "generate:checksums:legacy": "node scripts/generate-checksums.mjs --profile legacy",
+    "validate": "npm run validate:current && npm run validate:checksums"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
     "ajv": "^8.17.1",
-    "ajv-formats": "^3.0.1",
-    "glob": "^11.0.0",
-    "typescript": "^5.6.0"
+    "ajv-formats": "^3.0.1"
   },
   "overrides": {
     "fast-json-patch": "^3.1.1"

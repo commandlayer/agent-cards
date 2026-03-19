@@ -2,6 +2,3 @@ node_modules
 npm-debug.log*
 dist
 .DS_Store
-
-# local build/pin staging
-/dist-pin/

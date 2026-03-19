@@ -1,113 +1,39 @@
 # Agent Cards — CommandLayer
 
-Agent Cards are CommandLayer's identity and routing layer. They bind ENS names to canonical verbs, published request/receipt schemas, and semver-pinned x402 entrypoints without redefining the semantic contract.
+## Authority Model
 
-## Current version story
+- **Current line:** `v1.1.0`.
+- **Root repository:** canonical source of truth for current artifacts.
+- **`meta/manifest.json`:** canonical registry index for the current line.
+- **`.well-known/agent.json`:** current discovery pointer.
+- **`.well-known/agent-cards-v1.1.0.json`:** frozen discovery snapshot for `v1.1.0`.
+- **`dist-pin/agent-cards/v1.1.0/`:** derivative release bundle generated from root artifacts for repinning only.
+- **`checksums-v1.1.0.txt`:** canonical integrity surface for the current line.
 
-- **Current Agent Cards line:** `v1.1.0`
-- **Current Commons contract line:** `v1.1.0`
-- **Current Commercial contract line:** `v1.1.0`
-- **Legacy line retained for compatibility:** `v1.0.0`
+If root, manifest, dist-pin, and checksums disagree, root and current checksums win.
 
-## Design rule for v1.1.0
+## Current Line
 
-Agent Cards v1.1.0 is intentionally flat:
+`v1.1.0` is the only active release line in this repository. `v1.0.0` is archival and retained only for compatibility review.
 
-- cards live under `agents/v1.1.0/`
-- current schemas live under `schemas/v1.1.0/`
-- current cards use `schemas/v1.1.0/agent.card.schema.json`
-- current discovery files use `schemas/v1.1.0/agent.descriptor.schema.json`
-- current cards bind **directly** to published Commons / Commercial schema URLs
-- current cards bind **directly** to `commandlayer.org` mirror URLs
-- current v1.1.0 uses **no `_shared`**
+## Current Artifact Surface
 
-## How card bindings work
+- `agents/v1.1.0/` — canonical current cards.
+- `schemas/v1.1.0/` — canonical current schemas.
+- `meta/manifest.json` — canonical card registry index.
+- `meta/commons-agent.json` / `meta/commercial-agent.json` — current class registries.
+- `.well-known/agent.json` — current pointer.
+- `.well-known/agent-cards-v1.1.0.json` — frozen snapshot.
+- `checksums-v1.1.0.txt` — integrity file for the current canonical surface.
+- `dist-pin/agent-cards/v1.1.0/` — derivative bundle that must byte-match the current canonical surface.
 
-For `v1.1.0`:
+## Release Rules
 
-- `schemas.request` and `schemas.receipt` point to the tagged upstream schema source URLs
-- `schemas_mirror.request` and `schemas_mirror.receipt` point to the public `commandlayer.org` mirrors
-- `entry` remains `x402://<ens>/<verb>/v1.1.0`
-
-### Commons source pattern
-
-`https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/v1.1.0/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json`
-
-### Commons mirror pattern
-
-`https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json`
-
-### Commercial source pattern
-
-`https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
-
-### Commercial mirror pattern
-
-`https://commandlayer.org/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
-
-## Repository layout
-
-```text
-agent-cards/
-├── agents/
-│   ├── v1.0.0/
-│   └── v1.1.0/
-│       ├── commons/
-│       └── commercial/
-├── schemas/
-│   ├── v1.0.0/
-│   └── v1.1.0/
-│       ├── agent.card.schema.json
-│       └── agent.descriptor.schema.json
-├── meta/
-├── .well-known/
-├── dist-pin/agent-cards/v1.1.0/
-└── checksums.txt
-```
-
-## Example Commons v1.1.0 card
-
-```json
-{
-  "$schema": "https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json",
-  "$id": "https://commandlayer.org/agent-cards/agents/v1.1.0/commons/summarizeagent.eth.json",
-  "id": "summarizeagent.eth",
-  "version": "1.1.0",
-  "class": "commons",
-  "implements": ["summarize"],
-  "schemas": {
-    "request": "https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/v1.1.0/schemas/v1.1.0/commons/summarize/summarize.request.schema.json",
-    "receipt": "https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/v1.1.0/schemas/v1.1.0/commons/summarize/summarize.receipt.schema.json"
-  },
-  "schemas_mirror": {
-    "request": "https://commandlayer.org/schemas/v1.1.0/commons/summarize/summarize.request.schema.json",
-    "receipt": "https://commandlayer.org/schemas/v1.1.0/commons/summarize/summarize.receipt.schema.json"
-  },
-  "entry": "x402://summarizeagent.eth/summarize/v1.1.0"
-}
-```
-
-## Example Commercial v1.1.0 card
-
-```json
-{
-  "$schema": "https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json",
-  "$id": "https://commandlayer.org/agent-cards/agents/v1.1.0/commercial/checkoutagent.eth.json",
-  "id": "checkoutagent.eth",
-  "version": "1.1.0",
-  "class": "commercial",
-  "implements": ["checkout"],
-  "schemas": {
-    "request": "https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/checkout/checkout.request.schema.json",
-    "receipt": "https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/checkout/checkout.receipt.schema.json"
-  },
-  "schemas_mirror": {
-    "request": "https://commandlayer.org/schemas/v1.1.0/commercial/checkout/checkout.request.schema.json",
-    "receipt": "https://commandlayer.org/schemas/v1.1.0/commercial/checkout/checkout.receipt.schema.json"
-  },
-  "entry": "x402://checkoutagent.eth/checkout/v1.1.0"
-}
-```
+- Current cards are minimal bindings: identity, owner, ENS, class, status, schemas, mirrors, entry, and update timestamp.
+- Manifest entries must match cards exactly for `id`, `class`, `verb`, `version`, schema URLs, mirror URLs, `entry`, and `status`.
+- `.well-known/agent.json` is a pointer; `.well-known/agent-cards-v1.1.0.json` is the immutable snapshot it points to.
+- `dist-pin` is not authoritative. It is validated as a derivative copy of current artifacts.
+- `v1.0.0` is archival only. Do not treat it as the current protocol line.
 
 ## Validation
 
@@ -116,20 +42,39 @@ npm install
 npm run validate
 ```
 
-Validation checks:
+`npm run validate` performs the full current-line trust check:
 
-- descriptor schema conformance
-- exact authoritative v1.1.0 card presence
-- version / path / `$schema` / `$id` alignment
-- direct Commons and Commercial source URL patterns
-- direct `commandlayer.org` mirror URL patterns
-- entry URI correctness
-- checksum determinism across cards, schemas, meta, discovery, and dist-pin
+- validates current cards against the `v1.1.0` schema
+- validates the current pointer/snapshot discovery model
+- cross-validates `meta/manifest.json` against every current card
+- verifies `dist-pin/agent-cards/v1.1.0/` is an exact derivative bundle
+- verifies `checksums-v1.1.0.txt`
 
-## Release artifacts
+Optional commands:
 
-- `meta/manifest.json` — authoritative release index
-- `.well-known/agent.json` — current discovery descriptor
-- `.well-known/agent-cards-v1.1.0.json` — versioned descriptor
-- `dist-pin/agent-cards/v1.1.0/` — publish bundle for repinning
-- `checksums.txt` — deterministic artifact digests
+- `npm run validate:legacy` — archival `v1.0.0` structural checks only
+- `npm run validate:checksums` — verify `checksums-v1.1.0.txt`
+- `npm run validate:release` — network checks for schema URLs, mirrors, and entry URIs
+
+## Checksums
+
+- `checksums-v1.1.0.txt` covers `.well-known/`, `agents/v1.1.0/`, `meta/`, and `schemas/v1.1.0/`.
+- `checksums-v1.0.0.txt` is archival and covers `agents/v1.0.0/` and `schemas/v1.0.0/`.
+- `dist-pin` is excluded from checksum truth because it is derivative, not canonical.
+
+## Repository Layout
+
+```text
+agent-cards/
+├── agents/
+│   ├── v1.0.0/            # archival only
+│   └── v1.1.0/            # canonical current cards
+├── schemas/
+│   ├── v1.0.0/            # archival only
+│   └── v1.1.0/            # canonical current schemas
+├── meta/                  # canonical current registry metadata
+├── .well-known/           # current pointer + frozen snapshot
+├── dist-pin/              # derivative release bundles
+├── checksums-v1.0.0.txt   # archival integrity file
+└── checksums-v1.1.0.txt   # canonical current integrity file
+```

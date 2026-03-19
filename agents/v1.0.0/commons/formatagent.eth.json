@@ -41,12 +41,12 @@
   "meta": {
     "publisher": "CommandLayer",
     "contact": "dev@commandlayer.org",
-    "pgp_fingerprint": "5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A",
     "tags": [
       "format",
       "styling",
       "protocol-reference"
-    ]
+    ],
+    "archival_note": "v1.0.0 is retained for compatibility only. Legacy PGP claims were removed because this repository no longer maintains a verifiable key-distribution path for them."
   },
   "networks": [
     "eip155:1"
