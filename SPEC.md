@@ -1,8 +1,8 @@
-# Specification — Agent Cards
+# Specification — CommandLayer Agent Cards
 
-This document defines the Agent Cards v1.1.0 identity and routing contract.
+## One-line model
 
-## 1. Scope
+This repo publishes canonical CommandLayer Agent Cards for the current **v1.1.0** line. Cards are minimal discovery and binding artifacts, `meta/manifest.json` is the registry index, `.well-known/` exposes discovery, root checksums verify integrity, legacy is archival, and `dist-pin/agent-cards/v1.1.0/` is a derivative publish bundle reproduced from the canonical root files.
 
 Agent Cards publish only canonical binding facts:
 
@@ -28,12 +28,11 @@ They do not define semantic meaning, feature behavior, or implementation detail.
 
 ## 3. Current schema files
 
-Current Agent Cards v1.1.0 uses only:
+These remain for archival compatibility only. They are not the current release line.
 
-- `schemas/v1.1.0/agent.card.schema.json`
-- `schemas/v1.1.0/agent.descriptor.schema.json`
+## Card contract for v1.1.0
 
-Current Agent Cards v1.1.0 MUST NOT use `_shared`.
+Every canonical v1.1.0 card MUST:
 
 ## 4. Required card fields
 

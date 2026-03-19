@@ -1,6 +1,6 @@
-# Compliance — Agent Cards
+# Compliance — CommandLayer Agent Cards
 
-Agent Cards v1.1.0 is compliant when:
+The current release line is compliant when all of the following are true:
 
 - current cards validate under `schemas/v1.1.0/agent.card.schema.json`
 - current discovery validates under `schemas/v1.1.0/agent.descriptor.schema.json`

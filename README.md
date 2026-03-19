@@ -1,4 +1,4 @@
-# Agent Cards — CommandLayer
+# CommandLayer Agent Cards
 
 Agent Cards are CommandLayer's canonical discovery and binding artifacts. They bind ENS names to a single verb, the authoritative request/receipt schemas for that verb, the public schema mirrors, and the semver-pinned x402 entrypoint. They do not act as product pages, feature summaries, or semantic substitutes for the linked protocol schemas.
 
@@ -12,7 +12,7 @@ Agent Cards are CommandLayer's canonical discovery and binding artifacts. They b
 - **`dist-pin/` role:** published bundle generated from the root canonical artifacts for pinning/repinning; it is derivative and not a second source of truth
 - **Legacy line:** `v1.0.0` is retained for archival compatibility only. It is superseded by `v1.1.0` and is not the primary release line.
 
-## Current version story
+## Quick verification
 
 - **Current Agent Cards line:** `v1.1.0`
 - **Current Commons contract line:** `v1.1.0`
@@ -59,17 +59,31 @@ For `v1.1.0`:
 
 ### Commons mirror pattern
 
-`https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json`
+If you are preparing or auditing a release, also run:
 
-### Commercial source pattern
+```bash
+npm run validate:release
+# After mirrors are live:
+npm run validate:release -- --require-mirrors
+```
 
-`https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
+That trust path is the intended clean-clone review flow:
 
-### Commercial mirror pattern
+1. `npm run validate` validates the current v1.1.0 line, checks checksum determinism, and typechecks the tooling.
+2. `meta/manifest.json` is the authoritative registry index for the current line.
+3. `agents/v1.1.0/` contains the canonical current cards.
+4. `.well-known/` exposes discovery descriptors that point back to the manifest and tier registries.
+5. `agents/v1.0.0/` is preserved only as archival legacy material.
+6. `dist-pin/agent-cards/v1.1.0/` is the reproducible publish bundle derived from the canonical root files.
 
-`https://commandlayer.org/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
+## Authority model
 
-## Repository layout
+- **Canonical source of truth:** root `agents/v1.1.0/`, `meta/`, `.well-known/`, and `schemas/v1.1.0/`
+- **Registry index:** `meta/manifest.json`
+- **Discovery surface:** `.well-known/agent.json` and `.well-known/agent-cards-v1.1.0.json`
+- **Integrity surface:** root `checksums.txt`
+- **Legacy scope:** `agents/v1.0.0/` and `schemas/v1.0.0/`
+- **Publish bundle role:** `dist-pin/agent-cards/v1.1.0/` is derivative, never authoritative
 
 ```text
 agent-cards/
@@ -118,14 +132,19 @@ agent-cards/
 }
 ```
 
-## Validation
+- `npm run validate:current` — validate the canonical v1.1.0 cards and discovery descriptors
+- `npm run validate:checksums` — verify root `checksums.txt`
+- `npm run validate` — the default clean-clone trust command
+- `npm run generate:dist-pin` — rebuild the derivative publish bundle from canonical root files
+- `npm run validate:release` — release-scoped validation that:
+  - confirms `meta/manifest.json` matches every current card binding
+  - confirms `dist-pin/agent-cards/v1.1.0/` matches a freshly generated derivative bundle
+  - resolves every upstream tagged schema URL over the network
+  - optionally resolves mirrors when run with `--require-mirrors`
 
-```bash
-npm install
-npm run validate
-```
+Routine CI stays on `npm run validate` so normal validation remains stable. Network binding checks are release-scoped and explicit.
 
-Validation checks:
+## Release and publication model
 
 - descriptor schema conformance
 - exact authoritative v1.1.0 card presence

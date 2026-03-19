@@ -1,10 +1,10 @@
-# Governance — Agent Cards
+# Governance — CommandLayer Agent Cards
 
 ## Stewardship
 
 Founding steward: `commandlayer.eth`
 
-## Current release stance
+## Current release rule
 
 - Agent Cards current canonical line: `v1.1.0`
 - Commons current line: `v1.1.0`
