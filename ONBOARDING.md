@@ -1,10 +1,15 @@
-# Onboarding — Agent Cards
+# Onboarding — CommandLayer Agent Cards
 
-## Current model
+## Start here
 
 Agent Cards v1.1.0 is the current canonical release line. Root repository artifacts are authoritative.
 
-Use:
+- root `agents/v1.1.0/`, `meta/`, `.well-known/`, and `schemas/v1.1.0/` are canonical
+- `meta/manifest.json` is the registry index
+- `.well-known/` is discovery
+- `checksums.txt` proves integrity
+- `agents/v1.0.0/` and `schemas/v1.0.0/` are archival legacy
+- `dist-pin/agent-cards/v1.1.0/` is a generated derivative publish bundle
 
 - `agents/v1.1.0/commons/*.json`
 - `agents/v1.1.0/commercial/*.json`
@@ -14,6 +19,7 @@ Use:
 - `.well-known/agent.json` only as the current discovery pointer
 
 Do not add new `_shared` helpers for v1.1.0.
+Do not add descriptive fields to current-line cards; if the detail is not a binding fact, keep it in external documentation or in the linked protocol schemas instead.
 
 ## Legacy / compatibility
 
@@ -21,7 +27,7 @@ Do not add new `_shared` helpers for v1.1.0.
 - Keep `v1.0.0` artifacts only for archival compatibility.
 - Do not use `v1.0.0` paths in new examples, new release work, or the main update flow.
 
-## Update flow
+## Update flow for the current line
 
 1. edit the canonical root artifact under the correct `v1.1.0` path
 2. keep `$schema`, `$id`, `version`, `entry`, and schema URLs aligned

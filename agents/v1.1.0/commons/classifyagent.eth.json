@@ -2,9 +2,6 @@
   "$schema": "https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json",
   "$id": "https://commandlayer.org/agent-cards/agents/v1.1.0/commons/classifyagent.eth.json",
   "id": "classifyagent.eth",
-  "slug": "classifyagent",
-  "display_name": "Classify Agent",
-  "description": "Protocol reference card for the classify verb. Binds ENS identity, direct Commons v1.1.0 schema URLs, and the canonical x402 entrypoint.",
   "owner": "commandlayer.eth",
   "ens": "classifyagent.eth",
   "version": "1.1.0",
@@ -22,34 +19,6 @@
     "receipt": "https://commandlayer.org/schemas/v1.1.0/commons/classify/classify.receipt.schema.json"
   },
   "entry": "x402://classifyagent.eth/classify/v1.1.0",
-  "capabilities": {
-    "operations": [
-      "assign_labels",
-      "apply_taxonomy",
-      "rank_categories"
-    ],
-    "input_types": [
-      "text/plain",
-      "text/markdown",
-      "application/json"
-    ],
-    "output_types": [
-      "application/json"
-    ]
-  },
-  "meta": {
-    "publisher": "CommandLayer",
-    "contact": "dev@commandlayer.org",
-    "tags": [
-      "commons",
-      "classify",
-      "protocol-reference"
-    ],
-    "links": [
-      "https://commandlayer.org/schemas/v1.1.0/commons/classify/classify.request.schema.json",
-      "https://commandlayer.org/schemas/v1.1.0/commons/classify/classify.receipt.schema.json"
-    ]
-  },
   "networks": [
     "eip155:1"
   ],

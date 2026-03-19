@@ -2,9 +2,6 @@
   "$schema": "https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json",
   "$id": "https://commandlayer.org/agent-cards/agents/v1.1.0/commercial/purchaseagent.eth.json",
   "id": "purchaseagent.eth",
-  "slug": "purchaseagent",
-  "display_name": "Purchase Agent",
-  "description": "Protocol reference card for the purchase verb. Binds ENS identity, direct Commercial v1.1.0 schema URLs, and the canonical x402 payment-aware entrypoint.",
   "owner": "commandlayer.eth",
   "ens": "purchaseagent.eth",
   "version": "1.1.0",
@@ -22,32 +19,6 @@
     "receipt": "https://commandlayer.org/schemas/v1.1.0/commercial/purchase/purchase.receipt.schema.json"
   },
   "entry": "x402://purchaseagent.eth/purchase/v1.1.0",
-  "capabilities": {
-    "operations": [
-      "capture_order",
-      "settle_purchase",
-      "record_order"
-    ],
-    "input_types": [
-      "application/json"
-    ],
-    "output_types": [
-      "application/json"
-    ]
-  },
-  "meta": {
-    "publisher": "CommandLayer",
-    "contact": "dev@commandlayer.org",
-    "tags": [
-      "commercial",
-      "purchase",
-      "protocol-reference"
-    ],
-    "links": [
-      "https://commandlayer.org/schemas/v1.1.0/commercial/purchase/purchase.request.schema.json",
-      "https://commandlayer.org/schemas/v1.1.0/commercial/purchase/purchase.receipt.schema.json"
-    ]
-  },
   "networks": [
     "eip155:1"
   ],

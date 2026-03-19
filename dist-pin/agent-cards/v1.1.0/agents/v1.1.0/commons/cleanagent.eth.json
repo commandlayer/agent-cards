@@ -2,9 +2,6 @@
   "$schema": "https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json",
   "$id": "https://commandlayer.org/agent-cards/agents/v1.1.0/commons/cleanagent.eth.json",
   "id": "cleanagent.eth",
-  "slug": "cleanagent",
-  "display_name": "Clean Agent",
-  "description": "Protocol reference card for the clean verb. Binds ENS identity, direct Commons v1.1.0 schema URLs, and the canonical x402 entrypoint.",
   "owner": "commandlayer.eth",
   "ens": "cleanagent.eth",
   "version": "1.1.0",
@@ -22,36 +19,6 @@
     "receipt": "https://commandlayer.org/schemas/v1.1.0/commons/clean/clean.receipt.schema.json"
   },
   "entry": "x402://cleanagent.eth/clean/v1.1.0",
-  "capabilities": {
-    "operations": [
-      "remove_noise",
-      "normalize_content",
-      "redact_sensitive_data"
-    ],
-    "input_types": [
-      "text/plain",
-      "text/markdown",
-      "application/json"
-    ],
-    "output_types": [
-      "text/plain",
-      "text/markdown",
-      "application/json"
-    ]
-  },
-  "meta": {
-    "publisher": "CommandLayer",
-    "contact": "dev@commandlayer.org",
-    "tags": [
-      "commons",
-      "clean",
-      "protocol-reference"
-    ],
-    "links": [
-      "https://commandlayer.org/schemas/v1.1.0/commons/clean/clean.request.schema.json",
-      "https://commandlayer.org/schemas/v1.1.0/commons/clean/clean.receipt.schema.json"
-    ]
-  },
   "networks": [
     "eip155:1"
   ],

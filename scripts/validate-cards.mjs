@@ -6,6 +6,8 @@ import addFormats from "ajv-formats";
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
+const CURRENT_LINE = "v1.1.0";
+const CARD_HTTP_ROOT = `https://commandlayer.org/agent-cards/agents/${CURRENT_LINE}`;
 
 const commonsVerbs = ["analyze", "classify", "clean", "convert", "describe", "explain", "fetch", "format", "parse", "summarize"];
 const commercialVerbs = ["authorize", "checkout", "purchase", "ship", "verify"];
@@ -25,11 +27,9 @@ addFormats(ajv);
 
 function getMode() {
   const arg = process.argv.find((value) => value.startsWith("--mode="));
-  if (!arg) return "current";
-  const mode = arg.slice("--mode=".length);
-  if (!VALIDATION_MODES.has(mode)) {
-    console.error(`❌ Unknown validation mode: ${mode}. Expected one of: ${[...VALIDATION_MODES].join(", ")}`);
-    process.exit(1);
+  const mode = arg ? arg.split("=")[1] : "release";
+  if (!["current", "legacy", "release"].includes(mode)) {
+    throw new Error(`Unsupported validation mode: ${mode}`);
   }
   return mode;
 }
@@ -46,6 +46,7 @@ function collectJsonFiles(relativeRoot) {
   const root = path.join(ROOT, relativeRoot);
   if (!fs.existsSync(root)) return [];
   const out = [];
+
   function walk(dir) {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const full = path.join(dir, entry.name);
@@ -53,6 +54,7 @@ function collectJsonFiles(relativeRoot) {
       else if (entry.isFile() && entry.name.endsWith(".json")) out.push(full);
     }
   }
+
   walk(root);
   return out.sort();
 }
@@ -63,37 +65,52 @@ function fail(message, details) {
   process.exitCode = 1;
 }
 
+function asRelative(fullPath) {
+  return path.relative(ROOT, fullPath).replace(/\\/g, "/");
+}
+
+function compareArrays(actual, expected, message) {
+  if (JSON.stringify(actual) !== JSON.stringify(expected)) fail(message, { expected, actual });
+}
+
+function expectEqual(actual, expected, message) {
+  if (actual !== expected) fail(message, { expected, actual });
+}
+
 const descriptorValidate = ajv.compile(loadJson("schemas/v1.1.0/agent.descriptor.schema.json"));
 const v10Validate = ajv.compile(loadJson("schemas/v1.0.0/_shared/agent.card.base.schema.json"));
 const v11Validate = ajv.compile(loadJson("schemas/v1.1.0/agent.card.schema.json"));
 
 function validateDescriptor(relativePath) {
   const data = loadJson(relativePath);
-  if (!descriptorValidate(data)) fail(`${relativePath} failed descriptor validation.`, descriptorValidate.errors);
-  else console.log(`✅ Descriptor valid: ${relativePath}`);
+  if (!descriptorValidate(data)) {
+    fail(`${relativePath} failed descriptor validation.`, descriptorValidate.errors);
+    return;
+  }
+  console.log(`✅ Descriptor valid: ${relativePath}`);
 }
 
 function validateExpectedV11Set() {
   for (const tier of Object.keys(expectedV11)) {
-    const dir = path.join(ROOT, "agents", "v1.1.0", tier);
+    const dir = path.join(ROOT, "agents", CURRENT_LINE, tier);
     const actual = fs.readdirSync(dir).filter((name) => name.endsWith(".json")).sort();
     const expected = [...expectedV11[tier]].sort();
     if (JSON.stringify(actual) !== JSON.stringify(expected)) {
-      fail(`agents/v1.1.0/${tier} does not match the authoritative card set.`, { expected, actual });
+      fail(`agents/${CURRENT_LINE}/${tier} does not match the authoritative card set.`, { expected, actual });
     } else {
-      console.log(`✅ Authoritative card set present: agents/v1.1.0/${tier}`);
+      console.log(`✅ Authoritative card set present: agents/${CURRENT_LINE}/${tier}`);
     }
   }
 }
 
-function validateCurrentCard(fullPath) {
-  const relativePath = path.relative(ROOT, fullPath).replace(/\\/g, "/");
+function validateCard(fullPath) {
+  const relativePath = asRelative(fullPath);
   const [, folderVersion, tier, fileName] = relativePath.split("/");
   const card = readJson(fullPath);
-
-  if (!v11Validate(card)) {
-    fail(`Agent Card failed schema validation: ${relativePath}`, v11Validate.errors);
-    return;
+  const validate = folderVersion === CURRENT_LINE ? v11Validate : v10Validate;
+  if (!validate(card)) {
+    fail(`Agent Card failed schema validation: ${relativePath}`, validate.errors);
+    return null;
   }
 
   const primaryVerb = card.implements[0];
@@ -115,69 +132,97 @@ function validateCurrentCard(fullPath) {
   if (new Date(card.updated_at).getTime() < new Date(card.created_at).getTime()) fail(`${relativePath}: updated_at must be >= created_at.`);
   if (JSON.stringify(card).includes("_shared")) fail(`${relativePath}: current v1.1.0 card must not reference _shared.`);
 
-  if (tier === "commons") {
-    if (!rawCommons.test(card.schemas.request) || !rawCommons.test(card.schemas.receipt)) fail(`${relativePath}: stale Commons source schema paths.`);
-    if (!mirrorCommons.test(card.schemas_mirror.request) || !mirrorCommons.test(card.schemas_mirror.receipt)) fail(`${relativePath}: stale Commons mirror schema paths.`);
-  }
-  if (tier === "commercial") {
-    if (!rawCommercial.test(card.schemas.request) || !rawCommercial.test(card.schemas.receipt)) fail(`${relativePath}: stale Commercial source schema paths.`);
-    if (!mirrorCommercial.test(card.schemas_mirror.request) || !mirrorCommercial.test(card.schemas_mirror.receipt)) fail(`${relativePath}: stale Commercial mirror schema paths.`);
-  }
-  if (!card.schemas.request.includes(`/${primaryVerb}/`) || !card.schemas.receipt.includes(`/${primaryVerb}/`)) fail(`${relativePath}: schema URLs must match implements[0].`);
+  if (folderVersion === CURRENT_LINE) {
+    const expectedSchema = `https://commandlayer.org/agent-cards/schemas/${CURRENT_LINE}/agent.card.schema.json`;
+    if (card.$schema !== expectedSchema) fail(`${relativePath}: stale or invalid $schema.`);
+    if (JSON.stringify(card).includes("_shared")) fail(`${relativePath}: current ${CURRENT_LINE} card must not reference _shared.`);
 
-  console.log(`✅ Current Agent Card valid: ${relativePath}`);
+    const expectedRequest = `${expectedSourceRoot}/${primaryVerb}/${primaryVerb}.request.schema.json`;
+    const expectedReceipt = `${expectedSourceRoot}/${primaryVerb}/${primaryVerb}.receipt.schema.json`;
+    const expectedMirrorRequest = `${expectedMirrorRoot}/${primaryVerb}/${primaryVerb}.request.schema.json`;
+    const expectedMirrorReceipt = `${expectedMirrorRoot}/${primaryVerb}/${primaryVerb}.receipt.schema.json`;
+
+    if (card.schemas.request !== expectedRequest || card.schemas.receipt !== expectedReceipt) {
+      fail(`${relativePath}: stale ${tier === "commons" ? "Commons" : "Commercial"} source schema paths.`);
+    }
+    if (card.schemas_mirror.request !== expectedMirrorRequest || card.schemas_mirror.receipt !== expectedMirrorReceipt) {
+      fail(`${relativePath}: stale ${tier === "commons" ? "Commons" : "Commercial"} mirror schema paths.`);
+    }
+  }
+
+  if (folderVersion === "v1.0.0") {
+    const text = JSON.stringify(card);
+    const placeholder = PLACEHOLDER_PATTERNS.find((pattern) => text.includes(pattern));
+    if (placeholder) fail(`${relativePath}: contains legacy placeholder content (${placeholder}).`);
+  }
+
+  console.log(`✅ Agent Card valid: ${relativePath}`);
+  return { relativePath, card, tier, primaryVerb };
 }
 
-function validateLegacyCard(fullPath) {
-  const relativePath = path.relative(ROOT, fullPath).replace(/\\/g, "/");
-  const [, folderVersion, tier, fileName] = relativePath.split("/");
-  const card = readJson(fullPath);
+function validateManifestAgainstCards(cardRecords) {
+  const manifest = loadJson("meta/manifest.json");
+  const cardMap = new Map(cardRecords.map((record) => [record.relativePath, record]));
+  const manifestMap = new Map();
 
-  if (!v10Validate(card)) {
-    fail(`Legacy Agent Card failed schema validation: ${relativePath}`, v10Validate.errors);
-    return;
+  for (const entry of manifest.entries) {
+    const url = new URL(entry.agent_card);
+    const relativePath = decodeURIComponent(url.pathname.replace(/^\/agent-cards\//, ""));
+    if (manifestMap.has(relativePath)) fail(`meta/manifest.json: duplicate manifest entry for ${relativePath}.`);
+    manifestMap.set(relativePath, entry);
+
+    const record = cardMap.get(relativePath);
+    if (!record) {
+      fail(`meta/manifest.json: manifest entry points to missing card file ${relativePath}.`);
+      continue;
+    }
+
+    const { card, primaryVerb, tier } = record;
+    expectEqual(entry.id, card.id, `meta/manifest.json: id mismatch for ${relativePath}.`);
+    expectEqual(entry.version, card.version, `meta/manifest.json: version mismatch for ${relativePath}.`);
+    expectEqual(entry.class, card.class, `meta/manifest.json: class mismatch for ${relativePath}.`);
+    compareArrays(entry.networks, card.networks, `meta/manifest.json: networks mismatch for ${relativePath}.`);
+    expectEqual(entry.status, card.status, `meta/manifest.json: status mismatch for ${relativePath}.`);
+    expectEqual(entry.verb, primaryVerb, `meta/manifest.json: verb mismatch for ${relativePath}.`);
+    expectEqual(entry.agent_card, card.$id, `meta/manifest.json: agent_card mismatch for ${relativePath}.`);
+    expectEqual(entry.schema_request, card.schemas.request, `meta/manifest.json: schema_request mismatch for ${relativePath}.`);
+    expectEqual(entry.schema_receipt, card.schemas.receipt, `meta/manifest.json: schema_receipt mismatch for ${relativePath}.`);
+    expectEqual(entry.schema_request_mirror, card.schemas_mirror.request, `meta/manifest.json: schema_request_mirror mismatch for ${relativePath}.`);
+    expectEqual(entry.schema_receipt_mirror, card.schemas_mirror.receipt, `meta/manifest.json: schema_receipt_mirror mismatch for ${relativePath}.`);
+    expectEqual(entry.entry, card.entry, `meta/manifest.json: entry mismatch for ${relativePath}.`);
+    expectEqual(relativePath, `agents/${CURRENT_LINE}/${tier}/${card.ens}.json`, `meta/manifest.json: non-canonical manifest path for ${relativePath}.`);
   }
 
-  const primaryVerb = card.implements[0];
-  const expectedId = `https://commandlayer.org/agent-cards/${relativePath}`;
-  const expectedEntry = `x402://${card.ens}/${primaryVerb}/v${card.version}`;
-  const semverFolder = folderVersion.replace(/^v/, "");
-  const serialized = JSON.stringify(card);
+  for (const relativePath of cardMap.keys()) {
+    if (!manifestMap.has(relativePath)) fail(`meta/manifest.json: missing manifest entry for ${relativePath}.`);
+  }
 
-  if (card.version !== semverFolder) fail(`${relativePath}: version mismatch.`);
-  if (card.$id !== expectedId) fail(`${relativePath}: $id mismatch.`);
-  if (card.entry !== expectedEntry) fail(`${relativePath}: entry mismatch.`);
-  if (card.id !== card.ens) fail(`${relativePath}: id must equal ens.`);
-  if (card.class !== tier) fail(`${relativePath}: class mismatch.`);
-  if (fileName !== `${card.ens}.json`) fail(`${relativePath}: filename mismatch.`);
-  if (new Date(card.updated_at).getTime() < new Date(card.created_at).getTime()) fail(`${relativePath}: updated_at must be >= created_at.`);
-  if (/COMMERCIAL_SCHEMAS_CID|example\.com|placeholder|your-domain|REPLACE_ME|TODO|TBD/i.test(serialized)) fail(`${relativePath}: contains placeholder or template content.`);
+  expectEqual(manifest.entries.length, cardRecords.length, "meta/manifest.json: entry count must match indexed current-line cards.");
+  expectEqual(manifest.release_lines.current, CURRENT_LINE, "meta/manifest.json: current release line mismatch.");
+  expectEqual(manifest.roots.cards_http, CARD_HTTP_ROOT, "meta/manifest.json: cards_http root mismatch.");
+  expectEqual(manifest.updated_at, "2026-03-19T00:00:00Z", "meta/manifest.json: updated_at must reflect the current release stamp.");
 
-  console.log(`✅ Legacy Agent Card valid: ${relativePath}`);
+  const commonsCount = cardRecords.filter(({ tier }) => tier === "commons").length;
+  const commercialCount = cardRecords.filter(({ tier }) => tier === "commercial").length;
+  expectEqual(manifest.bindings.commons.count, commonsCount, "meta/manifest.json: commons binding count mismatch.");
+  expectEqual(manifest.bindings.commercial.count, commercialCount, "meta/manifest.json: commercial binding count mismatch.");
+
+  console.log("✅ Manifest aligned with current-line card files: meta/manifest.json");
 }
 
-function runCurrentValidation() {
-  console.log("▶ Validating current canonical line (v1.1.0 + discovery)...");
-  for (const descriptorPath of CURRENT_DESCRIPTOR_PATHS) validateDescriptor(descriptorPath);
+function validateCurrentLine() {
+  console.log("▶ Validating current canonical release line (v1.1.0).");
+  validateDescriptor(".well-known/agent.json");
+  validateDescriptor(".well-known/agent-cards-v1.1.0.json");
   validateExpectedV11Set();
-  for (const file of collectJsonFiles("agents/v1.1.0")) validateCurrentCard(file);
-}
-
-function runLegacyValidation() {
-  console.log("▶ Validating legacy compatibility line (v1.0.0)...");
-  for (const file of collectJsonFiles("agents/v1.0.0")) validateLegacyCard(file);
-}
-
-function main() {
-  const mode = getMode();
-
-  if (mode === "current" || mode === "all") runCurrentValidation();
-  if (mode === "legacy" || mode === "all") runLegacyValidation();
-
+  const cardRecords = [];
+  for (const file of collectJsonFiles("agents")) {
+    const record = validateCard(file);
+    if (record?.relativePath.startsWith(`agents/${CURRENT_LINE}/`)) cardRecords.push(record);
+  }
+  validateManifestAgainstCards(cardRecords);
   if (process.exitCode) process.exit(process.exitCode);
-  if (mode === "current") console.log("✅ Current canonical validation completed successfully.");
-  else if (mode === "legacy") console.log("✅ Legacy compatibility validation completed successfully.");
-  else console.log("✅ All current and legacy card validations completed successfully.");
+  console.log(`✅ ${mode === "release" ? "Release" : mode[0].toUpperCase() + mode.slice(1)} validation completed successfully.`);
 }
 
 main();

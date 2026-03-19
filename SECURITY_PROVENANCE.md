@@ -1,8 +1,8 @@
-# Security & Provenance — Agent Cards
+# Security & Provenance — CommandLayer Agent Cards
 
-Agent Cards express identity, routing, and release bindings. They do not prove execution success, payment settlement, or runtime behavior by themselves.
+CommandLayer Agent Cards prove identity and routing intent. They do not prove execution success.
 
-## Current provenance model (`v1.1.0`)
+## Provenance model for v1.1.0
 
 - direct upstream schema source URLs
 - direct commandlayer.org mirror URLs

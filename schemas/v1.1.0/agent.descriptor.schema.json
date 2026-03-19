@@ -78,7 +78,8 @@
         "current_release",
         "legacy_release",
         "publish_state",
-        "license"
+        "license",
+        "publication_model"
       ],
       "properties": {
         "agent_cards_version": {
@@ -95,6 +96,10 @@
         },
         "license": {
           "type": "string"
+        },
+        "publication_model": {
+          "type": "string",
+          "const": "root-canonical-plus-derivative-dist-pin"
         }
       }
     }

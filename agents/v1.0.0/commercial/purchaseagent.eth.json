@@ -39,9 +39,6 @@
       "purchase",
       "commercial",
       "payments"
-    ],
-    "notes": [
-      "Legacy commercial v1.0.0 cards are preserved without mirror URLs because no canonical IPFS mirror binding was recorded for this line."
     ]
   },
   "networks": [

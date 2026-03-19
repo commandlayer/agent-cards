@@ -8,7 +8,6 @@ on:
 
 jobs:
   validate-current-release:
-    name: Validate current release flow (v1.1.0)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,11 +19,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Validate current release flow
+      - name: Validate current release authority path
         run: npm run validate
 
   validate-legacy-compatibility:
-    name: Validate legacy compatibility line (v1.0.0)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -36,5 +34,5 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Validate legacy compatibility cards
+      - name: Validate legacy compatibility line
         run: npm run validate:legacy
