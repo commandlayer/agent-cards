@@ -4,16 +4,17 @@ This document defines the Agent Cards v1.1.0 identity and routing contract.
 
 ## 1. Scope
 
-Agent Cards describe:
+Agent Cards publish only canonical binding facts:
 
 - ENS-based identity
+- owner attribution
 - primary verb support
 - request and receipt schema bindings
 - public mirror bindings
 - x402 entry routing
-- minimal discovery metadata
+- lifecycle and release provenance needed to interpret the artifact
 
-They do not define semantic meaning. Commons and Commercial own the schema contract.
+They do not define semantic meaning, feature behavior, or implementation detail. Commons and Commercial own the schema contract.
 
 ## 2. Current schema files
 
@@ -24,16 +25,13 @@ Current Agent Cards v1.1.0 uses only:
 
 Current Agent Cards v1.1.0 MUST NOT use `_shared`.
 
-## 3. Required card fields
+## 3. Minimal canonical card fields
 
-Every v1.1.0 card MUST include:
+Every v1.1.0 card MUST include only the current binding contract fields:
 
 - `$schema`
 - `$id`
 - `id`
-- `slug`
-- `display_name`
-- `description`
 - `owner`
 - `ens`
 - `version`
@@ -49,6 +47,8 @@ Every v1.1.0 card MUST include:
 - `license`
 - `created_at`
 - `updated_at`
+
+v1.1.0 cards MUST NOT add descriptive overlays such as display labels, prose summaries, capabilities lists, tag clouds, or duplicate links to already-bound schema targets.
 
 ## 4. Versioning rules
 
@@ -80,7 +80,16 @@ A Commercial v1.1.0 card MUST bind directly to:
 
 Commercial v1.1.0 is flat in the same style as Commons v1.1.0.
 
-## 6. Descriptor rules
+## 6. Manifest alignment rules
+
+`meta/manifest.json` is an index, not an independent source of truth. For every indexed current-line card:
+
+- every manifest entry MUST resolve to a real card file
+- every current-line card file MUST appear exactly once in the manifest
+- manifest `id`, `version`, `class`, `verb`, `status`, `networks`, schema URLs, mirror URLs, `agent_card`, and `entry` MUST exactly match the card
+- binding counts and current release roots MUST match the indexed cards
+
+## 7. Descriptor rules
 
 Current discovery descriptors MUST validate under `schemas/v1.1.0/agent.descriptor.schema.json` and point at:
 
@@ -88,13 +97,15 @@ Current discovery descriptors MUST validate under `schemas/v1.1.0/agent.descript
 - `meta/commons-agent.json`
 - `meta/commercial-agent.json`
 
-## 7. Conformance
+## 8. Conformance
 
 A repo state is conformant when:
 
 - the authoritative v1.1.0 card set exists
 - current cards use no `_shared` references
+- current cards contain only the minimal canonical binding fields
 - cards point at direct published source URLs and direct `commandlayer.org` mirrors
+- `meta/manifest.json` exactly matches the indexed current-line cards
 - discovery and manifest files describe the same current release line
 - `checksums.txt` matches repo contents
 - `npm run validate` passes

@@ -1,6 +1,6 @@
 # Agent Cards — CommandLayer
 
-Agent Cards are CommandLayer's identity and routing layer. They bind ENS names to canonical verbs, published request/receipt schemas, and semver-pinned x402 entrypoints without redefining the semantic contract.
+Agent Cards are CommandLayer's canonical discovery and binding artifacts. They bind ENS names to a single verb, the authoritative request/receipt schemas for that verb, the public schema mirrors, and the semver-pinned x402 entrypoint. They do not act as product pages, feature summaries, or semantic substitutes for the linked protocol schemas.
 
 ## Current version story
 
@@ -8,6 +8,19 @@ Agent Cards are CommandLayer's identity and routing layer. They bind ENS names t
 - **Current Commons contract line:** `v1.1.0`
 - **Current Commercial contract line:** `v1.1.0`
 - **Legacy line retained for compatibility:** `v1.0.0`
+
+## Minimalism policy for v1.1.0 cards
+
+A current-line card is intentionally narrow. It exists to publish canonical binding facts only:
+
+- identity: `id`, `ens`, `owner`
+- release line and lifecycle: `version`, `status`, `created_at`, `updated_at`
+- protocol class and verb binding: `class`, `implements`
+- linked schemas: `schemas`, `schemas_mirror`
+- routing: `entry`
+- minimal operational context: `networks`, `license`
+
+v1.1.0 cards intentionally omit descriptive and editorial metadata such as display copy, capabilities summaries, tags, and extra links. If a detail is owned by the Commons or Commercial schema contract, the card links to that contract instead of restating it.
 
 ## Design rule for v1.1.0
 
@@ -28,6 +41,7 @@ For `v1.1.0`:
 - `schemas.request` and `schemas.receipt` point to the tagged upstream schema source URLs
 - `schemas_mirror.request` and `schemas_mirror.receipt` point to the public `commandlayer.org` mirrors
 - `entry` remains `x402://<ens>/<verb>/v1.1.0`
+- `meta/manifest.json` must exactly match the indexed cards for core binding fields
 
 ### Commons source pattern
 
@@ -72,7 +86,10 @@ agent-cards/
   "$schema": "https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json",
   "$id": "https://commandlayer.org/agent-cards/agents/v1.1.0/commons/summarizeagent.eth.json",
   "id": "summarizeagent.eth",
+  "owner": "commandlayer.eth",
+  "ens": "summarizeagent.eth",
   "version": "1.1.0",
+  "status": "protocol_reference",
   "class": "commons",
   "implements": ["summarize"],
   "schemas": {
@@ -83,29 +100,11 @@ agent-cards/
     "request": "https://commandlayer.org/schemas/v1.1.0/commons/summarize/summarize.request.schema.json",
     "receipt": "https://commandlayer.org/schemas/v1.1.0/commons/summarize/summarize.receipt.schema.json"
   },
-  "entry": "x402://summarizeagent.eth/summarize/v1.1.0"
-}
-```
-
-## Example Commercial v1.1.0 card
-
-```json
-{
-  "$schema": "https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json",
-  "$id": "https://commandlayer.org/agent-cards/agents/v1.1.0/commercial/checkoutagent.eth.json",
-  "id": "checkoutagent.eth",
-  "version": "1.1.0",
-  "class": "commercial",
-  "implements": ["checkout"],
-  "schemas": {
-    "request": "https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/checkout/checkout.request.schema.json",
-    "receipt": "https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/checkout/checkout.receipt.schema.json"
-  },
-  "schemas_mirror": {
-    "request": "https://commandlayer.org/schemas/v1.1.0/commercial/checkout/checkout.request.schema.json",
-    "receipt": "https://commandlayer.org/schemas/v1.1.0/commercial/checkout/checkout.receipt.schema.json"
-  },
-  "entry": "x402://checkoutagent.eth/checkout/v1.1.0"
+  "entry": "x402://summarizeagent.eth/summarize/v1.1.0",
+  "networks": ["eip155:1"],
+  "license": "Apache-2.0",
+  "created_at": "2025-11-22T00:00:00Z",
+  "updated_at": "2026-03-19T00:00:00Z"
 }
 ```
 
@@ -123,12 +122,13 @@ Validation checks:
 - version / path / `$schema` / `$id` alignment
 - direct Commons and Commercial source URL patterns
 - direct `commandlayer.org` mirror URL patterns
+- exact manifest/card cross-validation for indexed current-line entries
 - entry URI correctness
 - checksum determinism across cards, schemas, meta, discovery, and dist-pin
 
 ## Release artifacts
 
-- `meta/manifest.json` — authoritative release index
+- `meta/manifest.json` — authoritative release index, validated against the current-line cards
 - `.well-known/agent.json` — current discovery descriptor
 - `.well-known/agent-cards-v1.1.0.json` — versioned descriptor
 - `dist-pin/agent-cards/v1.1.0/` — publish bundle for repinning
