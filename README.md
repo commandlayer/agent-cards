@@ -61,8 +61,9 @@ agent-cards/
 │       └── agent.descriptor.schema.json
 ├── meta/
 ├── .well-known/
-├── dist-pin/agent-cards/v1.1.0/
-└── checksums.txt
+├── dist-pin/
+├── checksums-v1.1.0.txt
+└── checksums-v1.0.0.txt
 ```
 
 ## Example Commons v1.1.0 card
@@ -124,12 +125,29 @@ Validation checks:
 - direct Commons and Commercial source URL patterns
 - direct `commandlayer.org` mirror URL patterns
 - entry URI correctness
-- checksum determinism across cards, schemas, meta, discovery, and dist-pin
+- current release checksum determinism across the canonical v1.1.0 line
+- archival checksum determinism for retained v1.0.0 compatibility assets
+- committed dist-pin bundle mirroring and bundle-local checksum determinism
 
-## Release artifacts
+## Discovery surfaces
+
+- `.well-known/agent.json` — current discovery pointer for the recommended release line
+- `.well-known/agent-cards-v1.1.0.json` — frozen v1.1.0 discovery snapshot
+- The two discovery descriptors are intentionally both present under **Model A: current pointer + versioned snapshot**.
+- Validation enforces that the files are identical except for the current-pointer fields in `agent.json`: `name`, `description`, `meta.descriptor_role`, and `meta.current_pointer_target`.
+- The versioned snapshot keeps the v1.1.0 release facts frozen and carries `meta.descriptor_role=release-snapshot` plus `meta.frozen_release=v1.1.0`.
+
+## Release artifacts and integrity surfaces
 
 - `meta/manifest.json` — authoritative release index
-- `.well-known/agent.json` — current discovery descriptor
-- `.well-known/agent-cards-v1.1.0.json` — versioned descriptor
-- `dist-pin/agent-cards/v1.1.0/` — publish bundle for repinning
-- `checksums.txt` — deterministic artifact digests
+- `checksums-v1.1.0.txt` — canonical checksum surface for the current v1.1.0 release line
+- `checksums-v1.0.0.txt` — archival checksum surface for retained v1.0.0 compatibility assets
+- `dist-pin/agent-cards/v1.1.0/` — committed authoritative publish bundle; it must exactly mirror the canonical v1.1.0 files in this repo
+- `dist-pin/agent-cards/v1.1.0/checksums.txt` — bundle-local checksums for the committed publish bundle
+- `dist-pin/agent-cards/v1.0.0/checksums.txt` — archival bundle-local checksums for the v1.0.0 publish bundle
+
+The clean-clone verification story is now split on purpose:
+
+- verify the current canonical release line with `npm run validate:checksums` or by inspecting `checksums-v1.1.0.txt`
+- verify the committed publish bundle independently with `dist-pin/agent-cards/v1.1.0/checksums.txt`
+- verify archival compatibility assets separately with `checksums-v1.0.0.txt`

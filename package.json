@@ -35,7 +35,8 @@
     "meta/",
     "schemas/",
     "dist-pin/",
-    "checksums.txt",
+    "checksums-v1.1.0.txt",
+    "checksums-v1.0.0.txt",
     "LICENSE",
     "README.md"
   ],

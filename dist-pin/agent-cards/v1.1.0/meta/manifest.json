@@ -43,14 +43,10 @@
     }
   },
   "checksums": {
-    "file": "https://commandlayer.org/agent-cards/checksums.txt",
-    "covers": [
-      "agents",
-      "schemas",
-      "meta",
-      ".well-known",
-      "dist-pin/agent-cards/v1.1.0"
-    ]
+    "current_release": "https://commandlayer.org/agent-cards/checksums-v1.1.0.txt",
+    "archival_v1_0_0": "https://commandlayer.org/agent-cards/checksums-v1.0.0.txt",
+    "dist_pin_v1_1_0": "https://commandlayer.org/agent-cards/dist-pin/agent-cards/v1.1.0/checksums.txt",
+    "dist_pin_v1_0_0": "https://commandlayer.org/agent-cards/dist-pin/agent-cards/v1.0.0/checksums.txt"
   },
   "entries": [
     {

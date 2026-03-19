@@ -54,6 +54,42 @@ function validateDescriptor(relativePath) {
   const data = loadJson(relativePath);
   if (!descriptorValidate(data)) fail(`${relativePath} failed descriptor validation.`, descriptorValidate.errors);
   else console.log(`✅ Descriptor valid: ${relativePath}`);
+  return data;
+}
+
+function validateDiscoveryRelationship() {
+  const current = validateDescriptor(".well-known/agent.json");
+  const snapshot = validateDescriptor(".well-known/agent-cards-v1.1.0.json");
+
+  if (snapshot.name !== "CommandLayer Agent Cards Registry Descriptor (v1.1.0)" ||
+      snapshot.description !== "Frozen well-known discovery descriptor for the CommandLayer Agent Cards v1.1.0 release line." ||
+      snapshot.meta.descriptor_role !== "release-snapshot" ||
+      snapshot.meta.frozen_release !== "v1.1.0") {
+    fail(".well-known/agent-cards-v1.1.0.json must remain the frozen v1.1.0 release snapshot.");
+  } else {
+    console.log("✅ Frozen discovery snapshot is structurally pinned for v1.1.0");
+  }
+
+  if (current.name !== "CommandLayer Agent Cards Registry" ||
+      current.description !== "Current well-known discovery descriptor for the recommended CommandLayer Agent Cards release line." ||
+      current.meta.descriptor_role !== "current-pointer" ||
+      current.meta.current_pointer_target !== "agent-cards-v1.1.0.json") {
+    fail(".well-known/agent.json must expose the current-pointer semantics explicitly.");
+  }
+
+  const normalizedCurrent = structuredClone(current);
+  const normalizedSnapshot = structuredClone(snapshot);
+  normalizedCurrent.name = snapshot.name;
+  normalizedCurrent.description = snapshot.description;
+  normalizedCurrent.meta.descriptor_role = snapshot.meta.descriptor_role;
+  delete normalizedCurrent.meta.current_pointer_target;
+  delete normalizedSnapshot.meta.frozen_release;
+
+  if (JSON.stringify(normalizedCurrent) !== JSON.stringify(normalizedSnapshot)) {
+    fail(".well-known/agent.json may differ from the v1.1.0 snapshot only by current-pointer fields (name, description, meta.descriptor_role, meta.current_pointer_target)." );
+  } else {
+    console.log("✅ Current discovery pointer differs only in the allowed pointer fields");
+  }
 }
 
 function validateExpectedV11Set() {
@@ -116,11 +152,35 @@ function validateCard(fullPath) {
   console.log(`✅ Agent Card valid: ${relativePath}`);
 }
 
+function validateDistPinBundle(version) {
+  const bundleRoot = path.join(ROOT, "dist-pin", "agent-cards", version);
+  if (!fs.existsSync(bundleRoot)) {
+    fail(`dist-pin/agent-cards/${version} is missing; committed dist-pin bundles are authoritative publish bundles.`);
+    return;
+  }
+
+  const files = collectJsonFiles(path.join("dist-pin", "agent-cards", version));
+  for (const fullPath of files) {
+    const relativePath = path.relative(bundleRoot, fullPath).replace(/\\/g, "/");
+    const sourcePath = path.join(ROOT, relativePath);
+    if (!fs.existsSync(sourcePath)) {
+      fail(`dist-pin/agent-cards/${version}/${relativePath} has no canonical source counterpart.`);
+      continue;
+    }
+    const bundleText = fs.readFileSync(fullPath, "utf8");
+    const sourceText = fs.readFileSync(sourcePath, "utf8");
+    if (bundleText !== sourceText) {
+      fail(`dist-pin/agent-cards/${version}/${relativePath} must exactly mirror ${relativePath}.`);
+    }
+  }
+  console.log(`✅ dist-pin/agent-cards/${version} is an exact committed publish bundle mirror`);
+}
+
 function main() {
-  validateDescriptor(".well-known/agent.json");
-  validateDescriptor(".well-known/agent-cards-v1.1.0.json");
+  validateDiscoveryRelationship();
   validateExpectedV11Set();
   for (const file of collectJsonFiles("agents")) validateCard(file);
+  validateDistPinBundle("v1.1.0");
   if (process.exitCode) process.exit(process.exitCode);
   console.log("✅ All Agent Card validations completed successfully.");
 }

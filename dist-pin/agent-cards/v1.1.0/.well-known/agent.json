@@ -1,7 +1,7 @@
 {
   "id": "x402://commandlayer.eth/agent-cards/v1.1.0",
   "name": "CommandLayer Agent Cards Registry",
-  "description": "Well-known descriptor for the current CommandLayer Agent Cards v1.1.0 release line.",
+  "description": "Current well-known discovery descriptor for the recommended CommandLayer Agent Cards release line.",
   "owner": "commandlayer.eth",
   "ens": "commandlayer.eth",
   "version": "1.1.0",
@@ -25,6 +25,8 @@
     "current_release": "v1.1.0",
     "legacy_release": "v1.0.0",
     "publish_state": "ready-to-pin",
-    "license": "Apache-2.0"
+    "license": "Apache-2.0",
+    "descriptor_role": "current-pointer",
+    "current_pointer_target": "agent-cards-v1.1.0.json"
   }
 }

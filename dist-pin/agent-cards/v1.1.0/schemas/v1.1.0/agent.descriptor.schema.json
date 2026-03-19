@@ -95,6 +95,21 @@
         },
         "license": {
           "type": "string"
+        },
+        "descriptor_role": {
+          "type": "string",
+          "enum": [
+            "current-pointer",
+            "release-snapshot"
+          ]
+        },
+        "current_pointer_target": {
+          "type": "string",
+          "const": "agent-cards-v1.1.0.json"
+        },
+        "frozen_release": {
+          "type": "string",
+          "const": "v1.1.0"
         }
       }
     }
