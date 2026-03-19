@@ -32,6 +32,8 @@ A current-line card is intentionally narrow. It exists to publish canonical bind
 
 v1.1.0 cards intentionally omit descriptive and editorial metadata such as display copy, capabilities summaries, tags, and extra links. If a detail is owned by the Commons or Commercial schema contract, the card links to that contract instead of restating it.
 
+`v1.1.0` is the canonical line. The repository's default validation path, release bundle, discovery descriptors, and checksum coverage are all centered on `v1.1.0`. `v1.0.0` remains in-tree as an archival and compatibility line only.
+
 ## Design rule for v1.1.0
 
 Agent Cards v1.1.0 is intentionally flat:

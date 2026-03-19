@@ -40,8 +40,8 @@
     "README.md"
   ],
   "scripts": {
-    "validate:cards": "node scripts/validate-cards.mjs",
-    "generate:checksums": "node scripts/generate-checksums.mjs",
+    "validate:current": "node scripts/validate-cards.mjs --mode=current",
+    "validate:legacy": "node scripts/validate-cards.mjs --mode=legacy",
     "validate:checksums": "node scripts/generate-checksums.mjs --verify",
     "validate": "npm run validate:cards && npm run validate:checksums"
   },
