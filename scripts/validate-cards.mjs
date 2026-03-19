@@ -6,6 +6,7 @@ import addFormats from "ajv-formats";
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
+const PLACEHOLDER_PATTERNS = ["COMMERCIAL_SCHEMAS_CID", "COMMONS_SCHEMAS_CID", "example.com", "<placeholder>"];
 
 const commonsVerbs = ["analyze", "classify", "clean", "convert", "describe", "explain", "fetch", "format", "parse", "summarize"];
 const commercialVerbs = ["authorize", "checkout", "purchase", "ship", "verify"];
@@ -16,6 +17,15 @@ const expectedV11 = {
 
 const ajv = new Ajv2020({ strict: true, allErrors: true });
 addFormats(ajv);
+
+function getMode() {
+  const arg = process.argv.find((value) => value.startsWith("--mode="));
+  const mode = arg ? arg.split("=")[1] : "release";
+  if (!["current", "legacy", "release"].includes(mode)) {
+    throw new Error(`Unsupported validation mode: ${mode}`);
+  }
+  return mode;
+}
 
 function loadJson(relativePath) {
   return JSON.parse(fs.readFileSync(path.join(ROOT, relativePath), "utf8"));
@@ -29,6 +39,7 @@ function collectJsonFiles(relativeRoot) {
   const root = path.join(ROOT, relativeRoot);
   if (!fs.existsSync(root)) return [];
   const out = [];
+
   function walk(dir) {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const full = path.join(dir, entry.name);
@@ -36,6 +47,7 @@ function collectJsonFiles(relativeRoot) {
       else if (entry.isFile() && entry.name.endsWith(".json")) out.push(full);
     }
   }
+
   walk(root);
   return out.sort();
 }
@@ -52,8 +64,11 @@ const v11Validate = ajv.compile(loadJson("schemas/v1.1.0/agent.card.schema.json"
 
 function validateDescriptor(relativePath) {
   const data = loadJson(relativePath);
-  if (!descriptorValidate(data)) fail(`${relativePath} failed descriptor validation.`, descriptorValidate.errors);
-  else console.log(`✅ Descriptor valid: ${relativePath}`);
+  if (!descriptorValidate(data)) {
+    fail(`${relativePath} failed descriptor validation.`, descriptorValidate.errors);
+    return;
+  }
+  console.log(`✅ Descriptor valid: ${relativePath}`);
 }
 
 function validateExpectedV11Set() {
@@ -74,6 +89,7 @@ function validateCard(fullPath) {
   const [, folderVersion, tier, fileName] = relativePath.split("/");
   const card = readJson(fullPath);
   const validate = folderVersion === "v1.1.0" ? v11Validate : v10Validate;
+
   if (!validate(card)) {
     fail(`Agent Card failed schema validation: ${relativePath}`, validate.errors);
     return;
@@ -94,35 +110,57 @@ function validateCard(fullPath) {
 
   if (folderVersion === "v1.1.0") {
     const expectedSchema = "https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json";
+    const expectedSourceRoot = tier === "commons"
+      ? "https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/v1.1.0/schemas/v1.1.0/commons"
+      : "https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial";
+    const expectedMirrorRoot = tier === "commons"
+      ? "https://commandlayer.org/schemas/v1.1.0/commons"
+      : "https://commandlayer.org/schemas/v1.1.0/commercial";
+
     if (card.$schema !== expectedSchema) fail(`${relativePath}: stale or invalid $schema.`);
     if (JSON.stringify(card).includes("_shared")) fail(`${relativePath}: current v1.1.0 card must not reference _shared.`);
 
-    const rawCommons = /^https:\/\/raw\.githubusercontent\.com\/commandlayer\/protocol-commons\/refs\/tags\/v1\.1\.0\/schemas\/v1\.1\.0\/commons\/([^/]+)\/\1\.(request|receipt)\.schema\.json$/;
-    const rawCommercial = /^https:\/\/raw\.githubusercontent\.com\/commandlayer\/protocol-commercial\/refs\/tags\/v1\.1\.0\/schemas\/v1\.1\.0\/commercial\/([^/]+)\/\1\.(request|receipt)\.schema\.json$/;
-    const mirrorCommons = /^https:\/\/commandlayer\.org\/schemas\/v1\.1\.0\/commons\/([^/]+)\/\1\.(request|receipt)\.schema\.json$/;
-    const mirrorCommercial = /^https:\/\/commandlayer\.org\/schemas\/v1\.1\.0\/commercial\/([^/]+)\/\1\.(request|receipt)\.schema\.json$/;
+    const expectedRequest = `${expectedSourceRoot}/${primaryVerb}/${primaryVerb}.request.schema.json`;
+    const expectedReceipt = `${expectedSourceRoot}/${primaryVerb}/${primaryVerb}.receipt.schema.json`;
+    const expectedMirrorRequest = `${expectedMirrorRoot}/${primaryVerb}/${primaryVerb}.request.schema.json`;
+    const expectedMirrorReceipt = `${expectedMirrorRoot}/${primaryVerb}/${primaryVerb}.receipt.schema.json`;
 
-    if (tier === "commons") {
-      if (!rawCommons.test(card.schemas.request) || !rawCommons.test(card.schemas.receipt)) fail(`${relativePath}: stale Commons source schema paths.`);
-      if (!mirrorCommons.test(card.schemas_mirror.request) || !mirrorCommons.test(card.schemas_mirror.receipt)) fail(`${relativePath}: stale Commons mirror schema paths.`);
+    if (card.schemas.request !== expectedRequest || card.schemas.receipt !== expectedReceipt) {
+      fail(`${relativePath}: stale ${tier === "commons" ? "Commons" : "Commercial"} source schema paths.`);
     }
-    if (tier === "commercial") {
-      if (!rawCommercial.test(card.schemas.request) || !rawCommercial.test(card.schemas.receipt)) fail(`${relativePath}: stale Commercial source schema paths.`);
-      if (!mirrorCommercial.test(card.schemas_mirror.request) || !mirrorCommercial.test(card.schemas_mirror.receipt)) fail(`${relativePath}: stale Commercial mirror schema paths.`);
+    if (card.schemas_mirror.request !== expectedMirrorRequest || card.schemas_mirror.receipt !== expectedMirrorReceipt) {
+      fail(`${relativePath}: stale ${tier === "commons" ? "Commons" : "Commercial"} mirror schema paths.`);
     }
-    if (!card.schemas.request.includes(`/${primaryVerb}/`) || !card.schemas.receipt.includes(`/${primaryVerb}/`)) fail(`${relativePath}: schema URLs must match implements[0].`);
+  }
+
+  if (folderVersion === "v1.0.0") {
+    const text = JSON.stringify(card);
+    const placeholder = PLACEHOLDER_PATTERNS.find((pattern) => text.includes(pattern));
+    if (placeholder) fail(`${relativePath}: contains legacy placeholder content (${placeholder}).`);
   }
 
   console.log(`✅ Agent Card valid: ${relativePath}`);
 }
 
-function main() {
+function validateCurrentLine() {
+  console.log("▶ Validating current canonical release line (v1.1.0).");
   validateDescriptor(".well-known/agent.json");
   validateDescriptor(".well-known/agent-cards-v1.1.0.json");
   validateExpectedV11Set();
-  for (const file of collectJsonFiles("agents")) validateCard(file);
+  for (const file of collectJsonFiles("agents/v1.1.0")) validateCard(file);
+}
+
+function validateLegacyLine() {
+  console.log("▶ Validating legacy compatibility line (v1.0.0).");
+  for (const file of collectJsonFiles("agents/v1.0.0")) validateCard(file);
+}
+
+function main() {
+  const mode = getMode();
+  if (mode === "current" || mode === "release") validateCurrentLine();
+  if (mode === "legacy" || mode === "release") validateLegacyLine();
   if (process.exitCode) process.exit(process.exitCode);
-  console.log("✅ All Agent Card validations completed successfully.");
+  console.log(`✅ ${mode === "release" ? "Release" : mode[0].toUpperCase() + mode.slice(1)} validation completed successfully.`);
 }
 
 main();

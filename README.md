@@ -9,6 +9,8 @@ Agent Cards are CommandLayer's identity and routing layer. They bind ENS names t
 - **Current Commercial contract line:** `v1.1.0`
 - **Legacy line retained for compatibility:** `v1.0.0`
 
+`v1.1.0` is the canonical line. The repository's default validation path, release bundle, discovery descriptors, and checksum coverage are all centered on `v1.1.0`. `v1.0.0` remains in-tree as an archival and compatibility line only.
+
 ## Design rule for v1.1.0
 
 Agent Cards v1.1.0 is intentionally flat:
@@ -44,6 +46,47 @@ For `v1.1.0`:
 ### Commercial mirror pattern
 
 `https://commandlayer.org/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
+
+## Validation commands
+
+```bash
+npm install
+npm run validate
+```
+
+Default release-facing validation:
+
+- `npm run validate` — validates the current canonical line (`v1.1.0`) discovery and cards, verifies release checksums, and runs typecheck
+- `npm run validate:current` — validates only the current canonical discovery and cards
+- `npm run validate:legacy` — validates only the preserved `v1.0.0` compatibility line
+- `npm run validate:checksums` — verifies deterministic checksums for release artifacts
+- `npm run validate:release` — runs the full release bundle: current line, legacy line, checksums, and typecheck
+
+Validation checks for the current line include:
+
+- descriptor schema conformance for the current discovery files
+- exact authoritative `v1.1.0` card presence
+- version / path / `$schema` / `$id` alignment
+- direct Commons and Commercial source URL patterns
+- direct `commandlayer.org` mirror URL patterns
+- entry URI correctness
+- checksum determinism across cards, schemas, meta, discovery, and dist-pin
+
+Legacy validation is intentionally secondary. It exists to confirm preserved `v1.0.0` artifacts remain structurally readable and free of committed placeholder junk; it is not the default authority path for the repository.
+
+## Legacy v1.0.0 status and limitations
+
+`v1.0.0` is preserved for archival compatibility, not as the normative current model.
+
+Readers should expect the following limitations in the legacy line:
+
+- the schema model is `_shared`-based and looser than `v1.1.0`
+- provenance-adjacent metadata may appear directly on cards, including `meta.pgp_fingerprint`
+- legacy schema binding conventions differ from the flat `v1.1.0` line
+- legacy cards are retained as historical artifacts, so the repository does not retrofit them into the current trust model
+- broken template placeholders are removed when found, but preservation does not imply parity with current release guarantees
+
+See `COMPLIANCE.md` for release criteria and `SECURITY_PROVENANCE.md` for the current trust anchors and the legacy PGP-field explanation.
 
 ## Repository layout
 
@@ -108,23 +151,6 @@ agent-cards/
   "entry": "x402://checkoutagent.eth/checkout/v1.1.0"
 }
 ```
-
-## Validation
-
-```bash
-npm install
-npm run validate
-```
-
-Validation checks:
-
-- descriptor schema conformance
-- exact authoritative v1.1.0 card presence
-- version / path / `$schema` / `$id` alignment
-- direct Commons and Commercial source URL patterns
-- direct `commandlayer.org` mirror URL patterns
-- entry URI correctness
-- checksum determinism across cards, schemas, meta, discovery, and dist-pin
 
 ## Release artifacts
 
