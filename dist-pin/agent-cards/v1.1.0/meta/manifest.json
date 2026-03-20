@@ -300,5 +300,10 @@
     "well_known": "discovery pointers only",
     "dist_pin": "derivative published bundle for pinning/repinning",
     "legacy_v1_0_0": "archival compatibility only"
+  },
+  "publication": {
+    "model": "root-canonical-plus-derivative-dist-pin",
+    "canonical_source": "root",
+    "derivative_bundle": "dist-pin/agent-cards/v1.1.0"
   }
 }

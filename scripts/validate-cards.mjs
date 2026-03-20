@@ -8,6 +8,15 @@ const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
 const CURRENT_LINE = "v1.1.0";
 const CARD_HTTP_ROOT = `https://commandlayer.org/agent-cards/agents/${CURRENT_LINE}`;
+const SOURCE_ROOTS = {
+  commons: `https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/${CURRENT_LINE}/schemas/${CURRENT_LINE}/commons`,
+  commercial: `https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/${CURRENT_LINE}/schemas/${CURRENT_LINE}/commercial`
+};
+const MIRROR_ROOTS = {
+  commons: `https://commandlayer.org/schemas/${CURRENT_LINE}/commons`,
+  commercial: `https://commandlayer.org/schemas/${CURRENT_LINE}/commercial`
+};
+const PLACEHOLDER_PATTERNS = [];
 
 const commonsVerbs = ["analyze", "classify", "clean", "convert", "describe", "explain", "fetch", "format", "parse", "summarize"];
 const commercialVerbs = ["authorize", "checkout", "purchase", "ship", "verify"];
@@ -122,6 +131,8 @@ function validateCard(fullPath) {
 
   if (folderVersion === CURRENT_LINE) {
     const expectedSchema = `https://commandlayer.org/agent-cards/schemas/${CURRENT_LINE}/agent.card.schema.json`;
+    const expectedSourceRoot = SOURCE_ROOTS[tier];
+    const expectedMirrorRoot = MIRROR_ROOTS[tier];
     if (card.$schema !== expectedSchema) fail(`${relativePath}: stale or invalid $schema.`);
     if (JSON.stringify(card).includes("_shared")) fail(`${relativePath}: current ${CURRENT_LINE} card must not reference _shared.`);
 
@@ -187,7 +198,7 @@ function validateManifestAgainstCards(cardRecords) {
 
   expectEqual(manifest.entries.length, cardRecords.length, "meta/manifest.json: entry count must match indexed current-line cards.");
   expectEqual(manifest.release_lines.current, CURRENT_LINE, "meta/manifest.json: current release line mismatch.");
-  expectEqual(manifest.roots.cards_http, CARD_HTTP_ROOT, "meta/manifest.json: cards_http root mismatch.");
+  expectEqual(manifest.roots.canonical_cards_http, CARD_HTTP_ROOT, "meta/manifest.json: canonical_cards_http root mismatch.");
   expectEqual(manifest.updated_at, "2026-03-19T00:00:00Z", "meta/manifest.json: updated_at must reflect the current release stamp.");
 
   const commonsCount = cardRecords.filter(({ tier }) => tier === "commons").length;
@@ -211,6 +222,24 @@ function validateCurrentLine() {
   validateManifestAgainstCards(cardRecords);
   if (process.exitCode) process.exit(process.exitCode);
   console.log(`✅ ${mode === "release" ? "Release" : mode[0].toUpperCase() + mode.slice(1)} validation completed successfully.`);
+}
+
+function validateLegacyLine() {
+  console.log("▶ Validating legacy compatibility line (v1.0.0).");
+  const legacyCards = collectJsonFiles("agents/v1.0.0");
+  for (const file of legacyCards) validateCard(file);
+  if (process.exitCode) process.exit(process.exitCode);
+  console.log("✅ Legacy validation completed successfully.");
+}
+
+const mode = getMode();
+
+function main() {
+  if (mode === "legacy") {
+    validateLegacyLine();
+    return;
+  }
+  validateCurrentLine();
 }
 
 main();

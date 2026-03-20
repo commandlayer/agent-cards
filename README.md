@@ -71,12 +71,14 @@ npm run validate:release -- --require-mirrors
 
 That trust path is the intended clean-clone review flow:
 
-1. `npm run validate` validates the current v1.1.0 line, checks checksum determinism, and typechecks the tooling.
-2. `meta/manifest.json` is the authoritative registry index for the current line.
-3. `agents/v1.1.0/` contains the canonical current cards.
-4. `.well-known/` exposes discovery descriptors that point back to the manifest and tier registries.
-5. `agents/v1.0.0/` is preserved only as archival legacy material.
-6. `dist-pin/agent-cards/v1.1.0/` is the reproducible publish bundle derived from the canonical root files.
+1. `npm run validate` proves the local repository state is internally coherent: the canonical v1.1.0 cards and discovery descriptors validate, and `checksums.txt` matches the tracked release surfaces.
+2. `npm run validate:release` proves the release bundle is coherent: `meta/manifest.json` matches the current cards, `dist-pin/agent-cards/v1.1.0/` reproduces from the canonical root artifacts, and the tagged upstream schema URLs resolve.
+3. `npm run validate:release -- --require-mirrors` is the stricter publish-time check for `commandlayer.org` mirrors after those mirrors are live.
+4. `meta/manifest.json` is the authoritative registry index for the current line.
+5. `agents/v1.1.0/` contains the canonical current cards.
+6. `.well-known/` exposes discovery descriptors that point back to the manifest and tier registries.
+7. `agents/v1.0.0/` is preserved only as archival legacy material.
+8. `dist-pin/agent-cards/v1.1.0/` is the reproducible publish bundle derived from the canonical root files.
 
 ## Authority model
 
@@ -136,7 +138,7 @@ agent-cards/
 
 - `npm run validate:current` — validate the canonical v1.1.0 cards and discovery descriptors
 - `npm run validate:checksums` — verify root `checksums.txt`
-- `npm run validate` — the default clean-clone trust command
+- `npm run validate` — validate the canonical v1.1.0 cards and discovery descriptors, then verify root `checksums.txt`
 - `npm run generate:dist-pin` — rebuild the derivative publish bundle from canonical root files
 - `npm run validate:release` — release-scoped validation that:
   - confirms `meta/manifest.json` matches every current card binding
@@ -144,7 +146,7 @@ agent-cards/
   - resolves every upstream tagged schema URL over the network
   - optionally resolves mirrors when run with `--require-mirrors`
 
-Routine CI stays on `npm run validate` so normal validation remains stable. Network binding checks are release-scoped and explicit.
+Routine CI runs `npm run validate` and `npm run validate:release`. Mirror resolution remains explicit and optional in routine CI; enforce it with `npm run validate:release -- --require-mirrors` when the published mirrors are expected to be live.
 
 ## Release and publication model
 

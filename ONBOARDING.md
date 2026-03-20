@@ -36,3 +36,6 @@ Do not add descriptive fields to current-line cards; if the detail is not a bind
 5. regenerate `checksums.txt`
 6. update `RESOLUTION.md`
 7. run `npm run validate`
+8. run `npm run validate:release`
+
+`npm run validate` proves the local repository state is structurally sound: canonical v1.1.0 cards and discovery descriptors validate, and `checksums.txt` matches the tracked release surfaces. `npm run validate:release` proves the release bundle and upstream bindings are coherent: the manifest matches the cards, the derivative `dist-pin/` bundle reproduces from the canonical root files, and the tagged upstream schema URLs resolve. If you need to confirm published `commandlayer.org` mirrors after deployment, run `npm run validate:release -- --require-mirrors` as an explicit publish-time check.

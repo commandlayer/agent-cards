@@ -1,14 +1,11 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json",
-  "title": "CommandLayer Agent Card (v1.1.0)",
+  "title": "CommandLayer Agent Card Binding (v1.1.0)",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "id",
-    "slug",
-    "display_name",
-    "description",
     "owner",
     "ens",
     "version",
@@ -34,27 +31,18 @@
     },
     "id": {
       "type": "string",
-      "pattern": "^[a-z0-9-]+\\.eth$"
-    },
-    "slug": {
-      "type": "string",
-      "pattern": "^[a-z0-9-]+$"
-    },
-    "display_name": {
-      "type": "string",
-      "minLength": 1
-    },
-    "description": {
-      "type": "string",
-      "minLength": 1
+      "pattern": "^[a-z0-9-]+\\.eth$",
+      "description": "Canonical ENS-bound agent identifier."
     },
     "owner": {
       "type": "string",
-      "pattern": "^[a-z0-9-]+\\.eth$"
+      "pattern": "^[a-z0-9-]+\\.eth$",
+      "description": "ENS owner or publisher identity for the card binding."
     },
     "ens": {
       "type": "string",
-      "pattern": "^[a-z0-9-]+\\.eth$"
+      "pattern": "^[a-z0-9-]+\\.eth$",
+      "description": "Canonical ENS name resolved by this card; must equal id in v1.1.0."
     },
     "version": {
       "type": "string",
@@ -67,7 +55,8 @@
         "active",
         "deprecated",
         "revoked"
-      ]
+      ],
+      "description": "Lifecycle status for the binding, not a service-quality claim."
     },
     "class": {
       "type": "string",
@@ -83,7 +72,8 @@
       "items": {
         "type": "string",
         "pattern": "^[a-z][a-z0-9-]*$"
-      }
+      },
+      "description": "Canonical verb binding; a v1.1.0 card binds exactly one verb."
     },
     "schemas": {
       "type": "object",
@@ -101,7 +91,8 @@
           "type": "string",
           "format": "uri"
         }
-      }
+      },
+      "description": "Authoritative upstream request/receipt schema bindings."
     },
     "schemas_mirror": {
       "type": "object",
@@ -119,93 +110,35 @@
           "type": "string",
           "format": "uri"
         }
-      }
+      },
+      "description": "CommandLayer mirror URLs for the bound request/receipt schemas."
     },
     "entry": {
       "type": "string",
-      "pattern": "^x402://[^/]+/[^/]+/v1\\.1\\.0$"
-    },
-    "capabilities": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "operations",
-        "input_types",
-        "output_types"
-      ],
-      "properties": {
-        "operations": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "string"
-          }
-        },
-        "input_types": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "string"
-          }
-        },
-        "output_types": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "meta": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "publisher",
-        "contact",
-        "tags"
-      ],
-      "properties": {
-        "publisher": {
-          "type": "string"
-        },
-        "contact": {
-          "type": "string",
-          "format": "email"
-        },
-        "tags": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "string"
-          }
-        },
-        "links": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "format": "uri"
-          }
-        }
-      }
+      "pattern": "^x402://[^/]+/[^/]+/v1\\.1\\.0$",
+      "description": "Canonical semver-pinned x402 entry URI."
     },
     "networks": {
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "string"
-      }
+      },
+      "description": "Network identifiers required to interpret the entry binding."
     },
     "license": {
-      "type": "string"
+      "type": "string",
+      "description": "License covering the card artifact."
     },
     "created_at": {
       "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "description": "Release provenance timestamp for initial publication of this card artifact."
     },
     "updated_at": {
       "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "description": "Release provenance timestamp for the latest card artifact update."
     }
   }
 }
