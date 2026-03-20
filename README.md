@@ -9,7 +9,7 @@ Agent Cards are CommandLayer's canonical discovery and binding artifacts. They b
 - **Canonical registry index:** `meta/manifest.json`
 - **Current discovery pointer:** `.well-known/agent.json`
 - **Immutable versioned descriptor:** `.well-known/agent-cards-v1.1.0.json`
-- **`dist-pin/` role:** published bundle generated from the root canonical artifacts for pinning/repinning; it is derivative and not a second source of truth
+- **`dist-pin/` role:** committed published bundle generated from the root canonical artifacts for pinning/repinning; it is derivative and not a second source of truth
 - **Legacy line:** `v1.0.0` is retained for archival compatibility only. It is superseded by `v1.1.0` and is not the primary release line.
 
 ## Quick verification
@@ -76,7 +76,7 @@ That trust path is the intended clean-clone review flow:
 3. `agents/v1.1.0/` contains the canonical current cards.
 4. `.well-known/` exposes discovery descriptors that point back to the manifest and tier registries.
 5. `agents/v1.0.0/` is preserved only as archival legacy material.
-6. `dist-pin/agent-cards/v1.1.0/` is the reproducible publish bundle derived from the canonical root files.
+6. `dist-pin/agent-cards/v1.1.0/` is the committed reproducible publish bundle derived from the canonical root files.
 
 ## Authority model
 
@@ -85,7 +85,7 @@ That trust path is the intended clean-clone review flow:
 - **Discovery surface:** `.well-known/agent.json` and `.well-known/agent-cards-v1.1.0.json`
 - **Integrity surface:** root `checksums.txt`
 - **Legacy scope:** `agents/v1.0.0/` and `schemas/v1.0.0/`
-- **Publish bundle role:** `dist-pin/agent-cards/v1.1.0/` is derivative, never authoritative
+- **Publish bundle role:** `dist-pin/agent-cards/v1.1.0/` is committed, derivative, and never authoritative
 
 ```text
 agent-cards/
@@ -101,7 +101,7 @@ agent-cards/
 │       └── agent.descriptor.schema.json
 ├── meta/                        # canonical registry metadata
 ├── .well-known/                 # discovery pointers only
-├── dist-pin/agent-cards/v1.1.0/ # derivative publish bundle for pinning
+├── dist-pin/agent-cards/v1.1.0/ # committed derivative publish bundle for pinning
 └── checksums.txt                # deterministic digests of release surfaces
 ```
 
@@ -137,7 +137,7 @@ agent-cards/
 - `npm run validate:current` — validate the canonical v1.1.0 cards and discovery descriptors
 - `npm run validate:checksums` — verify root `checksums.txt`
 - `npm run validate` — the default clean-clone trust command
-- `npm run generate:dist-pin` — rebuild the derivative publish bundle from canonical root files
+- `node scripts/build-dist-pin.mjs` — rebuild the committed derivative publish bundle from canonical root files
 - `npm run validate:release` — release-scoped validation that:
   - confirms `meta/manifest.json` matches every current card binding
   - confirms `dist-pin/agent-cards/v1.1.0/` matches a freshly generated derivative bundle
@@ -156,6 +156,17 @@ Routine CI stays on `npm run validate` so normal validation remains stable. Netw
 - exact manifest/card cross-validation for indexed current-line entries
 - entry URI correctness
 - checksum determinism across canonical root artifacts and the derivative dist-pin bundle
+
+## Release procedure
+
+1. Edit only the canonical root artifacts for the current `v1.1.0` line.
+2. Rebuild the committed derivative bundle with `node scripts/build-dist-pin.mjs`.
+3. Regenerate root integrity digests with `node scripts/generate-checksums.mjs`.
+4. Run `npm run validate:current`, `npm run validate:checksums`, and `npm run validate:release`.
+5. Publish the reviewed snapshot from the exact commit you validated. The release snapshot is defined by the tagged commit together with `checksums.txt`.
+6. Create or move the release tag only after the repository state above has been reviewed and published. This repository does not claim that a new tag already exists.
+
+This keeps the trust story narrow: root artifacts are canonical, `dist-pin/` is a committed derivative publish bundle, `.well-known/` remains discovery-only, and the tag plus checksums identify the release snapshot.
 
 ## Release surfaces
 
