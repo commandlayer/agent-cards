@@ -24,7 +24,8 @@ They do not define semantic meaning, feature behavior, or implementation detail.
 - `.well-known/agent.json` is the current discovery pointer.
 - `.well-known/agent-cards-v1.1.0.json` is the immutable versioned descriptor for the canonical line.
 - `dist-pin/agent-cards/v1.1.0/` is a derivative published bundle for pinning/repinning and is not an independent source of truth.
-- `v1.0.0` is superseded and retained only for archival compatibility.
+- `checksums.txt` covers both the authoritative root artifacts and the derived `dist-pin/` bundle so reviewers can verify source and publication surfaces independently.
+- `v1.0.0` is superseded and retained only for archival compatibility. Legacy `v1.0.0` references may still rely on IPFS-era addressing and should be read as archival compatibility material, not the current authority path.
 
 ## 3. Current schema files
 

@@ -10,7 +10,8 @@ Agent Cards are CommandLayer's canonical discovery and binding artifacts. They b
 - **Current discovery pointer:** `.well-known/agent.json`
 - **Immutable versioned descriptor:** `.well-known/agent-cards-v1.1.0.json`
 - **`dist-pin/` role:** published bundle generated from the root canonical artifacts for pinning/repinning; it is derivative and not a second source of truth
-- **Legacy line:** `v1.0.0` is retained for archival compatibility only. It is superseded by `v1.1.0` and is not the primary release line.
+- **Checksum scope:** `checksums.txt` hashes both the authoritative root artifacts and the derived `dist-pin/` copies so reviewers can verify the canonical source set and the committed publication bundle separately
+- **Legacy line:** `v1.0.0` is retained for archival compatibility only. It is superseded by `v1.1.0` and is not the primary release line. Legacy `v1.0.0` references may still point to IPFS-era locations, so treat them as archival compatibility material rather than the current authority path.
 
 ## Quick verification
 
@@ -86,6 +87,7 @@ That trust path is the intended clean-clone review flow:
 - **Integrity surface:** root `checksums.txt`
 - **Legacy scope:** `agents/v1.0.0/` and `schemas/v1.0.0/`
 - **Publish bundle role:** `dist-pin/agent-cards/v1.1.0/` is derivative, never authoritative
+- **Canonical branch for active work:** `main` is the branch for active development and CI; any older default-branch history should be treated as legacy hosting state, not a second authority path
 
 ```text
 agent-cards/
@@ -155,7 +157,7 @@ Routine CI stays on `npm run validate` so normal validation remains stable. Netw
 - direct `commandlayer.org` mirror URL patterns
 - exact manifest/card cross-validation for indexed current-line entries
 - entry URI correctness
-- checksum determinism across canonical root artifacts and the derivative dist-pin bundle
+- checksum determinism across authoritative root artifacts and the derivative dist-pin bundle so both surfaces can be reviewed independently
 
 ## Release surfaces
 
@@ -165,4 +167,4 @@ Routine CI stays on `npm run validate` so normal validation remains stable. Netw
 - `.well-known/agent-cards-v1.1.0.json` — immutable versioned discovery descriptor for `v1.1.0`
 - `dist-pin/agent-cards/v1.1.0/` — derivative published bundle copied from canonical root artifacts for pinning/repinning
 - `agents/v1.0.0/`, `schemas/v1.0.0/`, and `dist-pin/agent-cards/v1.0.0/` — archival compatibility surfaces only
-- `checksums.txt` — deterministic artifact digests across canonical and published surfaces
+- `checksums.txt` — deterministic artifact digests across the authoritative root release set and the committed derivative publish bundle
