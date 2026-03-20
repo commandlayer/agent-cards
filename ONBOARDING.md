@@ -25,7 +25,7 @@ Do not add descriptive fields to current-line cards; if the detail is not a bind
 
 The `scripts/archive/` directory is retained for historical reference only. It is not part of the current `v1.1.0` workflow and should not be treated as an active or supported execution path.
 
-Use the root package scripts and documented current validation and release commands instead.
+Use the supported root package scripts and current commands instead: `npm run validate`, `npm run validate:release`, `npm run generate:dist-pin`, `node scripts/generate-checksums.mjs`, and the current validators under `scripts/validate-cards.mjs` and `scripts/validate-release.mjs`.
 
 ## Legacy / compatibility
 
