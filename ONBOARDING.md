@@ -9,7 +9,7 @@ Agent Cards v1.1.0 is the current canonical release line. Root repository artifa
 - `.well-known/` is discovery
 - `checksums.txt` proves integrity
 - `agents/v1.0.0/` and `schemas/v1.0.0/` are archival legacy
-- `dist-pin/agent-cards/v1.1.0/` is a generated derivative publish bundle
+- `dist-pin/agent-cards/v1.1.0/` is a committed generated derivative publish bundle
 
 - `agents/v1.1.0/commons/*.json`
 - `agents/v1.1.0/commercial/*.json`
@@ -32,7 +32,16 @@ Do not add descriptive fields to current-line cards; if the detail is not a bind
 1. edit the canonical root artifact under the correct `v1.1.0` path
 2. keep `$schema`, `$id`, `version`, `entry`, and schema URLs aligned
 3. update `meta/manifest.json` and related registry/discovery pointers if routing changes
-4. refresh the derivative publish bundle at `dist-pin/agent-cards/v1.1.0/`
-5. regenerate `checksums.txt`
+4. rebuild the committed derivative publish bundle at `dist-pin/agent-cards/v1.1.0/` with `node scripts/build-dist-pin.mjs`
+5. regenerate `checksums.txt` with `node scripts/generate-checksums.mjs`
 6. update `RESOLUTION.md`
-7. run `npm run validate`
+7. run `npm run validate:current`, `npm run validate:checksums`, and `npm run validate:release`
+8. after review, have a maintainer create or move the release tag on the exact validated commit; the release snapshot is the tagged commit plus `checksums.txt`
+
+## Release procedure
+
+- Root artifacts are canonical.
+- `dist-pin/agent-cards/v1.1.0/` is committed to git, but it is always rebuilt from the canonical root artifacts and is never an independent authority surface.
+- `.well-known/` is discovery-only.
+- A maintainer must create or move any release tag after validation; this repo does not imply that an unreleased tag already exists.
+- The release snapshot is defined by the tagged commit together with `checksums.txt`.
