@@ -1,22 +1,18 @@
 # Security Policy — Agent Cards
 
-## Scope
+This repository publishes discovery metadata, schema bindings, manifests, and checksums for CommandLayer Agent Cards.
 
-This repository publishes Agent Cards, discovery descriptors, manifest metadata, schemas, and release integrity files.
-Security issues here include anything that could misroute discovery, change a published binding, break checksum verification, or misstate the canonical release contents.
+Report security issues that could affect integrity, routing, or trust in the published artifacts, including:
+- incorrect or malicious card, manifest, or discovery bindings
+- checksum drift or release-bundle mismatches
+- incorrect `entry` routing or schema references
+- changes that could cause consumers to resolve the wrong artifact
 
-## Reporting
+For responsible disclosure, email `dev@commandlayer.org` with:
+- a short description of the issue
+- affected files, URLs, or versions
+- reproduction steps or proof of impact
 
-Please report suspected security issues to `dev@commandlayer.org`.
-If email is unavailable, open a private or minimally detailed issue in this repository and avoid posting exploit details publicly.
-Include the affected file path, commit or tag if known, and a short reproduction note.
+Please do not publish exploit details or active abuse techniques before we have had a reasonable chance to review and coordinate a fix.
 
-## Disclosure
-
-Please use responsible disclosure.
-Do not publish proof-of-concept exploits, checksum bypasses, or binding-takeover details before maintainers have a chance to review and coordinate a fix.
-
-## Response
-
-Reports are reviewed on a best-effort basis.
-This repository does not provide formal SLA commitments, but maintainers will try to confirm valid reports, clarify impact, and publish a fix or mitigation when warranted.
+Responses are handled on a best-effort basis. We will review credible reports, ask follow-up questions if needed, and coordinate remediation or publication when appropriate.
