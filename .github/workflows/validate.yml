@@ -28,7 +28,7 @@ jobs:
       - name: Verify release checksums
         run: npm run validate:checksums
 
-      - name: Release validation
+      - name: Validate release reproducibility and external bindings
         run: npm run validate:release
 
       # Mirror enforcement stays explicit because publish-time mirror availability can lag normal CI.
