@@ -65,7 +65,7 @@ The schema also requires `schemas.request`, `schemas.receipt`, `schemas_mirror.r
 - `$schema` MUST equal `https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json`
 - `$id` MUST match the card's canonical HTTPS path
 - `entry` MUST be `x402://<ens>/<implements[0]>/v1.1.0`
-- `x402://` is the protocol-form entry identifier used by these cards; see the x402 protocol docs at `https://docs.x402.org/` for the external protocol reference
+- `x402://` is the protocol-form entry identifier used by CommandLayer agents; it represents a standardized action endpoint (verb + route + version). See `https://docs.x402.org/` for the external protocol reference
 - v1.0.0 MAY remain in the repository only as a legacy archival compatibility surface
 
 ## 6. Binding rules

@@ -2,7 +2,7 @@
 
 Agent Cards are CommandLayer's canonical discovery and binding artifacts. They bind ENS names to a single verb, the authoritative request/receipt schemas for that verb, the public schema mirrors, and the semver-pinned x402 entrypoint. They do not act as product pages, feature summaries, or semantic substitutes for the linked protocol schemas.
 
-In these cards, `x402://...` is the protocol-form entry identifier for the bound verb route. For the external x402 protocol definition, see `https://docs.x402.org/`.
+In these cards, `x402://...` is the protocol-form entry identifier used by CommandLayer agents. It represents a standardized action endpoint (`<verb>` + route + version). See `https://docs.x402.org/` for the external protocol definition.
 
 See `CHANGELOG.md` for version differences.
 
