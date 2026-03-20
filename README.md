@@ -144,7 +144,7 @@ agent-cards/
   - resolves every upstream tagged schema URL over the network
   - optionally resolves mirrors when run with `--require-mirrors`
 
-Routine CI stays on `npm run validate` so normal validation remains stable. Network binding checks are release-scoped and explicit.
+Routine CI runs `npm run validate` and `npm run validate:release`. Mirror resolution remains explicit and optional in routine CI; enforce it with `npm run validate:release -- --require-mirrors` when the published mirrors are expected to be live.
 
 ## Release and publication model
 
