@@ -19,8 +19,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Validate current release authority path
-        run: npm run validate
+      - name: Validate current-line schema and card integrity
+        run: npm run validate:current
+
+      - name: Verify release checksums
+        run: npm run validate:checksums
+
+      - name: Validate release-level manifest, bundle, and upstream bindings
+        run: npm run validate:release
+
+      # Mirror enforcement stays explicit because publish-time mirror availability can lag normal CI.
+      # Run `npm run validate:release -- --require-mirrors` when commandlayer.org mirrors are expected to be live.
 
   validate-legacy-compatibility:
     runs-on: ubuntu-latest
