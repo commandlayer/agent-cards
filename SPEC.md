@@ -37,7 +37,7 @@ Every canonical v1.1.0 card MUST:
 
 ## 4. Required card fields
 
-The v1.1.0 JSON Schema requires 14 top-level fields:
+The v1.1.0 JSON Schema requires 14 top-level fields. That count does not include `$schema` or `$id`, because neither field appears in the schema's top-level `required` array:
 
 - `id`
 - `owner`
@@ -54,9 +54,9 @@ The v1.1.0 JSON Schema requires 14 top-level fields:
 - `created_at`
 - `updated_at`
 
-Within those required objects, `schemas.request`, `schemas.receipt`, `schemas_mirror.request`, and `schemas_mirror.receipt` are also required by schema.
+The schema also requires `schemas.request`, `schemas.receipt`, `schemas_mirror.request`, and `schemas_mirror.receipt`.
 
-`$schema` and `$id` are defined in the schema and are present on the canonical published cards in this repository, but they are not listed in the schema's `required` array. In other words: they are expected current-line publication fields in this repo, not additional schema-required fields.
+`$schema` and `$id` are defined properties and current-line repo publication fields, but they are not schema-required fields.
 
 ## 5. Versioning rules
 
