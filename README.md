@@ -159,7 +159,7 @@ Routine CI runs `npm run validate` and `npm run validate:release`. Mirror resolu
 - direct `commandlayer.org` mirror URL patterns
 - exact manifest/card cross-validation for indexed current-line entries
 - entry URI correctness
-- checksum determinism across canonical root artifacts and the derivative dist-pin bundle
+- checksum determinism across authoritative root artifacts and the derivative dist-pin bundle so both surfaces can be reviewed independently
 
 ## Release procedure
 
@@ -180,4 +180,4 @@ This keeps the trust story narrow: root artifacts are canonical, `dist-pin/` is 
 - `.well-known/agent-cards-v1.1.0.json` — immutable versioned discovery descriptor for `v1.1.0`
 - `dist-pin/agent-cards/v1.1.0/` — derivative published bundle copied from canonical root artifacts for pinning/repinning
 - `agents/v1.0.0/`, `schemas/v1.0.0/`, and `dist-pin/agent-cards/v1.0.0/` — archival compatibility surfaces only
-- `checksums.txt` — deterministic artifact digests across canonical and published surfaces
+- `checksums.txt` — deterministic artifact digests across the authoritative root release set and the committed derivative publish bundle

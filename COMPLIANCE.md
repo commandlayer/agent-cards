@@ -9,5 +9,6 @@ The current release line is compliant when all of the following are true:
 - current cards use no `_shared` references
 - Commons and Commercial bindings are flat and direct
 - the derivative `dist-pin/agent-cards/v1.1.0/` bundle reflects the canonical root artifacts
-- checksums cover release artifacts including `dist-pin/agent-cards/v1.1.0/`
+- checksums cover the authoritative root release artifacts and the derivative `dist-pin/agent-cards/v1.1.0/` publication bundle
 - `v1.0.0` remains clearly separated as an archival compatibility surface
+- `main` remains the canonical branch for active development and CI

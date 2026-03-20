@@ -15,8 +15,9 @@ This document describes who stewards the canonical Agent Cards release line and 
 - Preserved legacy line: `v1.0.0`
 - Default repository validation path: `npm run validate`
 - Full release bundle validation path: `npm run validate:release`
+- Canonical branch for active development and CI: `main`
 
-Operationally, `v1.1.0` is the normative line. `v1.0.0` remains preserved for compatibility and reviewability but is not the default release authority path.
+Operationally, `v1.1.0` is the normative line. `v1.0.0` remains preserved for compatibility and reviewability but is not the default release authority path. For repository workflow, `main` is the canonical branch; any legacy default-branch setting is hosting history, not an alternate authority path.
 
 ## Release change rule
 

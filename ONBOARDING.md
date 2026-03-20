@@ -7,7 +7,7 @@ Agent Cards v1.1.0 is the current canonical release line. Root repository artifa
 - root `agents/v1.1.0/`, `meta/`, `.well-known/`, and `schemas/v1.1.0/` are canonical
 - `meta/manifest.json` is the registry index
 - `.well-known/` is discovery
-- `checksums.txt` proves integrity
+- `checksums.txt` proves integrity for both the authoritative root artifacts and the committed derivative `dist-pin/` bundle
 - `agents/v1.0.0/` and `schemas/v1.0.0/` are archival legacy
 - `dist-pin/agent-cards/v1.1.0/` is a committed generated derivative publish bundle
 
@@ -24,6 +24,7 @@ Do not add descriptive fields to current-line cards; if the detail is not a bind
 ## Legacy / compatibility
 
 - `v1.0.0` is superseded by `v1.1.0`.
+- Some legacy `v1.0.0` references may still use IPFS-era addressing; keep them for archival compatibility, not as the current authority path or a repo-only liveness guarantee.
 - Keep `v1.0.0` artifacts only for archival compatibility.
 - Do not use `v1.0.0` paths in new examples, new release work, or the main update flow.
 
