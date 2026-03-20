@@ -43,9 +43,10 @@
     "validate:current": "node scripts/validate-cards.mjs --mode=current",
     "validate:legacy": "node scripts/validate-cards.mjs --mode=legacy",
     "validate:checksums": "node scripts/generate-checksums.mjs --verify",
-    "validate:release": "node scripts/validate-release.mjs",
+    "validate": "npm run validate:cards && npm run validate:checksums",
     "generate:dist-pin": "node scripts/build-dist-pin.mjs",
-    "validate": "npm run validate:current && npm run validate:checksums"
+    "validate:release": "node scripts/validate-release.mjs",
+    "validate:cards": "node scripts/validate-cards.mjs --mode=release"
   },
   "devDependencies": {
     "ajv": "^8.17.1",

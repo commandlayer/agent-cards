@@ -24,7 +24,7 @@
     "agent_cards_version": "1.1.0",
     "current_release": "v1.1.0",
     "legacy_release": "v1.0.0 (archival compatibility only)",
-    "publish_state": "ready-to-pin",
+    "publish_state": "published",
     "license": "Apache-2.0",
     "publication_model": "root-canonical-plus-derivative-dist-pin"
   }

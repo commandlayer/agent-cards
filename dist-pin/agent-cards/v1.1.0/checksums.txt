@@ -1,5 +1,5 @@
-3e4062b94bfb8cfc2bbf5de5ccdcbc620d5282de5ba7caab10dd0e1a60052183  .well-known/agent-cards-v1.1.0.json
-8654b246656d035a9a4c171e9b773615ca362cd746adfaed377175ca19888407  .well-known/agent.json
+ca117a8816f0e7ce8ce4a11caddedcf3ea2b32634f3e55da7c5a7ae9cf3e7b04  .well-known/agent-cards-v1.1.0.json
+660da08d96bcc7346228c1b6edf638727a120a86c4f3a37f16273382e523d194  .well-known/agent.json
 d12610ea54b31b80758fbc68fcfaf8f20e5588097630f7d04a552bde1be458b1  agents/v1.1.0/commercial/authorizeagent.eth.json
 0c7834aaf6d0692d2db9f29862ce2ae25b987cc41926bd242706da7b2847f21a  agents/v1.1.0/commercial/checkoutagent.eth.json
 584a77bb4c75dc84f9e4ddf5d700a0ef2183777acd4cdf2c1761998cb2565d22  agents/v1.1.0/commercial/purchaseagent.eth.json
@@ -15,8 +15,8 @@ eeff77968e928f63329abd0839666b217651cfb4204c21a603b4dfbe707d086d  agents/v1.1.0/
 84aca63347052d746c4c87121fa5705847844786cb521e2c6d6ad85a272df97e  agents/v1.1.0/commons/formatagent.eth.json
 f45b8bb7f745af38fce9a78c1d3a40d36a558e0c4716f59f8e70e561c89ae4e6  agents/v1.1.0/commons/parseagent.eth.json
 315eedad7b1bd8559efa8d3bdf8567c1af7b241be1c934e2ca1dfd90059d90c8  agents/v1.1.0/commons/summarizeagent.eth.json
-44f61b49522db5b0d058a57f4397058b3a95e1688ff6f9fd76804b2e7b46a00f  meta/commercial-agent.json
-7493cef19304e6dc4f8991f11fdcd70d75b21e1c396684e614ead00d0892f407  meta/commons-agent.json
-18ef8ef6830af6beee7391e5fbfd00faccc7128d88caadbd02e3dcf6bdfacadd  meta/manifest.json
+13f95359b05a8dbad843bb4782d9993af3d40f6bba0c9330ed3962ac00e8dda4  meta/commercial-agent.json
+5745c140392a255acf8c4fab082f0c03f14e80e908ed5be099cbec88afe15a8c  meta/commons-agent.json
+8f04dab243db9e03c105ba79f9f05c0c8e3f5ca909dd9b6179f0e9d1b8994269  meta/manifest.json
 ffc066f827668ccc28b29efaf6b75def28b4931227545a6210e9faee8c4527c2  schemas/v1.1.0/agent.card.schema.json
 6e082c065b0ab5365b0fe3424062855587e6226a06b5ee092d77f91ea829afe2  schemas/v1.1.0/agent.descriptor.schema.json
