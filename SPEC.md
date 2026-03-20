@@ -36,10 +36,8 @@ Every canonical v1.1.0 card MUST:
 
 ## 4. Required card fields
 
-Every v1.1.0 card MUST include only the current binding contract fields:
+The v1.1.0 JSON Schema requires 14 top-level fields:
 
-- `$schema`
-- `$id`
 - `id`
 - `owner`
 - `ens`
@@ -47,15 +45,17 @@ Every v1.1.0 card MUST include only the current binding contract fields:
 - `status`
 - `class`
 - `implements`
-- `schemas.request`
-- `schemas.receipt`
-- `schemas_mirror.request`
-- `schemas_mirror.receipt`
+- `schemas`
+- `schemas_mirror`
 - `entry`
 - `networks`
 - `license`
 - `created_at`
 - `updated_at`
+
+Within those required objects, `schemas.request`, `schemas.receipt`, `schemas_mirror.request`, and `schemas_mirror.receipt` are also required by schema.
+
+`$schema` and `$id` are defined in the schema and are present on the canonical published cards in this repository, but they are not listed in the schema's `required` array. In other words: they are expected current-line publication fields in this repo, not additional schema-required fields.
 
 ## 5. Versioning rules
 
@@ -64,6 +64,7 @@ Every v1.1.0 card MUST include only the current binding contract fields:
 - `$schema` MUST equal `https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json`
 - `$id` MUST match the card's canonical HTTPS path
 - `entry` MUST be `x402://<ens>/<implements[0]>/v1.1.0`
+- `x402://` is the protocol-form entry identifier used by these cards; see the x402 protocol docs at `https://docs.x402.org/` for the external protocol reference
 - v1.0.0 MAY remain in the repository only as a legacy archival compatibility surface
 
 ## 6. Binding rules
