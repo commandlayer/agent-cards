@@ -4,6 +4,8 @@ Agent Cards are CommandLayer's canonical discovery and binding artifacts. They b
 
 In these cards, `x402://...` is the protocol-form entry identifier for the bound verb route. For the external x402 protocol definition, see `https://docs.x402.org/`.
 
+See `CHANGELOG.md` for version differences.
+
 ## Authority Model
 
 - **Current canonical release line:** `v1.1.0`
