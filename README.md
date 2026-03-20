@@ -11,7 +11,7 @@ In these cards, `x402://...` is the protocol-form entry identifier for the bound
 - **Canonical registry index:** `meta/manifest.json`
 - **Current discovery pointer:** `.well-known/agent.json`
 - **Immutable versioned descriptor:** `.well-known/agent-cards-v1.1.0.json`
-- **`dist-pin/` role:** committed published bundle generated from the root canonical artifacts for pinning/repinning; it is derivative and not a second source of truth
+- **`dist-pin/` role:** committed published bundle generated from the root canonical artifacts for pinning/repinning; it is derivative, reproducible from the repository root, and not a second source of truth
 - **Legacy line:** `v1.0.0` is retained for archival compatibility only. It is superseded by `v1.1.0` and is not the primary release line.
 
 ## Quick verification
@@ -80,7 +80,7 @@ That trust path is the intended clean-clone review flow:
 3. `agents/v1.1.0/` contains the canonical current cards.
 4. `.well-known/` exposes discovery descriptors that point back to the manifest and tier registries.
 5. `agents/v1.0.0/` is preserved only as archival legacy material.
-6. `dist-pin/agent-cards/v1.1.0/` is the committed reproducible publish bundle derived from the canonical root files.
+6. `dist-pin/agent-cards/v1.1.0/` is the committed reproducible publish bundle derived from the canonical root files and reproducible from the repository root.
 
 ## Authority model
 
@@ -89,7 +89,7 @@ That trust path is the intended clean-clone review flow:
 - **Discovery surface:** `.well-known/agent.json` and `.well-known/agent-cards-v1.1.0.json`
 - **Integrity surface:** root `checksums.txt`
 - **Legacy scope:** `agents/v1.0.0/` and `schemas/v1.0.0/`
-- **Publish bundle role:** `dist-pin/agent-cards/v1.1.0/` is committed, derivative, and never authoritative
+- **Publish bundle role:** `dist-pin/agent-cards/v1.1.0/` is committed, derivative, reproducible from the repository root, and never authoritative
 
 ```text
 agent-cards/
@@ -178,6 +178,6 @@ This keeps the trust story narrow: root artifacts are canonical, `dist-pin/` is 
 - `meta/manifest.json` — canonical registry index for the release
 - `.well-known/agent.json` — current discovery pointer to the canonical registry metadata
 - `.well-known/agent-cards-v1.1.0.json` — immutable versioned discovery descriptor for `v1.1.0`
-- `dist-pin/agent-cards/v1.1.0/` — derivative published bundle copied from canonical root artifacts for pinning/repinning
+- `dist-pin/agent-cards/v1.1.0/` — committed derivative published bundle copied from canonical root artifacts for pinning/repinning and reproducible from the repository root
 - `agents/v1.0.0/`, `schemas/v1.0.0/`, and `dist-pin/agent-cards/v1.0.0/` — archival compatibility surfaces only
 - `checksums.txt` — deterministic artifact digests across the authoritative root release set and the committed derivative publish bundle

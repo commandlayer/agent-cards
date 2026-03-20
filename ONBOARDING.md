@@ -9,7 +9,7 @@ Agent Cards v1.1.0 is the current canonical release line. Root repository artifa
 - `.well-known/` is discovery
 - `checksums.txt` proves integrity for both the authoritative root artifacts and the committed derivative `dist-pin/` bundle
 - `agents/v1.0.0/` and `schemas/v1.0.0/` are archival legacy
-- `dist-pin/agent-cards/v1.1.0/` is a committed generated derivative publish bundle
+- `dist-pin/agent-cards/v1.1.0/` is a committed generated derivative publish bundle reproducible from the repository root
 
 - `agents/v1.1.0/commons/*.json`
 - `agents/v1.1.0/commercial/*.json`
@@ -42,7 +42,7 @@ Do not add descriptive fields to current-line cards; if the detail is not a bind
 ## Release procedure
 
 - Root artifacts are canonical.
-- `dist-pin/agent-cards/v1.1.0/` is committed to git, but it is always rebuilt from the canonical root artifacts and is never an independent authority surface.
+- `dist-pin/agent-cards/v1.1.0/` is committed to git, reproducible from the repository root, always rebuilt from the canonical root artifacts, and never an independent authority surface.
 - `.well-known/` is discovery-only.
 - A maintainer must create or move any release tag after validation; this repo does not imply that an unreleased tag already exists.
 - The release snapshot is defined by the tagged commit together with `checksums.txt`.

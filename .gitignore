@@ -4,3 +4,4 @@ dist
 .DS_Store
 
 # local build/pin staging
+# dist-pin/ stays committed as a derivative publish bundle rebuilt from root artifacts
