@@ -7,7 +7,9 @@ import addFormats from "ajv-formats";
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
 const CURRENT_LINE = "v1.1.0";
+const LEGACY_LINE = "v1.0.0";
 const CARD_HTTP_ROOT = `https://commandlayer.org/agent-cards/agents/${CURRENT_LINE}`;
+const LEGACY_PLACEHOLDER_PATTERNS = ["example.com", "example.org", "TODO", "REPLACE_ME"];
 
 const commonsVerbs = ["analyze", "classify", "clean", "convert", "describe", "explain", "fetch", "format", "parse", "summarize"];
 const commercialVerbs = ["authorize", "checkout", "purchase", "ship", "verify"];
@@ -16,12 +18,30 @@ const expectedV11 = {
   commercial: commercialVerbs.map((verb) => `${verb}agent.eth.json`)
 };
 
+const SOURCE_ROOTS = {
+  [CURRENT_LINE]: {
+    commons: `https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/${CURRENT_LINE}/schemas/${CURRENT_LINE}/commons`,
+    commercial: `https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/${CURRENT_LINE}/schemas/${CURRENT_LINE}/commercial`
+  },
+  [LEGACY_LINE]: {
+    commons: "https://commandlayer.org/schemas/v1.0.0/commons",
+    commercial: "https://commandlayer.org/schemas/v1.0.0/commercial"
+  }
+};
+
+const MIRROR_ROOTS = {
+  [CURRENT_LINE]: {
+    commons: `https://commandlayer.org/schemas/${CURRENT_LINE}/commons`,
+    commercial: `https://commandlayer.org/schemas/${CURRENT_LINE}/commercial`
+  }
+};
+
 const ajv = new Ajv2020({ strict: true, allErrors: true });
 addFormats(ajv);
 
 function getMode() {
   const arg = process.argv.find((value) => value.startsWith("--mode="));
-  const mode = arg ? arg.split("=")[1] : "release";
+  const mode = arg ? arg.split("=")[1] : "current";
   if (!["current", "legacy", "release"].includes(mode)) {
     throw new Error(`Unsupported validation mode: ${mode}`);
   }
@@ -122,6 +142,8 @@ function validateCard(fullPath) {
 
   if (folderVersion === CURRENT_LINE) {
     const expectedSchema = `https://commandlayer.org/agent-cards/schemas/${CURRENT_LINE}/agent.card.schema.json`;
+    const expectedSourceRoot = SOURCE_ROOTS[CURRENT_LINE][tier];
+    const expectedMirrorRoot = MIRROR_ROOTS[CURRENT_LINE][tier];
     if (card.$schema !== expectedSchema) fail(`${relativePath}: stale or invalid $schema.`);
     if (JSON.stringify(card).includes("_shared")) fail(`${relativePath}: current ${CURRENT_LINE} card must not reference _shared.`);
 
@@ -138,9 +160,9 @@ function validateCard(fullPath) {
     }
   }
 
-  if (folderVersion === "v1.0.0") {
+  if (folderVersion === LEGACY_LINE) {
     const text = JSON.stringify(card);
-    const placeholder = PLACEHOLDER_PATTERNS.find((pattern) => text.includes(pattern));
+    const placeholder = LEGACY_PLACEHOLDER_PATTERNS.find((pattern) => text.includes(pattern));
     if (placeholder) fail(`${relativePath}: contains legacy placeholder content (${placeholder}).`);
   }
 
@@ -154,8 +176,8 @@ function validateManifestAgainstCards(cardRecords) {
   const manifestMap = new Map();
 
   for (const entry of manifest.entries) {
-    const url = new URL(entry.agent_card);
-    const relativePath = decodeURIComponent(url.pathname.replace(/^\/agent-cards\//, ""));
+    const parsedUrl = new URL(entry.agent_card);
+    const relativePath = decodeURIComponent(parsedUrl.pathname.replace(/^\/agent-cards\//, ""));
     if (manifestMap.has(relativePath)) fail(`meta/manifest.json: duplicate manifest entry for ${relativePath}.`);
     manifestMap.set(relativePath, entry);
 
@@ -187,7 +209,7 @@ function validateManifestAgainstCards(cardRecords) {
 
   expectEqual(manifest.entries.length, cardRecords.length, "meta/manifest.json: entry count must match indexed current-line cards.");
   expectEqual(manifest.release_lines.current, CURRENT_LINE, "meta/manifest.json: current release line mismatch.");
-  expectEqual(manifest.roots.cards_http, CARD_HTTP_ROOT, "meta/manifest.json: cards_http root mismatch.");
+  expectEqual(manifest.roots.canonical_cards_http, CARD_HTTP_ROOT, "meta/manifest.json: canonical_cards_http root mismatch.");
   expectEqual(manifest.updated_at, "2026-03-19T00:00:00Z", "meta/manifest.json: updated_at must reflect the current release stamp.");
 
   const commonsCount = cardRecords.filter(({ tier }) => tier === "commons").length;
@@ -198,17 +220,33 @@ function validateManifestAgainstCards(cardRecords) {
   console.log("✅ Manifest aligned with current-line card files: meta/manifest.json");
 }
 
-function validateCurrentLine() {
-  console.log("▶ Validating current canonical release line (v1.1.0).");
+function validateCurrentLine(mode) {
+  console.log(`▶ Validating ${mode === "release" ? "release" : "current canonical"} line (${CURRENT_LINE}).`);
   validateDescriptor(".well-known/agent.json");
   validateDescriptor(".well-known/agent-cards-v1.1.0.json");
   validateExpectedV11Set();
   const cardRecords = [];
-  for (const file of collectJsonFiles("agents")) {
+  for (const file of collectJsonFiles(path.join("agents", CURRENT_LINE))) {
     const record = validateCard(file);
-    if (record?.relativePath.startsWith(`agents/${CURRENT_LINE}/`)) cardRecords.push(record);
+    if (record) cardRecords.push(record);
   }
   validateManifestAgainstCards(cardRecords);
+}
+
+function validateLegacyLine() {
+  console.log(`▶ Validating legacy compatibility line (${LEGACY_LINE}).`);
+  for (const file of collectJsonFiles(path.join("agents", LEGACY_LINE))) {
+    validateCard(file);
+  }
+}
+
+function main() {
+  const mode = getMode();
+  if (mode === "legacy") {
+    validateLegacyLine();
+  } else {
+    validateCurrentLine(mode);
+  }
   if (process.exitCode) process.exit(process.exitCode);
   console.log(`✅ ${mode === "release" ? "Release" : mode[0].toUpperCase() + mode.slice(1)} validation completed successfully.`);
 }

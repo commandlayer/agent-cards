@@ -5,6 +5,9 @@
   "license": "Apache-2.0",
   "author": "Gregory Soucy",
   "type": "module",
+  "engines": {
+    "node": ">=22 <23"
+  },
   "keywords": [
     "agent",
     "agents",
@@ -43,7 +46,7 @@
     "validate:current": "node scripts/validate-cards.mjs --mode=current",
     "validate:legacy": "node scripts/validate-cards.mjs --mode=legacy",
     "validate:checksums": "node scripts/generate-checksums.mjs --verify",
-    "validate": "npm run validate:cards && npm run validate:checksums"
+    "validate": "npm run validate:current && npm run validate:checksums"
   },
   "devDependencies": {
     "ajv": "^8.17.1",

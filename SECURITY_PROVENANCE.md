@@ -1,6 +1,6 @@
 # Security & Provenance — CommandLayer Agent Cards
 
-CommandLayer Agent Cards prove identity and routing intent. They do not prove execution success.
+CommandLayer Agent Cards prove identity and routing intent. They do not prove execution success. Suspected security issues with published cards, discovery metadata, or release integrity should be reported privately to `dev@commandlayer.org` as described in `SECURITY.md`.
 
 ## Provenance model for v1.1.0
 

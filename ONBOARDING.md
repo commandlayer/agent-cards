@@ -26,6 +26,7 @@ Do not add descriptive fields to current-line cards; if the detail is not a bind
 - `v1.0.0` is superseded by `v1.1.0`.
 - Keep `v1.0.0` artifacts only for archival compatibility.
 - Do not use `v1.0.0` paths in new examples, new release work, or the main update flow.
+- `scripts/archive/` contains historical migration helpers only; it is not part of the active validation or release path for `v1.1.0`.
 
 ## Update flow for the current line
 
