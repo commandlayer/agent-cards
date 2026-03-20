@@ -65,7 +65,15 @@ For `v1.1.0`:
 
 ### Commons mirror pattern
 
-If you are preparing or auditing a release, also run:
+## Validation
+
+Run standard validation:
+
+```bash
+npm run validate
+```
+
+Run release-level validation (URLs + bundle integrity):
 
 ```bash
 npm run validate:release
@@ -73,9 +81,11 @@ npm run validate:release
 npm run validate:release -- --require-mirrors
 ```
 
+`validate` checks local structure and checksums; `validate:release` adds external URL resolution and publish-bundle reproducibility.
+
 That trust path is the intended clean-clone review flow:
 
-1. `npm run validate` validates the current v1.1.0 line, checks checksum determinism, and typechecks the tooling.
+1. `npm run validate` validates the current v1.1.0 line and verifies `checksums.txt`.
 2. `meta/manifest.json` is the authoritative registry index for the current line.
 3. `agents/v1.1.0/` contains the canonical current cards.
 4. `.well-known/` exposes discovery descriptors that point back to the manifest and tier registries.
@@ -138,9 +148,7 @@ agent-cards/
 }
 ```
 
-- `npm run validate:current` — validate the canonical v1.1.0 cards and discovery descriptors
-- `npm run validate:checksums` — verify root `checksums.txt`
-- `npm run validate` — the default clean-clone trust command
+- `npm run validate` — standard local validation for canonical v1.1.0 cards, discovery descriptors, manifest alignment, and `checksums.txt`
 - `node scripts/build-dist-pin.mjs` — rebuild the committed derivative publish bundle from canonical root files
 - `npm run validate:release` — release-scoped validation that:
   - confirms `meta/manifest.json` matches every current card binding
@@ -166,7 +174,7 @@ Routine CI runs `npm run validate` and `npm run validate:release`. Mirror resolu
 1. Edit only the canonical root artifacts for the current `v1.1.0` line.
 2. Rebuild the committed derivative bundle with `node scripts/build-dist-pin.mjs`.
 3. Regenerate root integrity digests with `node scripts/generate-checksums.mjs`.
-4. Run `npm run validate:current`, `npm run validate:checksums`, and `npm run validate:release`.
+4. Run `npm run validate` and `npm run validate:release`.
 5. Publish the reviewed snapshot from the exact commit you validated. The release snapshot is defined by the tagged commit together with `checksums.txt`.
 6. Create or move the release tag only after the repository state above has been reviewed and published. This repository does not claim that a new tag already exists.
 

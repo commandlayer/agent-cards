@@ -36,8 +36,10 @@ Do not add descriptive fields to current-line cards; if the detail is not a bind
 4. rebuild the committed derivative publish bundle at `dist-pin/agent-cards/v1.1.0/` with `node scripts/build-dist-pin.mjs`
 5. regenerate `checksums.txt` with `node scripts/generate-checksums.mjs`
 6. update `RESOLUTION.md`
-7. run `npm run validate:current`, `npm run validate:checksums`, and `npm run validate:release`
-8. after review, have a maintainer create or move the release tag on the exact validated commit; the release snapshot is the tagged commit plus `checksums.txt`
+7. run `npm run validate`
+8. run `npm run validate:release`
+9. `validate` checks local structure and checksums; `validate:release` adds external URL resolution and publish-bundle reproducibility
+10. after review, have a maintainer create or move the release tag on the exact validated commit; the release snapshot is the tagged commit plus `checksums.txt`
 
 ## Release procedure
 
