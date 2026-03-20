@@ -2,6 +2,8 @@
 
 Agent Cards are CommandLayer's canonical discovery and binding artifacts. They bind ENS names to a single verb, the authoritative request/receipt schemas for that verb, the public schema mirrors, and the semver-pinned x402 entrypoint. They do not act as product pages, feature summaries, or semantic substitutes for the linked protocol schemas.
 
+In these cards, `x402://...` is the protocol-form entry identifier for the bound verb route. For the external x402 protocol definition, see `https://docs.x402.org/`.
+
 ## Authority Model
 
 - **Current canonical release line:** `v1.1.0`
@@ -18,6 +20,8 @@ Agent Cards are CommandLayer's canonical discovery and binding artifacts. They b
 - **Current Commons contract line:** `v1.1.0`
 - **Current Commercial contract line:** `v1.1.0`
 - **Legacy archival compatibility line:** `v1.0.0`
+
+See `SPEC.md` for the current card contract and `CHANGELOG.md` for line-to-line migration notes.
 
 ## Minimalism policy for v1.1.0 cards
 

@@ -35,4 +35,5 @@ Do not add descriptive fields to current-line cards; if the detail is not a bind
 4. refresh the derivative publish bundle at `dist-pin/agent-cards/v1.1.0/`
 5. regenerate `checksums.txt`
 6. update `RESOLUTION.md`
-7. run `npm run validate`
+7. review `CHANGELOG.md` if the current-line documentation or release surface changed
+8. run `npm run validate`
