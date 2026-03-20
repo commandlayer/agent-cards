@@ -1,26 +1,18 @@
 # Changelog
 
-This changelog documents the repository's release-line differences that are visible in the checked-in schemas, cards, and discovery artifacts. It does not infer release dates beyond the timestamps present in the repository.
+This changelog records release-line differences that are visible in the checked-in schemas, cards, and discovery artifacts.
 
-## v1.1.0
+## v1.1.0 (current line)
 
-Current canonical line.
+- Card schema remains closed with `additionalProperties: false`, but the allowed card surface is reduced to binding fields such as identity, lifecycle, verb binding, schema links, routing, networks, and license.
+- Descriptive card fields present in v1.0.0, including `slug`, `display_name`, `description`, `capabilities`, and `meta`, are not part of the v1.1.0 card schema.
+- `schemas_mirror` is a required peer to `schemas`, so each card carries both authoritative upstream schema URLs and CommandLayer mirror URLs.
+- Canonical schema references in current cards move to tagged HTTPS source URLs instead of the IPFS-based request/receipt references used in v1.0.0 cards.
+- The current card schema tightens several bindings: `version` is fixed to `1.1.0`, `entry` is pinned to the `v1.1.0` x402 form, and `implements` is limited to exactly one verb.
+- Discovery and repository docs for the current line define a clearer authority split: root `v1.1.0` artifacts are canonical, `dist-pin/agent-cards/v1.1.0/` is derivative, and `v1.0.0` is retained only for compatibility.
 
-### Changed from v1.0.0
+## v1.0.0 (legacy line)
 
-- Reduced the card surface to binding facts: v1.1.0 removes descriptive fields such as `slug`, `display_name`, `description`, `capabilities`, and `meta` from the current schema and cards.
-- Tightened the schema contract around the minimal surface: `schemas_mirror` is now required, `implements` is constrained to exactly one verb, and `version` is pinned to `1.1.0`.
-- Kept the schema closed with `additionalProperties: false` while simplifying the allowed field set for the current line.
-- Standardized dual binding for schemas: current cards carry both authoritative upstream schema URLs in `schemas` and CommandLayer HTTPS mirror URLs in `schemas_mirror`.
-- Moved the current line away from legacy path styles: v1.1.0 cards bind directly to tagged upstream HTTPS schema URLs and current mirror URLs instead of the older IPFS-style or `/requests` and `/receipts` path patterns seen in v1.0.0 artifacts.
-- Established the current-line authority model used elsewhere in this repo: root `v1.1.0` artifacts are authoritative, while `v1.0.0` remains archival compatibility only.
-
-## v1.0.0
-
-Legacy archival line preserved for compatibility and review.
-
-### Characteristics visible in this repository
-
-- Broader card surface including descriptive metadata such as `slug`, `display_name`, `description`, `capabilities`, and `meta`.
-- Shared-schema layout under `schemas/v1.0.0/_shared/`.
-- Mixed schema binding styles across cards, including IPFS-based source references and older mirror path layouts.
+- Legacy compatibility line retained in-tree for archival and migration purposes.
+- Looser schema and descriptor enforcement, including a permissive descriptor schema and a broader card field set.
+- Descriptor-based and IPFS-era schema references remain part of the legacy line.
