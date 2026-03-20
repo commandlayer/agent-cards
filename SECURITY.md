@@ -1,18 +1,53 @@
-# Security Policy — Agent Cards
+# Security Policy
 
 This repository publishes discovery metadata, schema bindings, manifests, and checksums for CommandLayer Agent Cards.
 
-Report security issues that could affect integrity, routing, or trust in the published artifacts, including:
-- incorrect or malicious card, manifest, or discovery bindings
-- checksum drift or release-bundle mismatches
-- incorrect `entry` routing or schema references
-- changes that could cause consumers to resolve the wrong artifact
+## Reporting a vulnerability
 
-For responsible disclosure, email `dev@commandlayer.org` with:
-- a short description of the issue
-- affected files, URLs, or versions
-- reproduction steps or proof of impact
+Please report suspected security issues to: `dev@commandlayer.org`
 
-Please do not publish exploit details or active abuse techniques before we have had a reasonable chance to review and coordinate a fix.
+Include:
+- affected repository and version
+- reproduction steps
+- proof of concept, if available
+- impact assessment
+- any suggested mitigations
 
-Responses are handled on a best-effort basis. We will review credible reports, ask follow-up questions if needed, and coordinate remediation or publication when appropriate.
+Please do not open public issues for unpatched vulnerabilities.
+
+## Supported reporting path
+
+Email is the supported intake path for private vulnerability reports affecting this repository's trust, validation, release, or publication surfaces. If we need follow-up context, we may continue the discussion by email and ask for a minimal private reproduction or patch suggestion.
+
+## Disclosure process
+
+After receiving a report, we will:
+1. acknowledge receipt
+2. validate and reproduce the issue
+3. assess severity and affected surfaces
+4. prepare a fix or mitigation
+5. coordinate disclosure as appropriate
+
+We ask reporters to avoid public disclosure until remediation or coordinated disclosure timing has been agreed.
+
+## Response targets
+
+- Initial acknowledgment: within 3 business days
+- Triage or status update after review: within 7 business days
+- Fix timeline: depends on severity, impact, and release scope
+
+## Scope
+
+This policy covers:
+- schema integrity issues with security implications
+- validation bypasses
+- artifact substitution or release integrity issues
+- signing or verification related issues
+- metadata or publication issues that could mislead integrators about trust surfaces
+
+## Out of scope
+
+This policy does not cover:
+- general feature requests
+- stylistic documentation issues
+- unsupported historical artifacts unless they create active security risk

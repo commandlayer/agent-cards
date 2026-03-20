@@ -66,6 +66,7 @@ The schema also requires `schemas.request`, `schemas.receipt`, `schemas_mirror.r
 - `$id` MUST match the card's canonical HTTPS path
 - `entry` MUST be `x402://<ens>/<implements[0]>/v1.1.0`
 - `x402://` is the protocol-form entry identifier used by CommandLayer agents; it represents a standardized action endpoint (verb + route + version). See `https://docs.x402.org/` for the external protocol reference
+- Commercial artifacts MAY include x402-aligned payment proof or settlement references where applicable. The x402 protocol is external to this specification and should be treated as its own canonical protocol surface at `https://docs.x402.org/`.
 - v1.0.0 MAY remain in the repository only as a legacy archival compatibility surface
 
 ## 6. Binding rules

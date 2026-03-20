@@ -10,14 +10,17 @@ jobs:
   validate-current-release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Validate current-line schema and card integrity
         run: npm run validate:current
@@ -25,8 +28,7 @@ jobs:
       - name: Verify release checksums
         run: npm run validate:checksums
 
-      # This verifies release-level integrity, including URL resolution and bundle reproducibility.
-      - name: Validate release-level manifest, bundle, and upstream bindings
+      - name: Release validation
         run: npm run validate:release
 
       # Mirror enforcement stays explicit because publish-time mirror availability can lag normal CI.
@@ -35,14 +37,17 @@ jobs:
   validate-legacy-compatibility:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Validate legacy compatibility line
         run: npm run validate:legacy
