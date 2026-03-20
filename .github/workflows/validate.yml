@@ -25,6 +25,7 @@ jobs:
       - name: Verify release checksums
         run: npm run validate:checksums
 
+      # This verifies release-level integrity, including URL resolution and bundle reproducibility.
       - name: Validate release-level manifest, bundle, and upstream bindings
         run: npm run validate:release
 
