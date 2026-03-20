@@ -21,6 +21,12 @@ Agent Cards v1.1.0 is the current canonical release line. Root repository artifa
 Do not add new `_shared` helpers for v1.1.0.
 Do not add descriptive fields to current-line cards; if the detail is not a binding fact, keep it in external documentation or in the linked protocol schemas instead.
 
+## Historical scripts
+
+The `scripts/archive/` directory is retained for historical reference only. It is not part of the current `v1.1.0` workflow and should not be treated as an active or supported execution path.
+
+Use the root package scripts and documented current validation and release commands instead.
+
 ## Legacy / compatibility
 
 - `v1.0.0` is superseded by `v1.1.0`.

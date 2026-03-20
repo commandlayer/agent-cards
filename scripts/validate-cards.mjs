@@ -241,22 +241,4 @@ function main() {
   validateCurrentLine("Release");
 }
 
-function validateLegacyLine() {
-  console.log("▶ Validating legacy compatibility line (v1.0.0).");
-  const legacyCards = collectJsonFiles("agents/v1.0.0");
-  for (const file of legacyCards) validateCard(file);
-  if (process.exitCode) process.exit(process.exitCode);
-  console.log("✅ Legacy validation completed successfully.");
-}
-
-const mode = getMode();
-
-function main() {
-  if (mode === "legacy") {
-    validateLegacyLine();
-    return;
-  }
-  validateCurrentLine();
-}
-
 main();
