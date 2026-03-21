@@ -32,9 +32,9 @@ f45b8bb7f745af38fce9a78c1d3a40d36a558e0c4716f59f8e70e561c89ae4e6  agents/v1.1.0/
 315eedad7b1bd8559efa8d3bdf8567c1af7b241be1c934e2ca1dfd90059d90c8  agents/v1.1.0/commons/summarizeagent.eth.json
 2320ed25bb42f4dc6fab2249aa0df0665ccc00e29f7663fbd12caf316410feeb  dist-pin/agent-cards/v1.0.0/.well-known/agent.json
 d9fbd6adc82e9b69f72507472a0dead801a245ae97b764a8e1f857ad22a0000c  dist-pin/agent-cards/v1.0.0/ARCHIVE_NOTICE.md
-9b0015b8d9342111771b77e32086726e434dc346a0b54b695a00dd85b17f504f  dist-pin/agent-cards/v1.0.0/meta/commercial-agent.json
-d11d58d5c981bd542211f1d9f4109b5f542cf580a46670928b6d0bac0e581bb5  dist-pin/agent-cards/v1.0.0/meta/commons-agent.json
-9f04639c33292d1c410805e79632c6d7c0a36ec9826597842c8c3e011e5b7e94  dist-pin/agent-cards/v1.0.0/meta/manifest.json
+6cc84041df17bd0c2d43d1a65d3d10e605598638921bc22d47e24c29c612c550  dist-pin/agent-cards/v1.0.0/meta/commercial-agent.json
+abca8c9bb27e93c285df17848e1fdd65a3ba7c7002a9bc866799a78b46e7504a  dist-pin/agent-cards/v1.0.0/meta/commons-agent.json
+da6eb3c33dbc93060ef43194b4f3326fcf401f113e2b4e44b3a8a1e921452664  dist-pin/agent-cards/v1.0.0/meta/manifest.json
 0e71d19605b66d56ef412d84e28cd97404d35b0aaa9819cf8f8eafda1679a203  dist-pin/agent-cards/v1.1.0/.well-known/agent-cards-v1.1.0.json
 28fbc1f9f2c4640966498935d874d96c4e5d3041356901dc27314e44720d88dc  dist-pin/agent-cards/v1.1.0/.well-known/agent.json
 d12610ea54b31b80758fbc68fcfaf8f20e5588097630f7d04a552bde1be458b1  dist-pin/agent-cards/v1.1.0/agents/v1.1.0/commercial/authorizeagent.eth.json

@@ -1,7 +1,7 @@
 {
   "name": "@commandlayer/agent-cards",
   "version": "1.0.0",
-  "description": "Archival manifest snapshot for the superseded CommandLayer Agent Cards v1.0.0 line.",
+  "description": "Archival-only manifest snapshot for the superseded CommandLayer Agent Cards v1.0.0 line; preserved for historical compatibility and not authoritative for the current release.",
   "owner": "commandlayer.eth",
   "contact": "dev@commandlayer.org",
   "license": "Apache-2.0",
@@ -191,6 +191,8 @@
   ],
   "meta": {
     "archive_state": "archival_only_unverified_snapshot",
+    "superseded_by": "v1.1.0 root canonical release surfaces",
+    "authority_scope": "historical reference only; not part of the current-line trust path",
     "trust_notice": "integrity_manifest_removed_due_to_incomplete_bundle"
   }
 }
