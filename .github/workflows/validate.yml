@@ -5,9 +5,17 @@ on:
     branches: ["main"]
   pull_request:
     branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      require_mirrors:
+        description: "Also require commandlayer.org mirror resolution (publish-time check)"
+        required: false
+        default: false
+        type: boolean
 
 jobs:
-  validate-current-release:
+  validate-release-readiness:
+    name: Validate current release readiness
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,19 +30,21 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate current-line schema and card integrity
-        run: npm run validate:current
+      - name: Standard local release gate (`npm run validate`)
+        run: npm run validate
 
-      - name: Verify release checksums
-        run: npm run validate:checksums
-
-      - name: Validate release reproducibility and external bindings
+      - name: Release-grade gate (`npm run validate:release`)
         run: npm run validate:release
 
-      # Mirror enforcement stays explicit because publish-time mirror availability can lag normal CI.
-      # Run `npm run validate:release -- --require-mirrors` when commandlayer.org mirrors are expected to be live.
+      - name: Publish-time mirror gate (`npm run validate:release -- --require-mirrors`)
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.require_mirrors }}
+        run: npm run validate:release -- --require-mirrors
+
+      # Mirror enforcement is intentionally opt-in for normal CI because publish-time mirror availability can lag routine validation.
+      # Use the manual workflow_dispatch input once mirrors are expected to be live for the tag being pushed.
 
   validate-legacy-compatibility:
+    name: Validate legacy compatibility line
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
