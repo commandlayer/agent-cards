@@ -12,24 +12,14 @@ Commercial CommandLayer flows may reference payment proof or settlement artifact
 
 See the x402 protocol specification for the canonical definition: `https://docs.x402.org/`.
 
-## Authority Model
+## Release authority at a glance
 
-- **Current release-candidate line:** `v1.1.0`
-- **Canonical source of truth:** root artifacts in this repository for the `v1.1.0` line (`agents/`, `schemas/`, `meta/`, `.well-known/`, `checksums.txt`), pending release validation and external binding confirmation
+- **Current line:** `v1.1.0`
+- **Canonical current-line surfaces:** root `agents/v1.1.0/`, `schemas/v1.1.0/`, `meta/`, `.well-known/`, and `checksums.txt`
 - **Canonical registry index:** `meta/manifest.json`
-- **Current discovery pointer:** `.well-known/agent.json`
-- **Immutable versioned descriptor:** `.well-known/agent-cards-v1.1.0.json`
-- **`dist-pin/` role:** committed derivative current-line bundle generated from the root canonical artifacts for pinning/repinning; it is reproducible from the repository root and not a second source of truth
-- **Legacy line:** `v1.0.0` is retained for archival compatibility only. It is superseded by `v1.1.0` and is not the primary release line.
-
-## Quick verification
-
-- **Current Agent Cards line:** `v1.1.0`
-- **Current Commons contract line:** `v1.1.0`
-- **Current Commercial contract line:** `v1.1.0`
-- **Legacy archival compatibility line:** `v1.0.0`
-
-See `SPEC.md` for the current card contract and `CHANGELOG.md` for line-to-line migration notes.
+- **Derivative current-line bundle:** `dist-pin/agent-cards/v1.1.0/` is a committed reproducible copy of the root release surfaces for pinning/repinning; it is not authoritative
+- **Discovery-only surfaces:** `.well-known/agent.json` and `.well-known/agent-cards-v1.1.0.json` point reviewers to the registry metadata; they do not replace the manifest or cards
+- **Current authority model:** `v1.1.0` is the only current line in this repository. `v1.0.0` remains preserved for archival compatibility only and must not be treated as the current release
 
 ## Minimalism policy for v1.1.0 cards
 
@@ -44,7 +34,7 @@ A current-line card is intentionally narrow. It exists to publish canonical bind
 
 v1.1.0 cards intentionally omit descriptive and editorial metadata such as display copy, capabilities summaries, tags, and extra links. If a detail is owned by the Commons or Commercial schema contract, the card links to that contract instead of restating it.
 
-`v1.1.0` is the current release-candidate line. The repository's default validation path, derivative bundle, discovery descriptors, and checksum coverage are centered on `v1.1.0`, but the line must not be treated as fully published until `validate:release` and external bindings are confirmed. `v1.0.0` remains in-tree as an archival compatibility line only.
+`v1.1.0` is the current release-candidate line. The repository centers validation, checksums, discovery descriptors, and the derivative dist-pin bundle on this line. The repository does **not** claim that publication is complete merely because those files exist; publication claims require successful release validation and external bindings where applicable. `v1.0.0` remains in-tree only as archival compatibility material.
 
 ## Design rule for v1.1.0
 
@@ -54,9 +44,9 @@ Agent Cards v1.1.0 is intentionally flat:
 - current schemas live under `schemas/v1.1.0/`
 - current cards use `schemas/v1.1.0/agent.card.schema.json`
 - current discovery files use `schemas/v1.1.0/agent.descriptor.schema.json`
-- current cards bind **directly** to the intended Commons / Commercial schema URLs for release validation
-- current cards bind **directly** to `commandlayer.org` mirror URLs
-- current v1.1.0 uses **no `_shared`**
+- current cards bind directly to the tagged Commons / Commercial schema source URLs
+- current cards bind directly to the public `commandlayer.org` schema mirrors
+- current v1.1.0 uses no `_shared`
 
 ## How card bindings work
 
@@ -71,7 +61,25 @@ For `v1.1.0`:
 
 `https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/v1.1.0/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json`
 
+`https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/v1.1.0/schemas/v1.1.0/commons/<verb>/<verb>.receipt.schema.json`
+
 ### Commons mirror pattern
+
+`https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json`
+
+`https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.receipt.schema.json`
+
+### Commercial source pattern
+
+`https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
+
+`https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/<verb>/<verb>.receipt.schema.json`
+
+### Commercial mirror pattern
+
+`https://commandlayer.org/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
+
+`https://commandlayer.org/schemas/v1.1.0/commercial/<verb>/<verb>.receipt.schema.json`
 
 ## Validation
 
@@ -85,11 +93,11 @@ Run the canonical release gate:
 
 ```bash
 npm run validate:release
-# After mirrors are live for the exact release being published:
+# After mirrors are expected to be live:
 npm run validate:release -- --require-mirrors
 ```
 
-`validate` is the local, no-network gate for current-line structure, manifest alignment, and `checksums.txt`. `validate:release` is the release-grade gate: it runs `validate` first, then enforces derivative-bundle reproducibility and external URL resolution before publication claims should be made. Mirror verification remains explicit and publish-scoped; do not silently skip it during the final tag/push ceremony.
+`validate` checks local structure and checksums. `validate:release` adds external URL resolution and derivative-bundle reproducibility. Until those checks pass, the repository should be read as a prepared current line rather than as proof that every external publication surface is already live.
 
 That trust path is the intended clean-clone review flow:
 
@@ -97,17 +105,16 @@ That trust path is the intended clean-clone review flow:
 2. `meta/manifest.json` is the authoritative registry index for the current line.
 3. `agents/v1.1.0/` contains the canonical current cards.
 4. `.well-known/` exposes discovery descriptors that point back to the manifest and tier registries.
-5. `agents/v1.0.0/` is preserved only as archival legacy material.
-6. `dist-pin/agent-cards/v1.1.0/` is the committed reproducible derivative bundle derived from the canonical root files and reproducible from the repository root.
+5. `dist-pin/agent-cards/v1.1.0/` is the committed reproducible derivative bundle derived from the canonical root files.
+6. `agents/v1.0.0/`, `schemas/v1.0.0/`, and `dist-pin/agent-cards/v1.0.0/` are archival-only legacy material.
 
 ## Authority model
 
-- **Canonical source of truth:** root `agents/v1.1.0/`, `meta/`, `.well-known/`, and `schemas/v1.1.0/`
+- **Canonical source of truth:** root `agents/v1.1.0/`, `meta/`, `.well-known/`, `schemas/v1.1.0/`, and `checksums.txt`
 - **Registry index:** `meta/manifest.json`
-- **Discovery surface:** `.well-known/agent.json` and `.well-known/agent-cards-v1.1.0.json`
-- **Integrity surface:** root `checksums.txt`
-- **Legacy scope:** `agents/v1.0.0/` and `schemas/v1.0.0/`
+- **Discovery surfaces:** `.well-known/agent.json` and `.well-known/agent-cards-v1.1.0.json` are pointers only
 - **Derivative bundle role:** `dist-pin/agent-cards/v1.1.0/` is committed, derivative, reproducible from the repository root, and never authoritative
+- **Legacy scope:** `agents/v1.0.0/`, `schemas/v1.0.0/`, and `dist-pin/agent-cards/v1.0.0/` are archival compatibility surfaces only
 
 ```text
 agent-cards/
@@ -167,6 +174,8 @@ agent-cards/
 Routine CI shows both gates explicitly: `npm run validate` for the local release gate, then `npm run validate:release` for the release-grade gate. Mirror resolution remains explicit and opt-in in routine CI; enforce it with `npm run validate:release -- --require-mirrors` once the published mirrors are expected to be live for the exact tag being pushed.
 
 ## Release and publication model
+
+The current release review checks:
 
 - descriptor schema conformance
 - exact authoritative v1.1.0 card presence
