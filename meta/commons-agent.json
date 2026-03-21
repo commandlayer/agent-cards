@@ -1,7 +1,7 @@
 {
   "id": "x402://commandlayer.eth/commons-agent/v1.1.0",
   "name": "CommandLayer Commons Agent Registry",
-  "description": "Registry descriptor pointer for CommandLayer Commons Agent Cards v1.1.0.",
+  "description": "Registry descriptor pointer for CommandLayer Commons Agent Cards v1.1.0 release-candidate bindings.",
   "owner": "commandlayer.eth",
   "ens": "commandlayer.eth",
   "version": "1.1.0",
@@ -26,7 +26,7 @@
     "agent_cards_version": "1.1.0",
     "current_release": "v1.1.0",
     "legacy_release": "v1.0.0 (archival compatibility only)",
-    "publish_state": "published",
+    "publish_state": "release_candidate_pending_validation",
     "license": "Apache-2.0",
     "surface_role": "registry descriptor pointer"
   }

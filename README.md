@@ -14,12 +14,12 @@ See the x402 protocol specification for the canonical definition: `https://docs.
 
 ## Authority Model
 
-- **Current canonical release line:** `v1.1.0`
-- **Canonical source of truth:** root artifacts in this repository for the `v1.1.0` line (`agents/`, `schemas/`, `meta/`, `.well-known/`, `checksums.txt`)
+- **Current release-candidate line:** `v1.1.0`
+- **Canonical source of truth:** root artifacts in this repository for the `v1.1.0` line (`agents/`, `schemas/`, `meta/`, `.well-known/`, `checksums.txt`), pending release validation and external binding confirmation
 - **Canonical registry index:** `meta/manifest.json`
 - **Current discovery pointer:** `.well-known/agent.json`
 - **Immutable versioned descriptor:** `.well-known/agent-cards-v1.1.0.json`
-- **`dist-pin/` role:** committed published bundle generated from the root canonical artifacts for pinning/repinning; it is derivative, reproducible from the repository root, and not a second source of truth
+- **`dist-pin/` role:** committed derivative current-line bundle generated from the root canonical artifacts for pinning/repinning; it is reproducible from the repository root and not a second source of truth
 - **Legacy line:** `v1.0.0` is retained for archival compatibility only. It is superseded by `v1.1.0` and is not the primary release line.
 
 ## Quick verification
@@ -44,7 +44,7 @@ A current-line card is intentionally narrow. It exists to publish canonical bind
 
 v1.1.0 cards intentionally omit descriptive and editorial metadata such as display copy, capabilities summaries, tags, and extra links. If a detail is owned by the Commons or Commercial schema contract, the card links to that contract instead of restating it.
 
-`v1.1.0` is the canonical line. The repository's default validation path, release bundle, discovery descriptors, and checksum coverage are all centered on `v1.1.0`. `v1.0.0` remains in-tree as an archival and compatibility line only.
+`v1.1.0` is the current release-candidate line. The repository's default validation path, derivative bundle, discovery descriptors, and checksum coverage are centered on `v1.1.0`, but the line must not be treated as fully published until `validate:release` and external bindings are confirmed. `v1.0.0` remains in-tree as an archival compatibility line only.
 
 ## Design rule for v1.1.0
 
@@ -54,7 +54,7 @@ Agent Cards v1.1.0 is intentionally flat:
 - current schemas live under `schemas/v1.1.0/`
 - current cards use `schemas/v1.1.0/agent.card.schema.json`
 - current discovery files use `schemas/v1.1.0/agent.descriptor.schema.json`
-- current cards bind **directly** to published Commons / Commercial schema URLs
+- current cards bind **directly** to the intended Commons / Commercial schema URLs for release validation
 - current cards bind **directly** to `commandlayer.org` mirror URLs
 - current v1.1.0 uses **no `_shared`**
 
@@ -89,7 +89,7 @@ npm run validate:release
 npm run validate:release -- --require-mirrors
 ```
 
-`validate` checks local structure and checksums; `validate:release` adds external URL resolution and publish-bundle reproducibility.
+`validate` checks local structure and checksums; `validate:release` adds external URL resolution and derivative-bundle reproducibility before publication claims should be made.
 
 That trust path is the intended clean-clone review flow:
 
@@ -98,7 +98,7 @@ That trust path is the intended clean-clone review flow:
 3. `agents/v1.1.0/` contains the canonical current cards.
 4. `.well-known/` exposes discovery descriptors that point back to the manifest and tier registries.
 5. `agents/v1.0.0/` is preserved only as archival legacy material.
-6. `dist-pin/agent-cards/v1.1.0/` is the committed reproducible publish bundle derived from the canonical root files and reproducible from the repository root.
+6. `dist-pin/agent-cards/v1.1.0/` is the committed reproducible derivative bundle derived from the canonical root files and reproducible from the repository root.
 
 ## Authority model
 
@@ -107,7 +107,7 @@ That trust path is the intended clean-clone review flow:
 - **Discovery surface:** `.well-known/agent.json` and `.well-known/agent-cards-v1.1.0.json`
 - **Integrity surface:** root `checksums.txt`
 - **Legacy scope:** `agents/v1.0.0/` and `schemas/v1.0.0/`
-- **Publish bundle role:** `dist-pin/agent-cards/v1.1.0/` is committed, derivative, reproducible from the repository root, and never authoritative
+- **Derivative bundle role:** `dist-pin/agent-cards/v1.1.0/` is committed, derivative, reproducible from the repository root, and never authoritative
 
 ```text
 agent-cards/

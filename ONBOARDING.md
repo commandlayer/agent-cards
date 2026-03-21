@@ -2,14 +2,14 @@
 
 ## Start here
 
-Agent Cards v1.1.0 is the current canonical release line. Root repository artifacts are authoritative.
+Agent Cards v1.1.0 is the current release-candidate line. Root repository artifacts are authoritative within the repository, but the line should not be represented as fully published until `validate:release` and external bindings are confirmed.
 
 - root `agents/v1.1.0/`, `meta/`, `.well-known/`, and `schemas/v1.1.0/` are canonical
 - `meta/manifest.json` is the registry index
 - `.well-known/` is discovery
-- `checksums.txt` proves integrity for both the authoritative root artifacts and the committed derivative `dist-pin/` bundle
+- `checksums.txt` proves integrity for both the authoritative root artifacts and the committed derivative `dist-pin/` bundle in-repo; release publication claims still wait on `validate:release`
 - `agents/v1.0.0/` and `schemas/v1.0.0/` are archival legacy
-- `dist-pin/agent-cards/v1.1.0/` is a committed generated derivative publish bundle reproducible from the repository root
+- `dist-pin/agent-cards/v1.1.0/` is a committed generated derivative current-line bundle reproducible from the repository root
 
 - `agents/v1.1.0/commons/*.json`
 - `agents/v1.1.0/commercial/*.json`
@@ -44,7 +44,7 @@ Use the supported root package scripts and current commands instead: `npm run va
 6. update `RESOLUTION.md`
 7. run `npm run validate`
 8. run `npm run validate:release`
-9. `validate` checks local structure and checksums; `validate:release` adds external URL resolution and publish-bundle reproducibility
+9. `validate` checks local structure and checksums; `validate:release` adds external URL resolution and derivative-bundle reproducibility before publication claims
 10. after review, have a maintainer create or move the release tag on the exact validated commit; the release snapshot is the tagged commit plus `checksums.txt`
 
 ## Release procedure

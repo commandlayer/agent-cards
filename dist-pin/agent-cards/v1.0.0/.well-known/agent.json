@@ -1,13 +1,14 @@
 {
   "id": "x402://commandlayer.eth/agent-cards/v1",
   "name": "CommandLayer Agent Cards Registry",
-  "description": "Well-known descriptor for the CommandLayer Agent Cards registry (Commons + Commercial).",
+  "description": "Archival discovery descriptor for the superseded CommandLayer Agent Cards v1.0.0 line.",
   "owner": "commandlayer.eth",
   "ens": "commandlayer.eth",
   "version": "1.0.0",
   "contact": "dev@commandlayer.org",
-  "networks": ["eip155:1"],
-
+  "networks": [
+    "eip155:1"
+  ],
   "registry": {
     "manifest": {
       "http": "https://commandlayer.org/agent-cards/meta/manifest.json",
@@ -22,10 +23,11 @@
       "ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/meta/commercial-agent.json"
     }
   },
-
   "meta": {
     "agent_cards_version": "1.0.0",
     "agent_cards_cid": "",
-    "license": "Apache-2.0"
+    "license": "Apache-2.0",
+    "archive_state": "archival_only_unverified_snapshot",
+    "trust_notice": "integrity_manifest_removed_due_to_incomplete_bundle"
   }
 }
