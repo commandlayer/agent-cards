@@ -1,5 +1,5 @@
-0e71d19605b66d56ef412d84e28cd97404d35b0aaa9819cf8f8eafda1679a203  .well-known/agent-cards-v1.1.0.json
-28fbc1f9f2c4640966498935d874d96c4e5d3041356901dc27314e44720d88dc  .well-known/agent.json
+f7cffcc154397cb4b5c37c05944cdf75c292b2f994d0affda500711b61d33811  .well-known/agent-cards-v1.1.0.json
+8bafbd3c62d16d447a2a8835ac3693e407469f611368672dbbccf624522fbc03  .well-known/agent.json
 b7d185443a2efcf37f760f687b38963558dc82899fa249f6b0a43a6631ebb717  agents/v1.0.0/commercial/authorizeagent.eth.json
 864bfc0467080e4ff6c1514f044449eed79790a5cab420588c052e6ff77c47aa  agents/v1.0.0/commercial/checkoutagent.eth.json
 0f718f2125c5e6b792c56156f7312e98b8ec7b6e53df24436423135f6ae4abca  agents/v1.0.0/commercial/purchaseagent.eth.json

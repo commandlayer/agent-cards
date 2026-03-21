@@ -167,7 +167,7 @@ agent-cards/
 - `node scripts/build-dist-pin.mjs` — rebuild the committed derivative publish bundle from canonical root files
 - `npm run validate:release` — the canonical release validation entrypoint; it runs `npm run validate` first and then:
   - confirms `meta/manifest.json` matches every current card binding
-  - confirms `dist-pin/agent-cards/v1.1.0/` matches a freshly generated derivative bundle
+  - confirms `dist-pin/agent-cards/v1.1.0/` matches a freshly generated derivative bundle built from the canonical root files
   - resolves every upstream tagged schema URL over the network
   - optionally resolves mirrors when run with `--require-mirrors`
 
@@ -184,7 +184,7 @@ The current release review checks:
 - direct `commandlayer.org` mirror URL patterns
 - exact manifest/card cross-validation for indexed current-line entries
 - entry URI correctness
-- checksum determinism across authoritative root artifacts and the derivative dist-pin bundle so both surfaces can be reviewed independently
+- checksum determinism across authoritative root artifacts, plus separate derivative-bundle verification for `dist-pin/`, so each release surface can be reviewed without blurring authority
 
 ## Release procedure
 
@@ -221,6 +221,6 @@ This keeps the trust story narrow: root artifacts are canonical, `dist-pin/` is 
 - `meta/manifest.json` — canonical registry index for the release
 - `.well-known/agent.json` — current discovery pointer to the canonical registry metadata
 - `.well-known/agent-cards-v1.1.0.json` — immutable versioned discovery descriptor for `v1.1.0`
-- `dist-pin/agent-cards/v1.1.0/` — committed derivative published bundle copied from canonical root artifacts for pinning/repinning and reproducible from the repository root
+- `dist-pin/agent-cards/v1.1.0/` — committed derivative published bundle copied from canonical root artifacts for pinning/repinning and verified by rebuild, not by co-equal authority
 - `agents/v1.0.0/`, `schemas/v1.0.0/`, and `dist-pin/agent-cards/v1.0.0/` — archival compatibility surfaces only
-- `checksums.txt` — deterministic artifact digests across the authoritative root release set and the committed derivative publish bundle
+- `checksums.txt` — deterministic artifact digests for the authoritative root release set; the derivative publish bundle is verified separately by reproducible rebuild

@@ -3,7 +3,7 @@
 ## Release policy
 
 - `v1.1.0` is the current release-candidate Agent Cards line.
-- Root repository artifacts for `v1.1.0` are the source of truth.
+- Root repository artifacts for `v1.1.0` are canonical.
 - `v1.0.0` is superseded and retained only as an archival compatibility line.
 - Current v1.1.0 work must stay flat and self-contained.
 - Current v1.1.0 work must not reintroduce `_shared`.
@@ -12,7 +12,7 @@
 
 - `meta/manifest.json` is the canonical registry index.
 - `.well-known/` files are discovery pointers only.
-- `dist-pin/agent-cards/v1.1.0/` is a derivative current-line bundle for pinning/repinning.
+- `dist-pin/agent-cards/v1.1.0/` is a derivative current-line bundle for pinning/repinning and reproducible verification.
 - No surface other than the root `v1.1.0` artifacts may be treated as co-equal authority.
 
 ## Binding policy
@@ -23,4 +23,4 @@
 
 ## Release integrity
 
-Canonical cards, canonical schemas, manifest, discovery pointers, checksums, and the derivative dist-pin bundle must move together.
+Canonical cards, canonical schemas, manifest, discovery pointers, root checksum records, and the derivative dist-pin bundle verification target must move together.

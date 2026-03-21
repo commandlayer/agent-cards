@@ -1,7 +1,7 @@
 {
   "id": "x402://commandlayer.eth/agent-cards/v1.1.0",
   "name": "CommandLayer Agent Cards Registry Descriptor (v1.1.0)",
-  "description": "Versioned discovery descriptor for the CommandLayer Agent Cards v1.1.0 release-candidate line.",
+  "description": "Versioned discovery descriptor for the CommandLayer Agent Cards v1.1.0 release-candidate repository line.",
   "owner": "commandlayer.eth",
   "ens": "commandlayer.eth",
   "version": "1.1.0",

@@ -1,7 +1,7 @@
 {
   "name": "@commandlayer/agent-cards",
   "version": "1.1.0",
-  "description": "Canonical registry index for the CommandLayer Agent Cards v1.1.0 release-candidate line.",
+  "description": "Canonical registry index for the CommandLayer Agent Cards v1.1.0 release-candidate repository line.",
   "repository": "https://github.com/commandlayer/agent-cards",
   "homepage": "https://commandlayer.org/agent-cards",
   "owner": "commandlayer.eth",
@@ -48,9 +48,9 @@
       "agents",
       "schemas",
       "meta",
-      ".well-known",
-      "dist-pin/agent-cards/v1.1.0"
-    ]
+      ".well-known"
+    ],
+    "derivative_verification": "dist-pin/agent-cards/v1.1.0 must match a rebuild from the canonical root artifacts"
   },
   "entries": [
     {
@@ -295,10 +295,10 @@
     }
   ],
   "surface_roles": {
-    "root": "canonical source of truth for Agent Cards v1.1.0",
+    "root": "canonical repository artifacts for Agent Cards v1.1.0",
     "meta_manifest": "canonical registry index",
     "well_known": "discovery pointers only",
-    "dist_pin": "derivative current-line bundle for pinning/repinning; not independent authority",
+    "dist_pin": "derivative current-line bundle for pinning/repinning and rebuild verification; not independent authority",
     "legacy_v1_0_0": "archival compatibility only"
   },
   "publication": {
@@ -307,6 +307,7 @@
     "discovery_role": ".well-known discovery pointers only",
     "derivative_bundle": "dist-pin/agent-cards/v1.1.0",
     "state": "release_candidate_pending_validation",
-    "external_bindings": "unconfirmed_until_validate_release_passes"
+    "external_bindings": "unconfirmed_until_validate_release_passes",
+    "checksum_scope": "checksums_txt_covers_root_release_surfaces_only"
   }
 }
