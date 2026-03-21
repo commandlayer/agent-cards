@@ -1,8 +1,8 @@
 # Specification — CommandLayer Agent Cards
 
-## One-line model
+## 1. One-line model
 
-This repo maintains canonical CommandLayer Agent Cards for the current **v1.1.0** release-candidate line. Cards are minimal discovery and binding artifacts, `meta/manifest.json` is the registry index, `.well-known/` exposes discovery, root checksums verify canonical release surfaces, legacy is archival, and `dist-pin/agent-cards/v1.1.0/` is a derivative current-line bundle reproduced from the canonical root files.
+This repo maintains canonical CommandLayer Agent Cards for the current **v1.1.0** release-candidate line. Cards are minimal discovery and binding artifacts, `meta/manifest.json` is the registry index, `.well-known/` exposes discovery pointers, root checksums verify integrity, legacy material is archival only, and `dist-pin/agent-cards/v1.1.0/` is a derivative current-line bundle reproduced from the canonical root files.
 
 Agent Cards publish only canonical binding facts:
 
@@ -22,20 +22,24 @@ They do not define semantic meaning, feature behavior, or implementation detail.
 - Root repository artifacts for `v1.1.0` are authoritative.
 - `meta/manifest.json` is the canonical registry index.
 - `.well-known/agent.json` is the current discovery pointer.
-- `.well-known/agent-cards-v1.1.0.json` is the immutable versioned descriptor for the canonical line.
+- `.well-known/agent-cards-v1.1.0.json` is the immutable versioned descriptor for the current line.
+- `.well-known/` files are discovery surfaces only; they do not replace the manifest or card files as authority.
 - `dist-pin/agent-cards/v1.1.0/` is a derivative current-line bundle for pinning/repinning and is not an independent source of truth.
-- `checksums.txt` is the canonical checksum record for the authoritative root artifacts. The derived `dist-pin/` bundle is verified separately by reproducible rebuild against those root artifacts.
-- `v1.0.0` is superseded and retained only for archival compatibility. Legacy `v1.0.0` references may still rely on IPFS-era addressing and should be read as archival compatibility material, not the current authority path.
+- `checksums.txt` covers both the authoritative root artifacts and the derived `dist-pin/` bundle so reviewers can verify source and derivative release surfaces independently.
+- `v1.0.0` is superseded and retained only for archival compatibility. Legacy `v1.0.0` references may still rely on IPFS-era addressing and must be read as archival material, not the current authority path.
 
 ## 3. Legacy schema files
 
-Legacy `v1.0.0` schema files remain for archival compatibility only. They are not part of the current release-candidate line.
+The current line uses exactly these repository-owned schema files:
 
-## 4. Card contract for v1.1.0
+- `schemas/v1.1.0/agent.card.schema.json`
+- `schemas/v1.1.0/agent.descriptor.schema.json`
 
-Every canonical v1.1.0 card MUST satisfy the field, versioning, and binding requirements below.
+Legacy schema files under `schemas/v1.0.0/` remain in-tree only to preserve the archived `v1.0.0` line. They are not part of the current authority model.
 
 ## 5. Required card fields
+
+Every canonical v1.1.0 card MUST satisfy the current schema and include the current-line publication fields.
 
 The v1.1.0 JSON Schema requires 14 top-level fields. That count does not include `$schema` or `$id`, because neither field appears in the schema's top-level `required` array:
 

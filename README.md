@@ -12,24 +12,14 @@ Commercial CommandLayer flows may reference payment proof or settlement artifact
 
 See the x402 protocol specification for the canonical definition: `https://docs.x402.org/`.
 
-## Authority Model
+## Release authority at a glance
 
-- **Current release-candidate line:** `v1.1.0`
-- **Canonical source of truth:** root artifacts in this repository for the `v1.1.0` line (`agents/`, `schemas/`, `meta/`, `.well-known/`, `checksums.txt`)
+- **Current line:** `v1.1.0`
+- **Canonical current-line surfaces:** root `agents/v1.1.0/`, `schemas/v1.1.0/`, `meta/`, `.well-known/`, and `checksums.txt`
 - **Canonical registry index:** `meta/manifest.json`
-- **Current discovery pointer:** `.well-known/agent.json`
-- **Immutable versioned descriptor:** `.well-known/agent-cards-v1.1.0.json`
-- **`dist-pin/` role:** committed derivative current-line bundle generated from the root canonical artifacts for pinning/repinning; it is reproducible from the repository root and never a second source of truth
-- **Legacy line:** `v1.0.0` is retained for archival compatibility only. It is superseded by `v1.1.0` and is not the primary release line.
-
-## Quick verification
-
-- **Current Agent Cards line:** `v1.1.0`
-- **Current Commons contract line:** `v1.1.0`
-- **Current Commercial contract line:** `v1.1.0`
-- **Legacy archival compatibility line:** `v1.0.0`
-
-See `SPEC.md` for the current card contract and `CHANGELOG.md` for line-to-line migration notes.
+- **Derivative current-line bundle:** `dist-pin/agent-cards/v1.1.0/` is a committed reproducible copy of the root release surfaces for pinning/repinning; it is not authoritative
+- **Discovery-only surfaces:** `.well-known/agent.json` and `.well-known/agent-cards-v1.1.0.json` point reviewers to the registry metadata; they do not replace the manifest or cards
+- **Current authority model:** `v1.1.0` is the only current line in this repository. `v1.0.0` remains preserved for archival compatibility only and must not be treated as the current release
 
 ## Minimalism policy for v1.1.0 cards
 
@@ -44,7 +34,7 @@ A current-line card is intentionally narrow. It exists to publish canonical bind
 
 v1.1.0 cards intentionally omit descriptive and editorial metadata such as display copy, capabilities summaries, tags, and extra links. If a detail is owned by the Commons or Commercial schema contract, the card links to that contract instead of restating it.
 
-`v1.1.0` is the current release-candidate line. The repository's validation path, derivative bundle, discovery descriptors, and checksum coverage are centered on `v1.1.0`, but publication claims should wait until `npm run validate:release` passes and the intended external bindings are confirmed. `v1.0.0` remains in-tree as an archival compatibility line only.
+`v1.1.0` is the current release-candidate line. The repository centers validation, checksums, discovery descriptors, and the derivative dist-pin bundle on this line. The repository does **not** claim that publication is complete merely because those files exist; publication claims require successful release validation and external bindings where applicable. `v1.0.0` remains in-tree only as archival compatibility material.
 
 ## Design rule for v1.1.0
 
@@ -54,9 +44,9 @@ Agent Cards v1.1.0 is intentionally flat:
 - current schemas live under `schemas/v1.1.0/`
 - current cards use `schemas/v1.1.0/agent.card.schema.json`
 - current discovery files use `schemas/v1.1.0/agent.descriptor.schema.json`
-- current cards bind **directly** to the intended Commons / Commercial schema URLs for release validation
-- current cards bind **directly** to `commandlayer.org` mirror URLs
-- current v1.1.0 uses **no `_shared`**
+- current cards bind directly to the tagged Commons / Commercial schema source URLs
+- current cards bind directly to the public `commandlayer.org` schema mirrors
+- current v1.1.0 uses no `_shared`
 
 ## How card bindings work
 
@@ -71,35 +61,43 @@ For `v1.1.0`:
 
 `https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/v1.1.0/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json`
 
+`https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/v1.1.0/schemas/v1.1.0/commons/<verb>/<verb>.receipt.schema.json`
+
 ### Commons mirror pattern
 
 `https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json`
+
+`https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.receipt.schema.json`
 
 ### Commercial source pattern
 
 `https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
 
+`https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/<verb>/<verb>.receipt.schema.json`
+
 ### Commercial mirror pattern
 
 `https://commandlayer.org/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
 
+`https://commandlayer.org/schemas/v1.1.0/commercial/<verb>/<verb>.receipt.schema.json`
+
 ## Validation
 
-Run standard validation:
+Run the canonical local gate:
 
 ```bash
 npm run validate
 ```
 
-Run release-level validation (URLs + bundle integrity):
+Run the canonical release gate:
 
 ```bash
 npm run validate:release
-# After mirrors are live:
+# After mirrors are expected to be live:
 npm run validate:release -- --require-mirrors
 ```
 
-`validate` checks local structure plus root canonical checksum coverage. `validate:release` adds external URL resolution and derivative-bundle reproducibility, including verification that `dist-pin/agent-cards/v1.1.0/` matches a fresh build from the canonical root files, before publication claims should be made.
+`validate` checks local structure and checksums. `validate:release` adds external URL resolution and derivative-bundle reproducibility. Until those checks pass, the repository should be read as a prepared current line rather than as proof that every external publication surface is already live.
 
 That trust path is the intended clean-clone review flow:
 
@@ -107,17 +105,16 @@ That trust path is the intended clean-clone review flow:
 2. `meta/manifest.json` is the authoritative registry index for the current line.
 3. `agents/v1.1.0/` contains the canonical current cards.
 4. `.well-known/` exposes discovery descriptors that point back to the manifest and tier registries.
-5. `agents/v1.0.0/` is preserved only as archival legacy material.
-6. `dist-pin/agent-cards/v1.1.0/` is the committed reproducible derivative bundle; reviewers should verify it against a fresh build from the canonical root files rather than treat it as a co-equal source.
+5. `dist-pin/agent-cards/v1.1.0/` is the committed reproducible derivative bundle derived from the canonical root files.
+6. `agents/v1.0.0/`, `schemas/v1.0.0/`, and `dist-pin/agent-cards/v1.0.0/` are archival-only legacy material.
 
 ## Authority model
 
-- **Canonical source of truth:** root `agents/v1.1.0/`, `meta/`, `.well-known/`, and `schemas/v1.1.0/`
+- **Canonical source of truth:** root `agents/v1.1.0/`, `meta/`, `.well-known/`, `schemas/v1.1.0/`, and `checksums.txt`
 - **Registry index:** `meta/manifest.json`
-- **Discovery surface:** `.well-known/agent.json` and `.well-known/agent-cards-v1.1.0.json`
-- **Integrity surface:** root `checksums.txt`
-- **Legacy scope:** `agents/v1.0.0/` and `schemas/v1.0.0/`
+- **Discovery surfaces:** `.well-known/agent.json` and `.well-known/agent-cards-v1.1.0.json` are pointers only
 - **Derivative bundle role:** `dist-pin/agent-cards/v1.1.0/` is committed, derivative, reproducible from the repository root, and never authoritative
+- **Legacy scope:** `agents/v1.0.0/`, `schemas/v1.0.0/`, and `dist-pin/agent-cards/v1.0.0/` are archival compatibility surfaces only
 
 ```text
 agent-cards/
@@ -166,17 +163,19 @@ agent-cards/
 }
 ```
 
-- `npm run validate` — standard local validation for canonical v1.1.0 cards, discovery descriptors, manifest alignment, and root canonical checksum coverage recorded in `checksums.txt`
+- `npm run validate` — the canonical local validation entrypoint for canonical v1.1.0 cards, discovery descriptors, manifest alignment, and `checksums.txt`
 - `node scripts/build-dist-pin.mjs` — rebuild the committed derivative publish bundle from canonical root files
-- `npm run validate:release` — release-scoped validation that:
+- `npm run validate:release` — the canonical release validation entrypoint; it runs `npm run validate` first and then:
   - confirms `meta/manifest.json` matches every current card binding
   - confirms `dist-pin/agent-cards/v1.1.0/` matches a freshly generated derivative bundle built from the canonical root files
   - resolves every upstream tagged schema URL over the network
   - optionally resolves mirrors when run with `--require-mirrors`
 
-Routine CI runs `npm run validate` and `npm run validate:release`. Mirror resolution remains explicit and optional in routine CI; enforce it with `npm run validate:release -- --require-mirrors` when the published mirrors are expected to be live.
+Routine CI shows both gates explicitly: `npm run validate` for the local release gate, then `npm run validate:release` for the release-grade gate. Mirror resolution remains explicit and opt-in in routine CI; enforce it with `npm run validate:release -- --require-mirrors` once the published mirrors are expected to be live for the exact tag being pushed.
 
 ## Release and publication model
+
+The current release review checks:
 
 - descriptor schema conformance
 - exact authoritative v1.1.0 card presence
@@ -189,14 +188,32 @@ Routine CI runs `npm run validate` and `npm run validate:release`. Mirror resolu
 
 ## Release procedure
 
-1. Edit only the canonical root artifacts for the current `v1.1.0` line.
-2. Rebuild the committed derivative bundle with `node scripts/build-dist-pin.mjs`.
-3. Regenerate root integrity digests with `node scripts/generate-checksums.mjs` so `checksums.txt` remains the canonical checksum record for the root release surfaces.
-4. Run `npm run validate` and `npm run validate:release`.
-5. Publish the reviewed snapshot from the exact commit you validated. The release snapshot is defined by the tagged commit together with `checksums.txt`.
-6. Create or move the release tag only after the repository state above has been reviewed and published. This repository does not claim that a new tag already exists.
+Use one clean ceremony from "ready" to public release. Do not substitute alternate wrappers or partial checks.
 
-This keeps the trust story narrow: root artifacts are canonical, `checksums.txt` records their release digests, `dist-pin/` is a separately verified committed derivative publish bundle, `.well-known/` remains discovery-only, and the tag plus checksums identify the release snapshot.
+1. Edit only the canonical root artifacts for the current `v1.1.0` line.
+2. Rebuild the committed derivative bundle with `npm run generate:dist-pin`.
+3. Regenerate root integrity digests with `node scripts/generate-checksums.mjs`.
+4. Run the canonical local gate: `npm run validate`.
+5. Run the canonical release gate: `npm run validate:release`.
+6. Verify the checksum file you are about to publish is the one you just validated (`checksums.txt` must remain unchanged between steps 4-5 and tagging).
+7. Create the release tag from that exact validated commit.
+8. Push the commit and tag.
+9. Run the final public verification: `npm run validate:release -- --require-mirrors` only after upstream tags and `commandlayer.org` mirrors are expected to be live.
+10. Confirm the public release artifacts resolve from the pushed tag, published checksum set, upstream schema tags, and mirrors before announcing completion.
+
+Recommended command order for maintainers:
+
+```bash
+npm run generate:dist-pin
+node scripts/generate-checksums.mjs
+npm run validate
+npm run validate:release
+git tag <tag>
+git push origin main --follow-tags
+npm run validate:release -- --require-mirrors
+```
+
+This keeps the trust story narrow: root artifacts are canonical, `dist-pin/` is a committed derivative publish bundle, `.well-known/` remains discovery-only, checksum verification is explicit, and the pushed tag plus checksums identify the release snapshot. If external publish surfaces are not live yet, the release is not fully verified; do not hide that state.
 
 ## Release surfaces
 

@@ -11,8 +11,8 @@ const CURRENT_SEMVER = CURRENT_LINE.replace(/^v/, "");
 const CARD_HTTP_ROOT = `https://commandlayer.org/agent-cards/agents/${CURRENT_LINE}`;
 const PLACEHOLDER_PATTERNS = ["example.com", "placeholder", "changeme", "your-", "TODO"];
 const SOURCE_ROOTS = {
-  commons: `https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/${CURRENT_LINE}/schemas/${CURRENT_LINE}/commons`,
-  commercial: `https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/${CURRENT_LINE}/schemas/${CURRENT_LINE}/commercial`
+  commons: `https://raw.githubusercontent.com/commandlayer/protocol-commons/${CURRENT_LINE}/schemas/${CURRENT_LINE}/commons`,
+  commercial: `https://raw.githubusercontent.com/commandlayer/protocol-commercial/${CURRENT_LINE}/schemas/${CURRENT_LINE}/commercial`
 };
 const MIRROR_ROOTS = {
   commons: `https://commandlayer.org/schemas/${CURRENT_LINE}/commons`,
