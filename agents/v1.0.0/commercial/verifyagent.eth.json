@@ -14,8 +14,8 @@
     "verify"
   ],
   "schemas": {
-    "request": "https://commandlayer.org/schemas/v1.0.0/commercial/verify/requests/verify.request.schema.json",
-    "receipt": "https://commandlayer.org/schemas/v1.0.0/commercial/verify/receipts/verify.receipt.schema.json"
+    "request": "https://commandlayer.org/schemas/v1.0.0/commercial/verify/verify.request.schema.json",
+    "receipt": "https://commandlayer.org/schemas/v1.0.0/commercial/verify/verify.receipt.schema.json"
   },
   "entry": "x402://verifyagent.eth/verify/v1.0.0",
   "capabilities": {

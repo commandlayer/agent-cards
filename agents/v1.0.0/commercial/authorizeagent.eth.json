@@ -14,8 +14,8 @@
     "authorize"
   ],
   "schemas": {
-    "request": "https://commandlayer.org/schemas/v1.0.0/commercial/authorize/requests/authorize.request.schema.json",
-    "receipt": "https://commandlayer.org/schemas/v1.0.0/commercial/authorize/receipts/authorize.receipt.schema.json"
+    "request": "https://commandlayer.org/schemas/v1.0.0/commercial/authorize/authorize.request.schema.json",
+    "receipt": "https://commandlayer.org/schemas/v1.0.0/commercial/authorize/authorize.receipt.schema.json"
   },
   "entry": "x402://authorizeagent.eth/authorize/v1.0.0",
   "capabilities": {

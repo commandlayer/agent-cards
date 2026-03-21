@@ -18,10 +18,9 @@
     "http": "https://commandlayer.org/agent-cards/agents/v1.1.0/commercial/"
   },
   "bindings": {
-    "source_root": "https://raw.githubusercontent.com/commandlayer/protocol-commercial/v1.1.0/schemas/v1.1.0/commercial",
-    "mirror_root": "https://commandlayer.org/schemas/v1.1.0/commercial",
     "shape": "flat",
-    "entry_pattern": "x402://<agent>/<verb>/v1.1.0"
+    "entry_pattern": "x402://<agent>/<verb>/v1.1.0",
+    "schema_root": "https://commandlayer.org/schemas/v1.1.0/commercial"
   },
   "meta": {
     "agent_cards_version": "1.1.0",

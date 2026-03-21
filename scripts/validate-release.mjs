@@ -8,7 +8,7 @@ import { execFileSync } from 'node:child_process';
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
 const VERSION = 'v1.1.0';
-const REQUIRE_MIRRORS = process.argv.includes('--require-mirrors');
+const RECHECK_SCHEMAS = process.argv.includes('--require-mirrors');
 const TIMEOUT_MS = 15000;
 
 function rel(filePath) {
@@ -71,8 +71,6 @@ function validateManifestBindings() {
     if (entry.agent_card !== expectedCardUrl) fail(`${cardPath}: manifest agent_card mismatch for ${card.id}.`);
     if (entry.schema_request !== card.schemas.request) fail(`${cardPath}: manifest schema_request mismatch for ${card.id}.`);
     if (entry.schema_receipt !== card.schemas.receipt) fail(`${cardPath}: manifest schema_receipt mismatch for ${card.id}.`);
-    if (entry.schema_request_mirror !== card.schemas_mirror.request) fail(`${cardPath}: manifest schema_request_mirror mismatch for ${card.id}.`);
-    if (entry.schema_receipt_mirror !== card.schemas_mirror.receipt) fail(`${cardPath}: manifest schema_receipt_mirror mismatch for ${card.id}.`);
     if (entry.entry !== card.entry) fail(`${cardPath}: manifest entry mismatch for ${card.id}.`);
     if (entry.verb !== verb) fail(`${cardPath}: manifest verb mismatch for ${card.id}.`);
   }
@@ -94,7 +92,7 @@ function validateBundleReproducibility() {
   const rebuiltFiles = listFilesUnder(tempRoot).map((file) => path.relative(tempRoot, file).replace(/\\/g, '/'));
 
   if (JSON.stringify(actualFiles) !== JSON.stringify(rebuiltFiles.map((file) => `dist-pin/agent-cards/${VERSION}/${file}`))) {
-    fail('dist-pin/agent-cards/v1.1.0: file set does not match a freshly generated bundle from root canonical files.');
+    fail(`dist-pin/agent-cards/${VERSION}: file set does not match a freshly generated bundle from root canonical files.`);
     return;
   }
 
@@ -106,7 +104,7 @@ function validateBundleReproducibility() {
     }
   }
 
-  ok('dist-pin/agent-cards/v1.1.0 matches a freshly generated derivative bundle from the canonical root files.');
+  ok(`dist-pin/agent-cards/${VERSION} matches a freshly generated derivative bundle from the canonical root files.`);
 }
 
 async function fetchStatus(targetUrl) {
@@ -144,19 +142,9 @@ async function validateExternalBindings() {
     const card = JSON.parse(fs.readFileSync(file, 'utf8'));
     targets.push({ card: rel(file), field: 'schemas.request', url: card.schemas.request, required: true });
     targets.push({ card: rel(file), field: 'schemas.receipt', url: card.schemas.receipt, required: true });
-    targets.push({ card: rel(file), field: 'schemas_mirror.request', url: card.schemas_mirror.request, required: REQUIRE_MIRRORS });
-    targets.push({ card: rel(file), field: 'schemas_mirror.receipt', url: card.schemas_mirror.receipt, required: REQUIRE_MIRRORS });
   }
 
-  let skippedMirrorNotice = false;
   for (const target of targets) {
-    if (!target.required && target.field.startsWith('schemas_mirror')) {
-      if (!skippedMirrorNotice) {
-        console.log('ℹ️  Mirror resolution is publish-scoped. Re-run `npm run validate:release -- --require-mirrors` after commandlayer.org mirrors are live.');
-        skippedMirrorNotice = true;
-      }
-      continue;
-    }
     const result = await fetchStatus(target.url);
     if (!result.ok) {
       const detail = result.status ? `HTTP ${result.status}` : result.error;
@@ -164,6 +152,10 @@ async function validateExternalBindings() {
     } else {
       ok(`${target.card}: ${target.field} resolved (${result.status})`);
     }
+  }
+
+  if (RECHECK_SCHEMAS && !process.exitCode) {
+    ok('Canonical hosted schema recheck completed (`--require-mirrors` now revalidates commandlayer.org schema URLs).');
   }
 }
 

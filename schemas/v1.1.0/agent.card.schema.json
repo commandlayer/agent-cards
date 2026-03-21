@@ -13,7 +13,6 @@
     "class",
     "implements",
     "schemas",
-    "schemas_mirror",
     "entry",
     "networks",
     "license",
@@ -93,26 +92,7 @@
           "format": "uri"
         }
       },
-      "description": "Authoritative upstream request/receipt schema bindings."
-    },
-    "schemas_mirror": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "request",
-        "receipt"
-      ],
-      "properties": {
-        "request": {
-          "type": "string",
-          "format": "uri"
-        },
-        "receipt": {
-          "type": "string",
-          "format": "uri"
-        }
-      },
-      "description": "CommandLayer mirror URLs for the bound request/receipt schemas."
+      "description": "Canonical hosted request/receipt schema bindings resolved via commandlayer.org."
     },
     "entry": {
       "type": "string",

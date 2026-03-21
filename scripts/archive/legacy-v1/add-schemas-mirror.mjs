@@ -1,15 +1,13 @@
 // Legacy helper preserved for v1.0.0 migration history only.
-// It populated schemas_mirror fields when cards still lived in the old flat agents/ layout.
+// It converted old IPFS-based schema bindings into hosted commandlayer.org schema URLs.
 // Archived outside the active v1.1.0 release pipeline.
 
 import fs from "fs";
 import path from "path";
 
 const AGENTS_DIR = path.join(process.cwd(), "agents");
-
-// Canonical roots
 const IPFS_ROOT = "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m";
-const HTTP_ROOT = "https://commandlayer.org/schemas/v1.0.0";
+const HTTP_ROOT = "https://commandlayer.org/schemas/v1.0.0/commons";
 
 for (const file of fs.readdirSync(AGENTS_DIR)) {
   if (!file.endsWith(".json")) continue;
@@ -18,7 +16,7 @@ for (const file of fs.readdirSync(AGENTS_DIR)) {
   const raw = fs.readFileSync(fp, "utf8");
   const card = JSON.parse(raw);
 
-  if (!card.schemas || !card.schemas.request || !card.schemas.receipt) {
+  if (!card.schemas?.request || !card.schemas?.receipt) {
     console.error(`Skipping ${file}: missing schemas.request or schemas.receipt`);
     continue;
   }
@@ -31,14 +29,20 @@ for (const file of fs.readdirSync(AGENTS_DIR)) {
     continue;
   }
 
-  const reqHttp = reqIpfs.replace(IPFS_ROOT + "/commons", HTTP_ROOT + "/commons");
-  const recHttp = recIpfs.replace(IPFS_ROOT + "/commons", HTTP_ROOT + "/commons");
+  const reqHttp = reqIpfs
+    .replace(`${IPFS_ROOT}/commons/`, `${HTTP_ROOT}/`)
+    .replace('/requests/', '/')
+    .replace('/receipts/', '/');
+  const recHttp = recIpfs
+    .replace(`${IPFS_ROOT}/commons/`, `${HTTP_ROOT}/`)
+    .replace('/requests/', '/')
+    .replace('/receipts/', '/');
 
-  card.schemas_mirror = {
+  card.schemas = {
     request: reqHttp,
     receipt: recHttp
   };
 
   fs.writeFileSync(fp, JSON.stringify(card, null, 2) + "\n", "utf8");
-  console.log(`Updated schemas_mirror for ${file}`);
+  console.log(`Updated schemas for ${file}`);
 }

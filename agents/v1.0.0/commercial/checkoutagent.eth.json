@@ -14,8 +14,8 @@
     "checkout"
   ],
   "schemas": {
-    "request": "https://commandlayer.org/schemas/v1.0.0/commercial/checkout/requests/checkout.request.schema.json",
-    "receipt": "https://commandlayer.org/schemas/v1.0.0/commercial/checkout/receipts/checkout.receipt.schema.json"
+    "request": "https://commandlayer.org/schemas/v1.0.0/commercial/checkout/checkout.request.schema.json",
+    "receipt": "https://commandlayer.org/schemas/v1.0.0/commercial/checkout/checkout.receipt.schema.json"
   },
   "entry": "x402://checkoutagent.eth/checkout/v1.0.0",
   "capabilities": {

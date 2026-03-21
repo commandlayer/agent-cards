@@ -89,21 +89,8 @@
           "type": "string",
           "format": "uri"
         }
-      }
-    },
-    "schemas_mirror": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "request": {
-          "type": "string",
-          "format": "uri"
-        },
-        "receipt": {
-          "type": "string",
-          "format": "uri"
-        }
-      }
+      },
+      "description": "Canonical hosted request/receipt schema bindings resolved via commandlayer.org."
     },
     "capabilities": {
       "type": "object",

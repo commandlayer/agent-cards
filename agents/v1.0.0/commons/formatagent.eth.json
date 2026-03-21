@@ -14,12 +14,8 @@
     "format"
   ],
   "schemas": {
-    "request": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m/commons/format/requests/format.request.schema.json",
-    "receipt": "ipfs://bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m/commons/format/receipts/format.receipt.schema.json"
-  },
-  "schemas_mirror": {
-    "request": "https://commandlayer.org/schemas/v1.0.0/commons/format/requests/format.request.schema.json",
-    "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/format/receipts/format.receipt.schema.json"
+    "request": "https://commandlayer.org/schemas/v1.0.0/commons/format/format.request.schema.json",
+    "receipt": "https://commandlayer.org/schemas/v1.0.0/commons/format/format.receipt.schema.json"
   },
   "entry": "https://runtime.commandlayer.org/execute",
   "capabilities": {
