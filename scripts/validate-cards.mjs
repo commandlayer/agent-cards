@@ -9,6 +9,7 @@ const ROOT = path.join(__dirname, "..");
 const CURRENT_LINE = "v1.1.0";
 const CURRENT_SEMVER = CURRENT_LINE.replace(/^v/, "");
 const CARD_HTTP_ROOT = `https://commandlayer.org/agent-cards/agents/${CURRENT_LINE}`;
+const COMMONS_RUNTIME_ENTRY = "https://runtime.commandlayer.org/execute";
 const PLACEHOLDER_PATTERNS = ["example.com", "placeholder", "changeme", "your-", "TODO"];
 const SOURCE_ROOTS = {
   commons: `https://raw.githubusercontent.com/commandlayer/protocol-commons/${CURRENT_LINE}/schemas/${CURRENT_LINE}/commons`,
@@ -119,7 +120,7 @@ function validateCard(fullPath) {
 
   const primaryVerb = card.implements[0];
   const expectedId = `https://commandlayer.org/agent-cards/${relativePath}`;
-  const expectedEntry = `x402://${card.ens}/${primaryVerb}/v${card.version}`;
+  const expectedEntry = tier === "commons" ? COMMONS_RUNTIME_ENTRY : `x402://${card.ens}/${primaryVerb}/v${card.version}`;
   const semverFolder = folderVersion.replace(/^v/, "");
 
   if (card.version !== semverFolder) fail(`${relativePath}: version mismatch.`);
@@ -200,7 +201,7 @@ function validateManifestAgainstCards(cardRecords) {
   expectEqual(manifest.entries.length, cardRecords.length, "meta/manifest.json: entry count must match indexed current-line cards.");
   expectEqual(manifest.release_lines.current, CURRENT_LINE, "meta/manifest.json: current release line mismatch.");
   expectEqual(manifest.roots.canonical_cards_http, CARD_HTTP_ROOT, "meta/manifest.json: canonical_cards_http root mismatch.");
-  expectEqual(manifest.updated_at, "2026-03-19T00:00:00Z", "meta/manifest.json: updated_at must reflect the current release stamp.");
+  expectEqual(manifest.updated_at, "2026-03-21T00:00:00Z", "meta/manifest.json: updated_at must reflect the current release stamp.");
 
   const commonsCount = cardRecords.filter(({ tier }) => tier === "commons").length;
   const commercialCount = cardRecords.filter(({ tier }) => tier === "commercial").length;

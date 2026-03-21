@@ -11,7 +11,7 @@ Agent Cards publish only canonical binding facts:
 - primary verb support
 - request and receipt schema bindings
 - public mirror bindings
-- x402 entry routing
+- class-specific execution entry routing
 - lifecycle and release provenance needed to interpret the artifact
 
 They do not define semantic meaning, feature behavior, or implementation detail. Commons and Commercial own the schema contract.
@@ -26,7 +26,7 @@ They do not define semantic meaning, feature behavior, or implementation detail.
 - `.well-known/` files are discovery surfaces only; they do not replace the manifest or card files as authority.
 - `dist-pin/agent-cards/v1.1.0/` is a derivative current-line bundle for pinning/repinning and is not an independent source of truth.
 - `checksums.txt` covers both the authoritative root artifacts and the derived `dist-pin/` bundle so reviewers can verify source and derivative release surfaces independently.
-- `v1.0.0` is superseded and retained only for archival compatibility. Legacy `v1.0.0` references may still rely on IPFS-era addressing and must be read as archival material, not the current authority path.
+- `v1.0.0` is superseded and retained only for archival compatibility. Legacy `v1.0.0` references must be read as archival material, not the current authority path.
 
 ## 3. Legacy schema files
 
@@ -36,6 +36,20 @@ The current line uses exactly these repository-owned schema files:
 - `schemas/v1.1.0/agent.descriptor.schema.json`
 
 Legacy schema files under `schemas/v1.0.0/` remain in-tree only to preserve the archived `v1.0.0` line. They are not part of the current authority model.
+
+## 4. Meaning of `entry`
+
+`entry` is the execution binding published by an Agent Card. It tells an integrator which invocation surface to use after discovery, and its format is determined by card `class`.
+
+- For **Commons** cards, `entry` identifies the canonical runtime execute surface used for free, runtime-first execution.
+- For **Commercial** cards, `entry` identifies the semver-pinned x402 route used for payment-aware execution.
+
+The split is intentional:
+
+- Commons cards are routed through a shared runtime execution surface.
+- Commercial cards preserve per-agent x402 routing because payment-aware execution needs the x402 entry binding.
+
+Validators **MUST** enforce `entry` using class-specific rules. Conformance does not allow a universal `entry` pattern across all cards.
 
 ## 5. Required card fields
 
@@ -68,9 +82,6 @@ The schema also requires `schemas.request`, `schemas.receipt`, `schemas_mirror.r
 - `version` MUST equal `1.1.0`
 - `$schema` MUST equal `https://commandlayer.org/agent-cards/schemas/v1.1.0/agent.card.schema.json`
 - `$id` MUST match the card's canonical HTTPS path
-- `entry` MUST be `x402://<ens>/<implements[0]>/v1.1.0`
-- `x402://` is the protocol-form entry identifier used by CommandLayer agents; it represents a standardized action endpoint (verb + route + version). See `https://docs.x402.org/` for the external protocol reference
-- Commercial artifacts MAY include x402-aligned payment proof or settlement references where applicable. The x402 protocol is external to this specification and should be treated as its own canonical protocol surface at `https://docs.x402.org/`.
 - v1.0.0 MAY remain in the repository only as a legacy archival compatibility surface
 
 ## 7. Binding rules
@@ -79,19 +90,25 @@ The schema also requires `schemas.request`, `schemas.receipt`, `schemas_mirror.r
 
 A Commons v1.1.0 card MUST bind directly to:
 
-- source request URL: `https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/v1.1.0/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json`
-- source receipt URL: `https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/v1.1.0/schemas/v1.1.0/commons/<verb>/<verb>.receipt.schema.json`
+- source request URL: `https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json`
+- source receipt URL: `https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons/<verb>/<verb>.receipt.schema.json`
 - mirror request URL: `https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json`
 - mirror receipt URL: `https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.receipt.schema.json`
+- execution entry: `https://runtime.commandlayer.org/execute`
+
+A Commons validator MUST reject x402 routing for a Commons card on the current line.
 
 ### 7.2 Commercial
 
 A Commercial v1.1.0 card MUST bind directly to:
 
-- source request URL: `https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
-- source receipt URL: `https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/<verb>/<verb>.receipt.schema.json`
+- source request URL: `https://raw.githubusercontent.com/commandlayer/protocol-commercial/v1.1.0/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
+- source receipt URL: `https://raw.githubusercontent.com/commandlayer/protocol-commercial/v1.1.0/schemas/v1.1.0/commercial/<verb>/<verb>.receipt.schema.json`
 - mirror request URL: `https://commandlayer.org/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
 - mirror receipt URL: `https://commandlayer.org/schemas/v1.1.0/commercial/<verb>/<verb>.receipt.schema.json`
+- execution entry: `x402://<ens>/<verb>/v1.1.0`
+
+`x402://` remains the protocol-form commercial entry identifier used by CommandLayer's payment-aware agents. Commercial artifacts MAY include x402-aligned payment proof or settlement references where applicable. The x402 protocol is external to this specification and should be treated as its own canonical protocol surface at `https://docs.x402.org/`.
 
 Commercial v1.1.0 is flat in the same style as Commons v1.1.0.
 
@@ -113,6 +130,9 @@ A repo state is conformant when:
 - current cards use no `_shared` references
 - current cards contain only the minimal canonical binding fields
 - cards point at direct source URLs and intended `commandlayer.org` mirrors for release validation
+- Commons cards use the canonical runtime execute entry
+- Commercial cards use the semver-pinned x402 entry pattern
+- validators enforce the class-specific `entry` split
 - `meta/manifest.json` describes the same current release line as the discovery descriptors
 - the derivative `dist-pin/agent-cards/v1.1.0/` bundle matches a reproducible rebuild from the canonical root release artifacts
 - `checksums.txt` matches repo contents

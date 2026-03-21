@@ -21,6 +21,8 @@ Agent Cards v1.1.0 is the current release-candidate line. Root repository artifa
 Do not add new `_shared` helpers for v1.1.0.
 Do not add descriptive fields to current-line cards; if the detail is not a binding fact, keep it in external documentation or in the linked protocol schemas instead.
 
+Remember the execution split when editing cards: commons cards are runtime-first and must use `https://runtime.commandlayer.org/execute`, while commercial cards remain x402-routed with semver-pinned `x402://<agent>/<verb>/...` entries.
+
 ## Historical scripts
 
 The `scripts/archive/` directory is retained for historical reference only. It is not part of the current `v1.1.0` workflow and should not be treated as an active or supported execution path.
@@ -37,8 +39,8 @@ Use the supported root package scripts and current commands instead: `npm run va
 ## Update flow for the current line
 
 1. edit the canonical root artifact under the correct `v1.1.0` path
-2. keep `$schema`, `$id`, `version`, `entry`, and schema URLs aligned
-3. update `meta/manifest.json` and related registry/discovery pointers if routing changes
+2. keep `$schema`, `$id`, `version`, class-specific `entry`, and schema URLs aligned
+3. update `meta/manifest.json` and related registry/discovery pointers if routing changes or the commons/commercial split changes
 4. rebuild the committed derivative publish bundle at `dist-pin/agent-cards/v1.1.0/` with `node scripts/build-dist-pin.mjs`
 5. regenerate `checksums.txt` with `node scripts/generate-checksums.mjs`
 6. update `RESOLUTION.md`

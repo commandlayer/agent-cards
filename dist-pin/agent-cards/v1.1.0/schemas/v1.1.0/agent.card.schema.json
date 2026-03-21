@@ -63,7 +63,8 @@
       "enum": [
         "commons",
         "commercial"
-      ]
+      ],
+      "description": "Protocol tier that determines schema roots and entry semantics."
     },
     "implements": {
       "type": "array",
@@ -115,8 +116,7 @@
     },
     "entry": {
       "type": "string",
-      "pattern": "^x402://[^/]+/[^/]+/v1\\.1\\.0$",
-      "description": "Canonical semver-pinned x402 entry URI."
+      "description": "Class-specific execution entry. Commons cards use the canonical runtime execute URL; commercial cards use semver-pinned x402 routing."
     },
     "networks": {
       "type": "array",
@@ -124,7 +124,7 @@
       "items": {
         "type": "string"
       },
-      "description": "Network identifiers required to interpret the entry binding."
+      "description": "Network identifiers required to interpret the class-specific entry binding."
     },
     "license": {
       "type": "string",
@@ -140,5 +140,46 @@
       "format": "date-time",
       "description": "Release provenance timestamp for the latest card artifact update."
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "class": {
+            "const": "commons"
+          }
+        },
+        "required": [
+          "class"
+        ]
+      },
+      "then": {
+        "properties": {
+          "entry": {
+            "const": "https://runtime.commandlayer.org/execute"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "class": {
+            "const": "commercial"
+          }
+        },
+        "required": [
+          "class"
+        ]
+      },
+      "then": {
+        "properties": {
+          "entry": {
+            "type": "string",
+            "pattern": "^x402://[^/]+/[^/]+/v1\\.1\\.0$"
+          }
+        }
+      }
+    }
+  ]
 }
