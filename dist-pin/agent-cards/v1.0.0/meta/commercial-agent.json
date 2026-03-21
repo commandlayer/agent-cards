@@ -1,7 +1,7 @@
 {
   "id": "x402://commandlayer.eth/commercial-agent/v1",
   "name": "CommandLayer Commercial Agent",
-  "description": "Archival registry-level agent descriptor for the superseded CommandLayer Commercial Agent Cards v1.0.0 line.",
+  "description": "Archival-only registry descriptor for the superseded CommandLayer Commercial Agent Cards v1.0.0 line; preserved for historical compatibility and not authoritative for the current release.",
   "owner": "commandlayer.eth",
   "ens": "commandlayer.eth",
   "version": "1.0.0",
@@ -11,7 +11,7 @@
   ],
   "registry": {
     "card_registry": {
-      "http": "https://commandlayer.org/agent-cards/meta/manifest.json",
+      "http": "https://commandlayer.org/agent-cards/dist-pin/agent-cards/v1.0.0/meta/manifest.json",
       "ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/meta/manifest.json"
     }
   },
@@ -24,6 +24,8 @@
     "agent_cards_cid": "",
     "license": "Apache-2.0",
     "archive_state": "archival_only_unverified_snapshot",
+    "superseded_by": "v1.1.0 root canonical release surfaces",
+    "authority_scope": "historical reference only; not part of the current-line trust path",
     "trust_notice": "integrity_manifest_removed_due_to_incomplete_bundle"
   }
 }
