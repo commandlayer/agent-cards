@@ -11,8 +11,8 @@
     "format"
   ],
   "schemas": {
-    "request": "https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/v1.1.0/schemas/v1.1.0/commons/format/format.request.schema.json",
-    "receipt": "https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/v1.1.0/schemas/v1.1.0/commons/format/format.receipt.schema.json"
+    "request": "https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons/format/format.request.schema.json",
+    "receipt": "https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons/format/format.receipt.schema.json"
   },
   "schemas_mirror": {
     "request": "https://commandlayer.org/schemas/v1.1.0/commons/format/format.request.schema.json",
