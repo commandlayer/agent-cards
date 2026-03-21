@@ -20,7 +20,8 @@
   "bindings": {
     "source_root": "https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons",
     "mirror_root": "https://commandlayer.org/schemas/v1.1.0/commons",
-    "shape": "flat"
+    "shape": "flat",
+    "entry": "https://runtime.commandlayer.org/execute"
   },
   "meta": {
     "agent_cards_version": "1.1.0",

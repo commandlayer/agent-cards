@@ -71,7 +71,7 @@
     },
     "entry": {
       "type": "string",
-      "pattern": "^x402://[^/]+/[^/]+/v[0-9]+(?:\\.[0-9]+){0,2}$"
+      "description": "Class-specific execution entry. Commons cards use the canonical runtime execute URL; commercial cards use x402 routing."
     },
     "schemas": {
       "type": "object",
@@ -131,5 +131,46 @@
       "type": "string",
       "format": "date-time"
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "class": {
+            "const": "commons"
+          }
+        },
+        "required": [
+          "class"
+        ]
+      },
+      "then": {
+        "properties": {
+          "entry": {
+            "const": "https://runtime.commandlayer.org/execute"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "class": {
+            "const": "commercial"
+          }
+        },
+        "required": [
+          "class"
+        ]
+      },
+      "then": {
+        "properties": {
+          "entry": {
+            "type": "string",
+            "pattern": "^x402://[^/]+/[^/]+/v[0-9]+(?:\\.[0-9]+){0,2}$"
+          }
+        }
+      }
+    }
+  ]
 }

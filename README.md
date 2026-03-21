@@ -1,10 +1,24 @@
 # CommandLayer Agent Cards
 
-Agent Cards are CommandLayer's canonical discovery and binding artifacts. They bind ENS names to a single verb, the authoritative request/receipt schemas for that verb, the public schema mirrors, and the semver-pinned x402 entrypoint. They do not act as product pages, feature summaries, or semantic substitutes for the linked protocol schemas.
+Agent Cards are CommandLayer's canonical discovery and binding artifacts. They bind ENS names to a single verb, the authoritative request/receipt schemas for that verb, the public schema mirrors, and the class-specific execution entry used to invoke that card. They do not act as product pages, feature summaries, or semantic substitutes for the linked protocol schemas.
 
-In these cards, `x402://...` is the protocol-form entry identifier used by CommandLayer agents. It represents a standardized action endpoint (verb + route + version). This repository may interoperate with x402-related payment context where relevant, but it does not define x402 itself; see the external x402 protocol specification at `https://docs.x402.org/` for the canonical protocol definition.
+The repository now makes the execution split explicit:
+
+- **Commons cards** are runtime-first, free-discovery bindings. Their `entry` is the canonical runtime execute surface: `https://runtime.commandlayer.org/execute`.
+- **Commercial cards** are payment-aware bindings. Their `entry` remains the semver-pinned x402 route: `x402://<agent>/<verb>/v1.1.0`.
+
+This repository may interoperate with x402-related payment context where relevant, but it does not define x402 itself; see the external x402 protocol specification at `https://docs.x402.org/` for the canonical protocol definition.
 
 See `CHANGELOG.md` for version differences.
+
+## Architecture split
+
+CommandLayer Agent Cards now publish two explicit invocation models under one registry:
+
+- **Commons = runtime-first discovery/execution.** Discovery still happens through the card and manifest surfaces, but execution is transported through the canonical runtime `execute` endpoint.
+- **Commercial = x402-routed discovery/execution.** Discovery still happens through the same card and manifest surfaces, while paid execution remains bound to the x402 route for the specific agent verb and release line.
+
+Schemas remain class-specific, and `entry` is therefore class-sensitive rather than universal.
 
 ## x402 compatibility
 
@@ -54,14 +68,15 @@ For `v1.1.0`:
 
 - `schemas.request` and `schemas.receipt` point to the tagged upstream schema source URLs
 - `schemas_mirror.request` and `schemas_mirror.receipt` point to the public `commandlayer.org` mirrors
-- `entry` remains `x402://<ens>/<verb>/v1.1.0`
-- `meta/manifest.json` must exactly match the indexed cards for core binding fields
+- **Commons** `entry` MUST equal `https://runtime.commandlayer.org/execute`
+- **Commercial** `entry` MUST equal `x402://<ens>/<verb>/v1.1.0`
+- `meta/manifest.json` must exactly match the indexed cards for core binding fields, including class-sensitive `entry` values
 
 ### Commons source pattern
 
-`https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/v1.1.0/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json`
+`https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json`
 
-`https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/v1.1.0/schemas/v1.1.0/commons/<verb>/<verb>.receipt.schema.json`
+`https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons/<verb>/<verb>.receipt.schema.json`
 
 ### Commons mirror pattern
 
@@ -71,9 +86,9 @@ For `v1.1.0`:
 
 ### Commercial source pattern
 
-`https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
+`https://raw.githubusercontent.com/commandlayer/protocol-commercial/v1.1.0/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
 
-`https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/<verb>/<verb>.receipt.schema.json`
+`https://raw.githubusercontent.com/commandlayer/protocol-commercial/v1.1.0/schemas/v1.1.0/commercial/<verb>/<verb>.receipt.schema.json`
 
 ### Commercial mirror pattern
 
@@ -148,22 +163,22 @@ agent-cards/
   "class": "commons",
   "implements": ["summarize"],
   "schemas": {
-    "request": "https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/v1.1.0/schemas/v1.1.0/commons/summarize/summarize.request.schema.json",
-    "receipt": "https://raw.githubusercontent.com/commandlayer/protocol-commons/refs/tags/v1.1.0/schemas/v1.1.0/commons/summarize/summarize.receipt.schema.json"
+    "request": "https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons/summarize/summarize.request.schema.json",
+    "receipt": "https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons/summarize/summarize.receipt.schema.json"
   },
   "schemas_mirror": {
     "request": "https://commandlayer.org/schemas/v1.1.0/commons/summarize/summarize.request.schema.json",
     "receipt": "https://commandlayer.org/schemas/v1.1.0/commons/summarize/summarize.receipt.schema.json"
   },
-  "entry": "x402://summarizeagent.eth/summarize/v1.1.0",
+  "entry": "https://runtime.commandlayer.org/execute",
   "networks": ["eip155:1"],
   "license": "Apache-2.0",
   "created_at": "2025-11-22T00:00:00Z",
-  "updated_at": "2026-03-19T00:00:00Z"
+  "updated_at": "2026-03-21T00:00:00Z"
 }
 ```
 
-- `npm run validate` — the canonical local validation entrypoint for canonical v1.1.0 cards, discovery descriptors, manifest alignment, and `checksums.txt`
+- `npm run validate` — the canonical local validation entrypoint for canonical v1.1.0 cards, discovery descriptors, manifest alignment, class-sensitive entry validation, and `checksums.txt`
 - `node scripts/build-dist-pin.mjs` — rebuild the committed derivative publish bundle from canonical root files
 - `npm run validate:release` — the canonical release validation entrypoint; it runs `npm run validate` first and then:
   - confirms `meta/manifest.json` matches every current card binding
@@ -183,7 +198,7 @@ The current release review checks:
 - direct Commons and Commercial source URL patterns
 - direct `commandlayer.org` mirror URL patterns
 - exact manifest/card cross-validation for indexed current-line entries
-- entry URI correctness
+- class-sensitive `entry` correctness
 - checksum determinism across authoritative root artifacts, plus separate derivative-bundle verification for `dist-pin/`, so each release surface can be reviewed without blurring authority
 
 ## Release procedure
@@ -199,7 +214,7 @@ Use one clean ceremony from "ready" to public release. Do not substitute alterna
 7. Create the release tag from that exact validated commit.
 8. Push the commit and tag.
 9. Run the final public verification: `npm run validate:release -- --require-mirrors` only after upstream tags and `commandlayer.org` mirrors are expected to be live.
-10. Confirm the public release artifacts resolve from the pushed tag, published checksum set, upstream schema tags, and mirrors before announcing completion.
+10. Confirm the public release artifacts resolve from the pushed tag, published checksum set, upstream schema tags, runtime execute surface documentation, and mirrors before announcing completion.
 
 Recommended command order for maintainers:
 
@@ -213,7 +228,7 @@ git push origin main --follow-tags
 npm run validate:release -- --require-mirrors
 ```
 
-This keeps the trust story narrow: root artifacts are canonical, `dist-pin/` is a committed derivative publish bundle, `.well-known/` remains discovery-only, checksum verification is explicit, and the pushed tag plus checksums identify the release snapshot. If external publish surfaces are not live yet, the release is not fully verified; do not hide that state.
+This keeps the trust story narrow: root artifacts are canonical, `dist-pin/` is a committed derivative publish bundle, `.well-known/` remains discovery-only, checksum verification is explicit, the split between commons runtime execution and commercial x402 routing is explicit, and the pushed tag plus checksums identify the release snapshot. If external publish surfaces are not live yet, the release is not fully verified; do not hide that state.
 
 ## Release surfaces
 

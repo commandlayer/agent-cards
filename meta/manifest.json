@@ -7,7 +7,7 @@
   "owner": "commandlayer.eth",
   "contact": "dev@commandlayer.org",
   "license": "Apache-2.0",
-  "updated_at": "2026-03-19T00:00:00Z",
+  "updated_at": "2026-03-21T00:00:00Z",
   "release_lines": {
     "current": "v1.1.0",
     "legacy_compatibility": [
@@ -31,7 +31,8 @@
       "source_root": "https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons",
       "mirror_root": "https://commandlayer.org/schemas/v1.1.0/commons",
       "shape": "flat",
-      "count": 10
+      "count": 10,
+      "entry": "https://runtime.commandlayer.org/execute"
     },
     "commercial": {
       "source_repo": "https://github.com/commandlayer/protocol-commercial",
@@ -39,7 +40,8 @@
       "source_root": "https://raw.githubusercontent.com/commandlayer/protocol-commercial/v1.1.0/schemas/v1.1.0/commercial",
       "mirror_root": "https://commandlayer.org/schemas/v1.1.0/commercial",
       "shape": "flat",
-      "count": 5
+      "count": 5,
+      "entry_pattern": "x402://<agent>/<verb>/v1.1.0"
     }
   },
   "checksums": {
@@ -143,7 +145,7 @@
       "schema_receipt": "https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons/analyze/analyze.receipt.schema.json",
       "schema_request_mirror": "https://commandlayer.org/schemas/v1.1.0/commons/analyze/analyze.request.schema.json",
       "schema_receipt_mirror": "https://commandlayer.org/schemas/v1.1.0/commons/analyze/analyze.receipt.schema.json",
-      "entry": "x402://analyzeagent.eth/analyze/v1.1.0",
+      "entry": "https://runtime.commandlayer.org/execute",
       "status": "protocol_reference",
       "networks": [
         "eip155:1"
@@ -159,7 +161,7 @@
       "schema_receipt": "https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons/classify/classify.receipt.schema.json",
       "schema_request_mirror": "https://commandlayer.org/schemas/v1.1.0/commons/classify/classify.request.schema.json",
       "schema_receipt_mirror": "https://commandlayer.org/schemas/v1.1.0/commons/classify/classify.receipt.schema.json",
-      "entry": "x402://classifyagent.eth/classify/v1.1.0",
+      "entry": "https://runtime.commandlayer.org/execute",
       "status": "protocol_reference",
       "networks": [
         "eip155:1"
@@ -175,7 +177,7 @@
       "schema_receipt": "https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons/clean/clean.receipt.schema.json",
       "schema_request_mirror": "https://commandlayer.org/schemas/v1.1.0/commons/clean/clean.request.schema.json",
       "schema_receipt_mirror": "https://commandlayer.org/schemas/v1.1.0/commons/clean/clean.receipt.schema.json",
-      "entry": "x402://cleanagent.eth/clean/v1.1.0",
+      "entry": "https://runtime.commandlayer.org/execute",
       "status": "protocol_reference",
       "networks": [
         "eip155:1"
@@ -191,7 +193,7 @@
       "schema_receipt": "https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons/convert/convert.receipt.schema.json",
       "schema_request_mirror": "https://commandlayer.org/schemas/v1.1.0/commons/convert/convert.request.schema.json",
       "schema_receipt_mirror": "https://commandlayer.org/schemas/v1.1.0/commons/convert/convert.receipt.schema.json",
-      "entry": "x402://convertagent.eth/convert/v1.1.0",
+      "entry": "https://runtime.commandlayer.org/execute",
       "status": "protocol_reference",
       "networks": [
         "eip155:1"
@@ -207,7 +209,7 @@
       "schema_receipt": "https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons/describe/describe.receipt.schema.json",
       "schema_request_mirror": "https://commandlayer.org/schemas/v1.1.0/commons/describe/describe.request.schema.json",
       "schema_receipt_mirror": "https://commandlayer.org/schemas/v1.1.0/commons/describe/describe.receipt.schema.json",
-      "entry": "x402://describeagent.eth/describe/v1.1.0",
+      "entry": "https://runtime.commandlayer.org/execute",
       "status": "protocol_reference",
       "networks": [
         "eip155:1"
@@ -223,7 +225,7 @@
       "schema_receipt": "https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons/explain/explain.receipt.schema.json",
       "schema_request_mirror": "https://commandlayer.org/schemas/v1.1.0/commons/explain/explain.request.schema.json",
       "schema_receipt_mirror": "https://commandlayer.org/schemas/v1.1.0/commons/explain/explain.receipt.schema.json",
-      "entry": "x402://explainagent.eth/explain/v1.1.0",
+      "entry": "https://runtime.commandlayer.org/execute",
       "status": "protocol_reference",
       "networks": [
         "eip155:1"
@@ -239,7 +241,7 @@
       "schema_receipt": "https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons/fetch/fetch.receipt.schema.json",
       "schema_request_mirror": "https://commandlayer.org/schemas/v1.1.0/commons/fetch/fetch.request.schema.json",
       "schema_receipt_mirror": "https://commandlayer.org/schemas/v1.1.0/commons/fetch/fetch.receipt.schema.json",
-      "entry": "x402://fetchagent.eth/fetch/v1.1.0",
+      "entry": "https://runtime.commandlayer.org/execute",
       "status": "protocol_reference",
       "networks": [
         "eip155:1"
@@ -255,7 +257,7 @@
       "schema_receipt": "https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons/format/format.receipt.schema.json",
       "schema_request_mirror": "https://commandlayer.org/schemas/v1.1.0/commons/format/format.request.schema.json",
       "schema_receipt_mirror": "https://commandlayer.org/schemas/v1.1.0/commons/format/format.receipt.schema.json",
-      "entry": "x402://formatagent.eth/format/v1.1.0",
+      "entry": "https://runtime.commandlayer.org/execute",
       "status": "protocol_reference",
       "networks": [
         "eip155:1"
@@ -271,7 +273,7 @@
       "schema_receipt": "https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons/parse/parse.receipt.schema.json",
       "schema_request_mirror": "https://commandlayer.org/schemas/v1.1.0/commons/parse/parse.request.schema.json",
       "schema_receipt_mirror": "https://commandlayer.org/schemas/v1.1.0/commons/parse/parse.receipt.schema.json",
-      "entry": "x402://parseagent.eth/parse/v1.1.0",
+      "entry": "https://runtime.commandlayer.org/execute",
       "status": "protocol_reference",
       "networks": [
         "eip155:1"
@@ -287,7 +289,7 @@
       "schema_receipt": "https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons/summarize/summarize.receipt.schema.json",
       "schema_request_mirror": "https://commandlayer.org/schemas/v1.1.0/commons/summarize/summarize.request.schema.json",
       "schema_receipt_mirror": "https://commandlayer.org/schemas/v1.1.0/commons/summarize/summarize.receipt.schema.json",
-      "entry": "x402://summarizeagent.eth/summarize/v1.1.0",
+      "entry": "https://runtime.commandlayer.org/execute",
       "status": "protocol_reference",
       "networks": [
         "eip155:1"
