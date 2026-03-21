@@ -75,21 +75,21 @@ For `v1.1.0`:
 
 ## Validation
 
-Run standard validation:
+Run the canonical local gate:
 
 ```bash
 npm run validate
 ```
 
-Run release-level validation (URLs + bundle integrity):
+Run the canonical release gate:
 
 ```bash
 npm run validate:release
-# After mirrors are live:
+# After mirrors are live for the exact release being published:
 npm run validate:release -- --require-mirrors
 ```
 
-`validate` checks local structure and checksums; `validate:release` adds external URL resolution and derivative-bundle reproducibility before publication claims should be made.
+`validate` is the local, no-network gate for current-line structure, manifest alignment, and `checksums.txt`. `validate:release` is the release-grade gate: it runs `validate` first, then enforces derivative-bundle reproducibility and external URL resolution before publication claims should be made. Mirror verification remains explicit and publish-scoped; do not silently skip it during the final tag/push ceremony.
 
 That trust path is the intended clean-clone review flow:
 
@@ -156,15 +156,15 @@ agent-cards/
 }
 ```
 
-- `npm run validate` — standard local validation for canonical v1.1.0 cards, discovery descriptors, manifest alignment, and `checksums.txt`
+- `npm run validate` — the canonical local validation entrypoint for canonical v1.1.0 cards, discovery descriptors, manifest alignment, and `checksums.txt`
 - `node scripts/build-dist-pin.mjs` — rebuild the committed derivative publish bundle from canonical root files
-- `npm run validate:release` — release-scoped validation that:
+- `npm run validate:release` — the canonical release validation entrypoint; it runs `npm run validate` first and then:
   - confirms `meta/manifest.json` matches every current card binding
   - confirms `dist-pin/agent-cards/v1.1.0/` matches a freshly generated derivative bundle
   - resolves every upstream tagged schema URL over the network
   - optionally resolves mirrors when run with `--require-mirrors`
 
-Routine CI runs `npm run validate` and `npm run validate:release`. Mirror resolution remains explicit and optional in routine CI; enforce it with `npm run validate:release -- --require-mirrors` when the published mirrors are expected to be live.
+Routine CI shows both gates explicitly: `npm run validate` for the local release gate, then `npm run validate:release` for the release-grade gate. Mirror resolution remains explicit and opt-in in routine CI; enforce it with `npm run validate:release -- --require-mirrors` once the published mirrors are expected to be live for the exact tag being pushed.
 
 ## Release and publication model
 
@@ -179,14 +179,32 @@ Routine CI runs `npm run validate` and `npm run validate:release`. Mirror resolu
 
 ## Release procedure
 
-1. Edit only the canonical root artifacts for the current `v1.1.0` line.
-2. Rebuild the committed derivative bundle with `node scripts/build-dist-pin.mjs`.
-3. Regenerate root integrity digests with `node scripts/generate-checksums.mjs`.
-4. Run `npm run validate` and `npm run validate:release`.
-5. Publish the reviewed snapshot from the exact commit you validated. The release snapshot is defined by the tagged commit together with `checksums.txt`.
-6. Create or move the release tag only after the repository state above has been reviewed and published. This repository does not claim that a new tag already exists.
+Use one clean ceremony from "ready" to public release. Do not substitute alternate wrappers or partial checks.
 
-This keeps the trust story narrow: root artifacts are canonical, `dist-pin/` is a committed derivative publish bundle, `.well-known/` remains discovery-only, and the tag plus checksums identify the release snapshot.
+1. Edit only the canonical root artifacts for the current `v1.1.0` line.
+2. Rebuild the committed derivative bundle with `npm run generate:dist-pin`.
+3. Regenerate root integrity digests with `node scripts/generate-checksums.mjs`.
+4. Run the canonical local gate: `npm run validate`.
+5. Run the canonical release gate: `npm run validate:release`.
+6. Verify the checksum file you are about to publish is the one you just validated (`checksums.txt` must remain unchanged between steps 4-5 and tagging).
+7. Create the release tag from that exact validated commit.
+8. Push the commit and tag.
+9. Run the final public verification: `npm run validate:release -- --require-mirrors` only after upstream tags and `commandlayer.org` mirrors are expected to be live.
+10. Confirm the public release artifacts resolve from the pushed tag, published checksum set, upstream schema tags, and mirrors before announcing completion.
+
+Recommended command order for maintainers:
+
+```bash
+npm run generate:dist-pin
+node scripts/generate-checksums.mjs
+npm run validate
+npm run validate:release
+git tag <tag>
+git push origin main --follow-tags
+npm run validate:release -- --require-mirrors
+```
+
+This keeps the trust story narrow: root artifacts are canonical, `dist-pin/` is a committed derivative publish bundle, `.well-known/` remains discovery-only, checksum verification is explicit, and the pushed tag plus checksums identify the release snapshot. If external publish surfaces are not live yet, the release is not fully verified; do not hide that state.
 
 ## Release surfaces
 
