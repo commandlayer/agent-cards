@@ -2,7 +2,7 @@
 
 ## One-line model
 
-This repo publishes canonical CommandLayer Agent Cards for the current **v1.1.0** line. Cards are minimal discovery and binding artifacts, `meta/manifest.json` is the registry index, `.well-known/` exposes discovery, root checksums verify integrity, legacy is archival, and `dist-pin/agent-cards/v1.1.0/` is a derivative publish bundle reproduced from the canonical root files.
+This repo maintains canonical CommandLayer Agent Cards for the current **v1.1.0** release-candidate line. Cards are minimal discovery and binding artifacts, `meta/manifest.json` is the registry index, `.well-known/` exposes discovery, root checksums verify integrity, legacy is archival, and `dist-pin/agent-cards/v1.1.0/` is a derivative current-line bundle reproduced from the canonical root files.
 
 Agent Cards publish only canonical binding facts:
 
@@ -18,13 +18,13 @@ They do not define semantic meaning, feature behavior, or implementation detail.
 
 ## 2. Authority and release lines
 
-- `v1.1.0` is the current canonical Agent Cards line.
+- `v1.1.0` is the current release-candidate Agent Cards line.
 - Root repository artifacts for `v1.1.0` are authoritative.
 - `meta/manifest.json` is the canonical registry index.
 - `.well-known/agent.json` is the current discovery pointer.
 - `.well-known/agent-cards-v1.1.0.json` is the immutable versioned descriptor for the canonical line.
-- `dist-pin/agent-cards/v1.1.0/` is a derivative published bundle for pinning/repinning and is not an independent source of truth.
-- `checksums.txt` covers both the authoritative root artifacts and the derived `dist-pin/` bundle so reviewers can verify source and publication surfaces independently.
+- `dist-pin/agent-cards/v1.1.0/` is a derivative current-line bundle for pinning/repinning and is not an independent source of truth.
+- `checksums.txt` covers both the authoritative root artifacts and the derived `dist-pin/` bundle so reviewers can verify source and release-candidate surfaces independently.
 - `v1.0.0` is superseded and retained only for archival compatibility. Legacy `v1.0.0` references may still rely on IPFS-era addressing and should be read as archival compatibility material, not the current authority path.
 
 ## 3. Current schema files
@@ -108,7 +108,7 @@ A repo state is conformant when:
 - the authoritative v1.1.0 card set exists
 - current cards use no `_shared` references
 - current cards contain only the minimal canonical binding fields
-- cards point at direct published source URLs and direct `commandlayer.org` mirrors
+- cards point at direct source URLs and intended `commandlayer.org` mirrors for release validation
 - `meta/manifest.json` describes the same current release line as the discovery descriptors
 - the derivative `dist-pin/agent-cards/v1.1.0/` bundle matches the canonical root release artifacts
 - `checksums.txt` matches repo contents

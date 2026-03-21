@@ -1,7 +1,7 @@
 {
   "id": "x402://commandlayer.eth/agent-cards/v1.1.0",
   "name": "CommandLayer Agent Cards Registry Descriptor (v1.1.0)",
-  "description": "Immutable versioned discovery descriptor for CommandLayer Agent Cards v1.1.0.",
+  "description": "Versioned discovery descriptor for the CommandLayer Agent Cards v1.1.0 release-candidate line.",
   "owner": "commandlayer.eth",
   "ens": "commandlayer.eth",
   "version": "1.1.0",
@@ -24,7 +24,7 @@
     "agent_cards_version": "1.1.0",
     "current_release": "v1.1.0",
     "legacy_release": "v1.0.0 (archival compatibility only)",
-    "publish_state": "published",
+    "publish_state": "release_candidate_pending_validation",
     "license": "Apache-2.0",
     "publication_model": "root-canonical-plus-derivative-dist-pin"
   }
