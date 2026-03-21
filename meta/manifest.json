@@ -276,8 +276,8 @@
     "canonical_root": "repository-root-artifacts",
     "discovery_role": ".well-known discovery pointers only",
     "derivative_bundle": "dist-pin/agent-cards/v1.1.0",
-    "state": "release_candidate_pending_validation",
-    "external_bindings": "unconfirmed_until_validate_release_passes",
+    "state": "published",
+    "external_bindings": "confirmed",
     "checksum_scope": "checksums_txt_covers_root_release_surfaces_only"
   }
 }
