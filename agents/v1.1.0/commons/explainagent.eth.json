@@ -11,10 +11,6 @@
     "explain"
   ],
   "schemas": {
-    "request": "https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons/explain/explain.request.schema.json",
-    "receipt": "https://raw.githubusercontent.com/commandlayer/protocol-commons/v1.1.0/schemas/v1.1.0/commons/explain/explain.receipt.schema.json"
-  },
-  "schemas_mirror": {
     "request": "https://commandlayer.org/schemas/v1.1.0/commons/explain/explain.request.schema.json",
     "receipt": "https://commandlayer.org/schemas/v1.1.0/commons/explain/explain.receipt.schema.json"
   },

@@ -1,26 +1,17 @@
 # Policy — Agent Cards
 
-## Release policy
+## Canonical normalization policy
 
-- `v1.1.0` is the current release-candidate Agent Cards line.
-- Root repository artifacts for `v1.1.0` are canonical.
-- `v1.0.0` is superseded and retained only as an archival compatibility line.
-- Current v1.1.0 work must stay flat and self-contained.
-- Current v1.1.0 work must not reintroduce `_shared`.
+- The repository publishes one schema identifier pattern: `https://commandlayer.org/schemas/...`
+- Raw GitHub schema URLs are not allowed in published repo artifacts.
+- the legacy duplicate schema field is removed and must not be reintroduced.
+- Commons cards must use `https://runtime.commandlayer.org/execute`.
+- Commercial cards must use `x402://<agent>/<verb>/v1.1.0`.
 
-## Surface policy
+## Authority policy
 
-- `meta/manifest.json` is the canonical registry index.
+- Root `v1.1.0` artifacts are canonical.
+- `meta/manifest.json` is the registry index.
 - `.well-known/` files are discovery pointers only.
-- `dist-pin/agent-cards/v1.1.0/` is a derivative current-line bundle for pinning/repinning and reproducible verification.
-- No surface other than the root `v1.1.0` artifacts may be treated as co-equal authority.
-
-## Binding policy
-
-- Commons cards bind directly to the intended Commons v1.1.0 URLs and commandlayer.org mirrors pending release validation.
-- Commercial cards bind directly to the intended Commercial v1.1.0 URLs and commandlayer.org mirrors pending release validation.
-- Stale path styles are non-compliant for the current line.
-
-## Release integrity
-
-Canonical cards, canonical schemas, manifest, discovery pointers, root checksum records, and the derivative dist-pin bundle verification target must move together.
+- `dist-pin/agent-cards/v1.1.0/` is derivative, reproducible, and non-authoritative.
+- `v1.0.0` remains archival-only.

@@ -14,8 +14,8 @@
     "purchase"
   ],
   "schemas": {
-    "request": "https://commandlayer.org/schemas/v1.0.0/commercial/purchase/requests/purchase.request.schema.json",
-    "receipt": "https://commandlayer.org/schemas/v1.0.0/commercial/purchase/receipts/purchase.receipt.schema.json"
+    "request": "https://commandlayer.org/schemas/v1.0.0/commercial/purchase/purchase.request.schema.json",
+    "receipt": "https://commandlayer.org/schemas/v1.0.0/commercial/purchase/purchase.receipt.schema.json"
   },
   "entry": "x402://purchaseagent.eth/purchase/v1.0.0",
   "capabilities": {

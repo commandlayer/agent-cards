@@ -7,15 +7,10 @@ import addFormats from "ajv-formats";
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
 const CURRENT_LINE = "v1.1.0";
-const CURRENT_SEMVER = CURRENT_LINE.replace(/^v/, "");
 const CARD_HTTP_ROOT = `https://commandlayer.org/agent-cards/agents/${CURRENT_LINE}`;
 const COMMONS_RUNTIME_ENTRY = "https://runtime.commandlayer.org/execute";
 const PLACEHOLDER_PATTERNS = ["example.com", "placeholder", "changeme", "your-", "TODO"];
-const SOURCE_ROOTS = {
-  commons: `https://raw.githubusercontent.com/commandlayer/protocol-commons/${CURRENT_LINE}/schemas/${CURRENT_LINE}/commons`,
-  commercial: `https://raw.githubusercontent.com/commandlayer/protocol-commercial/${CURRENT_LINE}/schemas/${CURRENT_LINE}/commercial`
-};
-const MIRROR_ROOTS = {
+const SCHEMA_ROOTS = {
   commons: `https://commandlayer.org/schemas/${CURRENT_LINE}/commons`,
   commercial: `https://commandlayer.org/schemas/${CURRENT_LINE}/commercial`
 };
@@ -131,24 +126,20 @@ function validateCard(fullPath) {
   if (fileName !== `${card.ens}.json`) fail(`${relativePath}: filename mismatch.`);
   if (new Date(card.updated_at).getTime() < new Date(card.created_at).getTime()) fail(`${relativePath}: updated_at must be >= created_at.`);
 
+  const versionRoot = folderVersion === CURRENT_LINE
+    ? SCHEMA_ROOTS[tier]
+    : `https://commandlayer.org/schemas/${folderVersion}/${tier}`;
+  const expectedRequest = `${versionRoot}/${primaryVerb}/${primaryVerb}.request.schema.json`;
+  const expectedReceipt = `${versionRoot}/${primaryVerb}/${primaryVerb}.receipt.schema.json`;
+
+  if (card.schemas.request !== expectedRequest || card.schemas.receipt !== expectedReceipt) {
+    fail(`${relativePath}: stale canonical schema paths.`);
+  }
+
   if (folderVersion === CURRENT_LINE) {
     const expectedSchema = `https://commandlayer.org/agent-cards/schemas/${CURRENT_LINE}/agent.card.schema.json`;
-    const expectedSourceRoot = SOURCE_ROOTS[tier];
-    const expectedMirrorRoot = MIRROR_ROOTS[tier];
     if (card.$schema !== expectedSchema) fail(`${relativePath}: stale or invalid $schema.`);
     if (JSON.stringify(card).includes("_shared")) fail(`${relativePath}: current ${CURRENT_LINE} card must not reference _shared.`);
-
-    const expectedRequest = `${expectedSourceRoot}/${primaryVerb}/${primaryVerb}.request.schema.json`;
-    const expectedReceipt = `${expectedSourceRoot}/${primaryVerb}/${primaryVerb}.receipt.schema.json`;
-    const expectedMirrorRequest = `${expectedMirrorRoot}/${primaryVerb}/${primaryVerb}.request.schema.json`;
-    const expectedMirrorReceipt = `${expectedMirrorRoot}/${primaryVerb}/${primaryVerb}.receipt.schema.json`;
-
-    if (card.schemas.request !== expectedRequest || card.schemas.receipt !== expectedReceipt) {
-      fail(`${relativePath}: stale ${tier === "commons" ? "Commons" : "Commercial"} source schema paths.`);
-    }
-    if (card.schemas_mirror.request !== expectedMirrorRequest || card.schemas_mirror.receipt !== expectedMirrorReceipt) {
-      fail(`${relativePath}: stale ${tier === "commons" ? "Commons" : "Commercial"} mirror schema paths.`);
-    }
   }
 
   if (folderVersion === "v1.0.0") {
@@ -188,8 +179,6 @@ function validateManifestAgainstCards(cardRecords) {
     expectEqual(entry.agent_card, card.$id, `meta/manifest.json: agent_card mismatch for ${relativePath}.`);
     expectEqual(entry.schema_request, card.schemas.request, `meta/manifest.json: schema_request mismatch for ${relativePath}.`);
     expectEqual(entry.schema_receipt, card.schemas.receipt, `meta/manifest.json: schema_receipt mismatch for ${relativePath}.`);
-    expectEqual(entry.schema_request_mirror, card.schemas_mirror.request, `meta/manifest.json: schema_request_mirror mismatch for ${relativePath}.`);
-    expectEqual(entry.schema_receipt_mirror, card.schemas_mirror.receipt, `meta/manifest.json: schema_receipt_mirror mismatch for ${relativePath}.`);
     expectEqual(entry.entry, card.entry, `meta/manifest.json: entry mismatch for ${relativePath}.`);
     expectEqual(relativePath, `agents/${CURRENT_LINE}/${tier}/${card.ens}.json`, `meta/manifest.json: non-canonical manifest path for ${relativePath}.`);
   }
@@ -202,6 +191,8 @@ function validateManifestAgainstCards(cardRecords) {
   expectEqual(manifest.release_lines.current, CURRENT_LINE, "meta/manifest.json: current release line mismatch.");
   expectEqual(manifest.roots.canonical_cards_http, CARD_HTTP_ROOT, "meta/manifest.json: canonical_cards_http root mismatch.");
   expectEqual(manifest.updated_at, "2026-03-21T00:00:00Z", "meta/manifest.json: updated_at must reflect the current release stamp.");
+  expectEqual(manifest.bindings.commons.schema_root, SCHEMA_ROOTS.commons, "meta/manifest.json: commons schema_root mismatch.");
+  expectEqual(manifest.bindings.commercial.schema_root, SCHEMA_ROOTS.commercial, "meta/manifest.json: commercial schema_root mismatch.");
 
   const commonsCount = cardRecords.filter(({ tier }) => tier === "commons").length;
   const commercialCount = cardRecords.filter(({ tier }) => tier === "commercial").length;

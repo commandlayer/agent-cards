@@ -7,7 +7,6 @@ import path from "path";
 
 const AGENTS_DIR = path.join(process.cwd(), "agents");
 
-// Desired key order for AgentCards
 const ORDER = [
   "$schema",
   "$id",
@@ -22,7 +21,6 @@ const ORDER = [
   "class",
   "implements",
   "schemas",
-  "schemas_mirror",
   "entry",
   "capabilities",
   "meta",
@@ -38,17 +36,14 @@ for (const file of fs.readdirSync(AGENTS_DIR)) {
   const fp = path.join(AGENTS_DIR, file);
   const raw = fs.readFileSync(fp, "utf8");
   const card = JSON.parse(raw);
-
   const newCard = {};
 
-  // Apply canonical order
   for (const key of ORDER) {
     if (Object.prototype.hasOwnProperty.call(card, key)) {
       newCard[key] = card[key];
     }
   }
 
-  // Preserve any unexpected extra keys (just in case)
   for (const key of Object.keys(card)) {
     if (!Object.prototype.hasOwnProperty.call(newCard, key)) {
       newCard[key] = card[key];
