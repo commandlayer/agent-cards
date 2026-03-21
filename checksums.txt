@@ -35,6 +35,8 @@ d9fbd6adc82e9b69f72507472a0dead801a245ae97b764a8e1f857ad22a0000c  dist-pin/agent
 6cc84041df17bd0c2d43d1a65d3d10e605598638921bc22d47e24c29c612c550  dist-pin/agent-cards/v1.0.0/meta/commercial-agent.json
 abca8c9bb27e93c285df17848e1fdd65a3ba7c7002a9bc866799a78b46e7504a  dist-pin/agent-cards/v1.0.0/meta/commons-agent.json
 da6eb3c33dbc93060ef43194b4f3326fcf401f113e2b4e44b3a8a1e921452664  dist-pin/agent-cards/v1.0.0/meta/manifest.json
+ec6b2669daca50f99c9b8e04db7b8010169786788431cd74b68e547441216b8a  dist-pin/agent-cards/v1.0.0/schemas/v1.0.0/_shared/agent.card.base.schema.json
+c22100701ae9ebad97cfc1cb468a0369e424a0cdcec2d62968b848ef5d14369c  dist-pin/agent-cards/v1.0.0/schemas/v1.0.0/_shared/agent.descriptor.schema.json
 f7cffcc154397cb4b5c37c05944cdf75c292b2f994d0affda500711b61d33811  dist-pin/agent-cards/v1.1.0/.well-known/agent-cards-v1.1.0.json
 8bafbd3c62d16d447a2a8835ac3693e407469f611368672dbbccf624522fbc03  dist-pin/agent-cards/v1.1.0/.well-known/agent.json
 5b4607f17abec773eff4d6e4cc8cd1d3d8fda06dfdd3f825c8110f515d0f15ec  dist-pin/agent-cards/v1.1.0/agents/v1.1.0/commercial/authorizeagent.eth.json
