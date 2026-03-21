@@ -15,11 +15,11 @@ See the x402 protocol specification for the canonical definition: `https://docs.
 ## Authority Model
 
 - **Current release-candidate line:** `v1.1.0`
-- **Canonical source of truth:** root artifacts in this repository for the `v1.1.0` line (`agents/`, `schemas/`, `meta/`, `.well-known/`, `checksums.txt`), pending release validation and external binding confirmation
+- **Canonical source of truth:** root artifacts in this repository for the `v1.1.0` line (`agents/`, `schemas/`, `meta/`, `.well-known/`, `checksums.txt`)
 - **Canonical registry index:** `meta/manifest.json`
 - **Current discovery pointer:** `.well-known/agent.json`
 - **Immutable versioned descriptor:** `.well-known/agent-cards-v1.1.0.json`
-- **`dist-pin/` role:** committed derivative current-line bundle generated from the root canonical artifacts for pinning/repinning; it is reproducible from the repository root and not a second source of truth
+- **`dist-pin/` role:** committed derivative current-line bundle generated from the root canonical artifacts for pinning/repinning; it is reproducible from the repository root and never a second source of truth
 - **Legacy line:** `v1.0.0` is retained for archival compatibility only. It is superseded by `v1.1.0` and is not the primary release line.
 
 ## Quick verification
@@ -44,7 +44,7 @@ A current-line card is intentionally narrow. It exists to publish canonical bind
 
 v1.1.0 cards intentionally omit descriptive and editorial metadata such as display copy, capabilities summaries, tags, and extra links. If a detail is owned by the Commons or Commercial schema contract, the card links to that contract instead of restating it.
 
-`v1.1.0` is the current release-candidate line. The repository's default validation path, derivative bundle, discovery descriptors, and checksum coverage are centered on `v1.1.0`, but the line must not be treated as fully published until `validate:release` and external bindings are confirmed. `v1.0.0` remains in-tree as an archival compatibility line only.
+`v1.1.0` is the current release-candidate line. The repository's validation path, derivative bundle, discovery descriptors, and checksum coverage are centered on `v1.1.0`, but publication claims should wait until `npm run validate:release` passes and the intended external bindings are confirmed. `v1.0.0` remains in-tree as an archival compatibility line only.
 
 ## Design rule for v1.1.0
 
@@ -73,6 +73,16 @@ For `v1.1.0`:
 
 ### Commons mirror pattern
 
+`https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json`
+
+### Commercial source pattern
+
+`https://raw.githubusercontent.com/commandlayer/protocol-commercial/refs/tags/v1.1.0/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
+
+### Commercial mirror pattern
+
+`https://commandlayer.org/schemas/v1.1.0/commercial/<verb>/<verb>.request.schema.json`
+
 ## Validation
 
 Run standard validation:
@@ -89,7 +99,7 @@ npm run validate:release
 npm run validate:release -- --require-mirrors
 ```
 
-`validate` checks local structure and checksums; `validate:release` adds external URL resolution and derivative-bundle reproducibility before publication claims should be made.
+`validate` checks local structure plus root canonical checksum coverage. `validate:release` adds external URL resolution and derivative-bundle reproducibility, including verification that `dist-pin/agent-cards/v1.1.0/` matches a fresh build from the canonical root files, before publication claims should be made.
 
 That trust path is the intended clean-clone review flow:
 
@@ -98,7 +108,7 @@ That trust path is the intended clean-clone review flow:
 3. `agents/v1.1.0/` contains the canonical current cards.
 4. `.well-known/` exposes discovery descriptors that point back to the manifest and tier registries.
 5. `agents/v1.0.0/` is preserved only as archival legacy material.
-6. `dist-pin/agent-cards/v1.1.0/` is the committed reproducible derivative bundle derived from the canonical root files and reproducible from the repository root.
+6. `dist-pin/agent-cards/v1.1.0/` is the committed reproducible derivative bundle; reviewers should verify it against a fresh build from the canonical root files rather than treat it as a co-equal source.
 
 ## Authority model
 
@@ -156,11 +166,11 @@ agent-cards/
 }
 ```
 
-- `npm run validate` — standard local validation for canonical v1.1.0 cards, discovery descriptors, manifest alignment, and `checksums.txt`
+- `npm run validate` — standard local validation for canonical v1.1.0 cards, discovery descriptors, manifest alignment, and root canonical checksum coverage recorded in `checksums.txt`
 - `node scripts/build-dist-pin.mjs` — rebuild the committed derivative publish bundle from canonical root files
 - `npm run validate:release` — release-scoped validation that:
   - confirms `meta/manifest.json` matches every current card binding
-  - confirms `dist-pin/agent-cards/v1.1.0/` matches a freshly generated derivative bundle
+  - confirms `dist-pin/agent-cards/v1.1.0/` matches a freshly generated derivative bundle built from the canonical root files
   - resolves every upstream tagged schema URL over the network
   - optionally resolves mirrors when run with `--require-mirrors`
 
@@ -175,18 +185,18 @@ Routine CI runs `npm run validate` and `npm run validate:release`. Mirror resolu
 - direct `commandlayer.org` mirror URL patterns
 - exact manifest/card cross-validation for indexed current-line entries
 - entry URI correctness
-- checksum determinism across authoritative root artifacts and the derivative dist-pin bundle so both surfaces can be reviewed independently
+- checksum determinism across authoritative root artifacts, plus separate derivative-bundle verification for `dist-pin/`, so each release surface can be reviewed without blurring authority
 
 ## Release procedure
 
 1. Edit only the canonical root artifacts for the current `v1.1.0` line.
 2. Rebuild the committed derivative bundle with `node scripts/build-dist-pin.mjs`.
-3. Regenerate root integrity digests with `node scripts/generate-checksums.mjs`.
+3. Regenerate root integrity digests with `node scripts/generate-checksums.mjs` so `checksums.txt` remains the canonical checksum record for the root release surfaces.
 4. Run `npm run validate` and `npm run validate:release`.
 5. Publish the reviewed snapshot from the exact commit you validated. The release snapshot is defined by the tagged commit together with `checksums.txt`.
 6. Create or move the release tag only after the repository state above has been reviewed and published. This repository does not claim that a new tag already exists.
 
-This keeps the trust story narrow: root artifacts are canonical, `dist-pin/` is a committed derivative publish bundle, `.well-known/` remains discovery-only, and the tag plus checksums identify the release snapshot.
+This keeps the trust story narrow: root artifacts are canonical, `checksums.txt` records their release digests, `dist-pin/` is a separately verified committed derivative publish bundle, `.well-known/` remains discovery-only, and the tag plus checksums identify the release snapshot.
 
 ## Release surfaces
 
@@ -194,6 +204,6 @@ This keeps the trust story narrow: root artifacts are canonical, `dist-pin/` is 
 - `meta/manifest.json` — canonical registry index for the release
 - `.well-known/agent.json` — current discovery pointer to the canonical registry metadata
 - `.well-known/agent-cards-v1.1.0.json` — immutable versioned discovery descriptor for `v1.1.0`
-- `dist-pin/agent-cards/v1.1.0/` — committed derivative published bundle copied from canonical root artifacts for pinning/repinning and reproducible from the repository root
+- `dist-pin/agent-cards/v1.1.0/` — committed derivative published bundle copied from canonical root artifacts for pinning/repinning and verified by rebuild, not by co-equal authority
 - `agents/v1.0.0/`, `schemas/v1.0.0/`, and `dist-pin/agent-cards/v1.0.0/` — archival compatibility surfaces only
-- `checksums.txt` — deterministic artifact digests across the authoritative root release set and the committed derivative publish bundle
+- `checksums.txt` — deterministic artifact digests for the authoritative root release set; the derivative publish bundle is verified separately by reproducible rebuild

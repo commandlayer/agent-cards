@@ -7,7 +7,7 @@ Agent Cards v1.1.0 is the current release-candidate line. Root repository artifa
 - root `agents/v1.1.0/`, `meta/`, `.well-known/`, and `schemas/v1.1.0/` are canonical
 - `meta/manifest.json` is the registry index
 - `.well-known/` is discovery
-- `checksums.txt` proves integrity for both the authoritative root artifacts and the committed derivative `dist-pin/` bundle in-repo; release publication claims still wait on `validate:release`
+- `checksums.txt` is the canonical checksum record for the authoritative root artifacts; the committed derivative `dist-pin/` bundle is verified separately by reproducible rebuild, and publication claims still wait on `validate:release`
 - `agents/v1.0.0/` and `schemas/v1.0.0/` are archival legacy
 - `dist-pin/agent-cards/v1.1.0/` is a committed generated derivative current-line bundle reproducible from the repository root
 
@@ -44,12 +44,12 @@ Use the supported root package scripts and current commands instead: `npm run va
 6. update `RESOLUTION.md`
 7. run `npm run validate`
 8. run `npm run validate:release`
-9. `validate` checks local structure and checksums; `validate:release` adds external URL resolution and derivative-bundle reproducibility before publication claims
+9. `validate` checks local structure and canonical root checksum coverage; `validate:release` adds external URL resolution and derivative-bundle reproducibility before publication claims
 10. after review, have a maintainer create or move the release tag on the exact validated commit; the release snapshot is the tagged commit plus `checksums.txt`
 
 ## Release procedure
 
-- Root artifacts are canonical.
+- Root artifacts are canonical for the `v1.1.0` line.
 - `dist-pin/agent-cards/v1.1.0/` is committed to git, reproducible from the repository root, always rebuilt from the canonical root artifacts, and never an independent authority surface.
 - `.well-known/` is discovery-only.
 - A maintainer must create or move any release tag after validation; this repo does not imply that an unreleased tag already exists.

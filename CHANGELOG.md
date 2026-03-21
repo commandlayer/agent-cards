@@ -6,7 +6,7 @@ This changelog records release-line differences that are visible in the checked-
 
 ### Summary
 
-`v1.1.0` is the current canonical Agent Cards line. It replaces the older `v1.0.0` working shape with a flatter current-line structure, direct schema bindings, and release validation centered on canonical root artifacts plus a reproducible derivative publish bundle.
+`v1.1.0` is the current release-candidate Agent Cards line and the canonical repository line under review for tagging. It replaces the older `v1.0.0` working shape with a flatter current-line structure, direct schema bindings, and release validation centered on canonical root artifacts plus a reproducible derivative publish bundle.
 
 ### Removed from the current line
 
@@ -19,7 +19,7 @@ This changelog records release-line differences that are visible in the checked-
 - `v1.1.0` cards are flat and live directly under `agents/v1.1.0/`.
 - Current cards bind directly to tagged Commons and Commercial schema URLs plus explicit `commandlayer.org` mirror URLs.
 - Root repository artifacts are the authority surface for the current line, while `dist-pin/agent-cards/v1.1.0/` is a committed derivative bundle that must remain reproducible from the root.
-- Validation for the current line includes schema/card integrity, manifest alignment, checksums, and release reproducibility.
+- Validation for the current line includes schema/card integrity, manifest alignment, canonical root checksum coverage, and derivative-bundle reproducibility.
 
 ### Legacy status
 
@@ -29,7 +29,7 @@ This changelog records release-line differences that are visible in the checked-
 
 ### Migration implications
 
-- Treat `v1.1.0` as the authoritative release line for current integrations and validation.
+- Treat `v1.1.0` as the authoritative repository line for current integrations and validation; publication claims still wait on release validation.
 - Update tooling that expected `v1.0.0` shared schema paths, broader descriptive card fields, or older descriptor-led publication layout.
 - Expect current cards to expose only the minimal binding fields required by the `v1.1.0` schema.
 - Use the root package commands, especially `npm run validate` and `npm run validate:release`, when reviewing or publishing the current line.

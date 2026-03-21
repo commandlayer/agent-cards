@@ -1,5 +1,5 @@
-0e71d19605b66d56ef412d84e28cd97404d35b0aaa9819cf8f8eafda1679a203  .well-known/agent-cards-v1.1.0.json
-28fbc1f9f2c4640966498935d874d96c4e5d3041356901dc27314e44720d88dc  .well-known/agent.json
+f7cffcc154397cb4b5c37c05944cdf75c292b2f994d0affda500711b61d33811  .well-known/agent-cards-v1.1.0.json
+8bafbd3c62d16d447a2a8835ac3693e407469f611368672dbbccf624522fbc03  .well-known/agent.json
 b7d185443a2efcf37f760f687b38963558dc82899fa249f6b0a43a6631ebb717  agents/v1.0.0/commercial/authorizeagent.eth.json
 864bfc0467080e4ff6c1514f044449eed79790a5cab420588c052e6ff77c47aa  agents/v1.0.0/commercial/checkoutagent.eth.json
 0f718f2125c5e6b792c56156f7312e98b8ec7b6e53df24436423135f6ae4abca  agents/v1.0.0/commercial/purchaseagent.eth.json
@@ -57,9 +57,9 @@ f69357fe86b31ae3378c76e3f842915ae4ba1e709e0035b1d161fcd59f9d9ac4  dist-pin/agent
 de25064894795d5e44a959427211a8faca2062243cf31476e44ac91e8498dbab  dist-pin/agent-cards/v1.1.0/meta/manifest.json
 ffc066f827668ccc28b29efaf6b75def28b4931227545a6210e9faee8c4527c2  dist-pin/agent-cards/v1.1.0/schemas/v1.1.0/agent.card.schema.json
 6e082c065b0ab5365b0fe3424062855587e6226a06b5ee092d77f91ea829afe2  dist-pin/agent-cards/v1.1.0/schemas/v1.1.0/agent.descriptor.schema.json
-f69357fe86b31ae3378c76e3f842915ae4ba1e709e0035b1d161fcd59f9d9ac4  meta/commercial-agent.json
-0b017cd078d834b3f1949cbdd7cbfb75950a4bdbf1e3bcb216b2f632067c8aca  meta/commons-agent.json
-de25064894795d5e44a959427211a8faca2062243cf31476e44ac91e8498dbab  meta/manifest.json
+aea23f51c6e66b494797682580e95b006fea3245b3c5c3022052d6e3052845be  meta/commercial-agent.json
+2712558dbc98fc27c3dba9572339f9cf13cc8f2ee17b80b9df00b444d3813442  meta/commons-agent.json
+715cf1c940c66d3914a98e29957223d46826f95c9bc62c4b836f636f80b8364e  meta/manifest.json
 ec6b2669daca50f99c9b8e04db7b8010169786788431cd74b68e547441216b8a  schemas/v1.0.0/_shared/agent.card.base.schema.json
 c22100701ae9ebad97cfc1cb468a0369e424a0cdcec2d62968b848ef5d14369c  schemas/v1.0.0/_shared/agent.descriptor.schema.json
 ffc066f827668ccc28b29efaf6b75def28b4931227545a6210e9faee8c4527c2  schemas/v1.1.0/agent.card.schema.json

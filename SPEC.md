@@ -2,7 +2,7 @@
 
 ## One-line model
 
-This repo maintains canonical CommandLayer Agent Cards for the current **v1.1.0** release-candidate line. Cards are minimal discovery and binding artifacts, `meta/manifest.json` is the registry index, `.well-known/` exposes discovery, root checksums verify integrity, legacy is archival, and `dist-pin/agent-cards/v1.1.0/` is a derivative current-line bundle reproduced from the canonical root files.
+This repo maintains canonical CommandLayer Agent Cards for the current **v1.1.0** release-candidate line. Cards are minimal discovery and binding artifacts, `meta/manifest.json` is the registry index, `.well-known/` exposes discovery, root checksums verify canonical release surfaces, legacy is archival, and `dist-pin/agent-cards/v1.1.0/` is a derivative current-line bundle reproduced from the canonical root files.
 
 Agent Cards publish only canonical binding facts:
 
@@ -24,18 +24,18 @@ They do not define semantic meaning, feature behavior, or implementation detail.
 - `.well-known/agent.json` is the current discovery pointer.
 - `.well-known/agent-cards-v1.1.0.json` is the immutable versioned descriptor for the canonical line.
 - `dist-pin/agent-cards/v1.1.0/` is a derivative current-line bundle for pinning/repinning and is not an independent source of truth.
-- `checksums.txt` covers both the authoritative root artifacts and the derived `dist-pin/` bundle so reviewers can verify source and release-candidate surfaces independently.
+- `checksums.txt` is the canonical checksum record for the authoritative root artifacts. The derived `dist-pin/` bundle is verified separately by reproducible rebuild against those root artifacts.
 - `v1.0.0` is superseded and retained only for archival compatibility. Legacy `v1.0.0` references may still rely on IPFS-era addressing and should be read as archival compatibility material, not the current authority path.
 
-## 3. Current schema files
+## 3. Legacy schema files
 
-These remain for archival compatibility only. They are not the current release line.
+Legacy `v1.0.0` schema files remain for archival compatibility only. They are not part of the current release-candidate line.
 
-## Card contract for v1.1.0
+## 4. Card contract for v1.1.0
 
-Every canonical v1.1.0 card MUST:
+Every canonical v1.1.0 card MUST satisfy the field, versioning, and binding requirements below.
 
-## 4. Required card fields
+## 5. Required card fields
 
 The v1.1.0 JSON Schema requires 14 top-level fields. That count does not include `$schema` or `$id`, because neither field appears in the schema's top-level `required` array:
 
@@ -56,9 +56,9 @@ The v1.1.0 JSON Schema requires 14 top-level fields. That count does not include
 
 The schema also requires `schemas.request`, `schemas.receipt`, `schemas_mirror.request`, and `schemas_mirror.receipt`.
 
-`$schema` and `$id` are defined properties and current-line repo publication fields, but they are not schema-required fields.
+`$schema` and `$id` are defined properties and current-line publication fields, but they are not schema-required fields.
 
-## 5. Versioning rules
+## 6. Versioning rules
 
 - v1.1.0 cards live under `agents/v1.1.0/`
 - `version` MUST equal `1.1.0`
@@ -69,9 +69,9 @@ The schema also requires `schemas.request`, `schemas.receipt`, `schemas_mirror.r
 - Commercial artifacts MAY include x402-aligned payment proof or settlement references where applicable. The x402 protocol is external to this specification and should be treated as its own canonical protocol surface at `https://docs.x402.org/`.
 - v1.0.0 MAY remain in the repository only as a legacy archival compatibility surface
 
-## 6. Binding rules
+## 7. Binding rules
 
-### 6.1 Commons
+### 7.1 Commons
 
 A Commons v1.1.0 card MUST bind directly to:
 
@@ -80,7 +80,7 @@ A Commons v1.1.0 card MUST bind directly to:
 - mirror request URL: `https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json`
 - mirror receipt URL: `https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.receipt.schema.json`
 
-### 6.2 Commercial
+### 7.2 Commercial
 
 A Commercial v1.1.0 card MUST bind directly to:
 
@@ -91,7 +91,7 @@ A Commercial v1.1.0 card MUST bind directly to:
 
 Commercial v1.1.0 is flat in the same style as Commons v1.1.0.
 
-## 7. Descriptor rules
+## 8. Descriptor rules
 
 Current discovery descriptors MUST validate under `schemas/v1.1.0/agent.descriptor.schema.json` and point at:
 
@@ -101,7 +101,7 @@ Current discovery descriptors MUST validate under `schemas/v1.1.0/agent.descript
 
 Discovery descriptors are pointers. They are not the canonical registry index.
 
-## 8. Conformance
+## 9. Conformance
 
 A repo state is conformant when:
 
@@ -110,6 +110,6 @@ A repo state is conformant when:
 - current cards contain only the minimal canonical binding fields
 - cards point at direct source URLs and intended `commandlayer.org` mirrors for release validation
 - `meta/manifest.json` describes the same current release line as the discovery descriptors
-- the derivative `dist-pin/agent-cards/v1.1.0/` bundle matches the canonical root release artifacts
+- the derivative `dist-pin/agent-cards/v1.1.0/` bundle matches a reproducible rebuild from the canonical root release artifacts
 - `checksums.txt` matches repo contents
 - `npm run validate` passes
