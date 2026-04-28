@@ -16,7 +16,7 @@ const SCHEMA_ROOTS = {
 };
 
 const commonsVerbs = ["analyze", "classify", "clean", "convert", "describe", "explain", "fetch", "format", "parse", "summarize"];
-const commercialVerbs = ["authorize", "checkout", "purchase", "ship", "verify"];
+const commercialVerbs = ["authorize", "checkout", "purchase", "ship"];
 const expectedV11 = {
   commons: commonsVerbs.map((verb) => `${verb}agent.eth.json`),
   commercial: commercialVerbs.map((verb) => `${verb}agent.eth.json`)

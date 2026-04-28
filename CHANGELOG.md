@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Separated VerifyAgent into its own public Commons/MIT repository. Agent Cards documentation now focuses on identity, capability, endpoint, verb, and signer metadata. Public receipt verification is handled externally by VerifyAgent.
+
 ## [1.1.0]
 
 ### Normalization changes

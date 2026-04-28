@@ -175,18 +175,6 @@
       ],
       "agent_card": "https://commandlayer.org/agent-cards/agents/v1.0.0/commercial/shipagent.eth.json",
       "agent_card_ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/agents/v1.0.0/commercial/shipagent.eth.json"
-    },
-    {
-      "id": "verifyagent.eth",
-      "class": "commercial",
-      "ens": "verifyagent.eth",
-      "version": "1.0.0",
-      "status": "protocol_reference",
-      "networks": [
-        "eip155:1"
-      ],
-      "agent_card": "https://commandlayer.org/agent-cards/agents/v1.0.0/commercial/verifyagent.eth.json",
-      "agent_card_ipfs": "ipfs://bafybeihwxbbslsmvdnt3qj6qg5e6uj44hokxgs4h6p43jdmjyghvzjz4l4/agents/v1.0.0/commercial/verifyagent.eth.json"
     }
   ],
   "meta": {

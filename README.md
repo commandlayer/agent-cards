@@ -44,6 +44,27 @@ This repo does not define x402 itself. See `https://docs.x402.org/` for the exte
 
 The repository root is authoritative. The `dist-pin/` bundle is reproducible and committed for distribution convenience, but it is not a co-equal source of truth.
 
+
+## Architecture boundaries
+
+Agent Cards answer:
+
+- “What is this agent, what can it do, and where are its endpoints?”
+
+CommandLayer receipts answer:
+
+- “What did this agent actually do?”
+
+VerifyAgent answers:
+
+- “Is this receipt valid or invalid?”
+
+CommandLayer Commercial answers:
+
+- “How do teams run, verify, index, and monitor receipts at scale?”
+
+For public receipt verification, see https://github.com/commandlayer/verifyagent.
+
 ## Current card shape
 
 A current card publishes only binding facts:

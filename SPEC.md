@@ -120,3 +120,16 @@ A repository state is conformant when:
 - all commercial cards use the x402 entry pattern
 - docs, manifests, examples, and validation agree with the implementation
 - `npm run validate` passes
+
+## 10. Responsibility boundaries
+
+Agent Cards answer: “What is this agent, what can it do, and where are its endpoints?”
+
+CommandLayer receipts answer: “What did this agent actually do?”
+
+VerifyAgent answers: “Is this receipt valid or invalid?”
+
+CommandLayer Commercial answers: “How do teams run, verify, index, and monitor receipts at scale?”
+
+For public receipt verification, see https://github.com/commandlayer/verifyagent.
+
