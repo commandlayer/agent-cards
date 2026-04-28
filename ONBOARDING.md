@@ -23,6 +23,16 @@ Archival-only surfaces:
 - `schemas/v1.0.0/`
 - `dist-pin/agent-cards/v1.0.0/`
 
+
+## Product boundaries
+
+- Agent Cards describe identity metadata, capability metadata, endpoint discovery, supported verbs/actions, and signer/receipt metadata references.
+- CommandLayer receipts provide signed execution proof.
+- VerifyAgent is an external verifier for receipt validity checks.
+- CommandLayer Commercial provides hosted runtime, paid API, x402, indexing, dashboards, and support.
+
+For public receipt verification, see https://github.com/commandlayer/verifyagent.
+
 ## Editing rules
 
 1. Keep `$schema`, `$id`, `version`, `schemas`, and `entry` aligned.

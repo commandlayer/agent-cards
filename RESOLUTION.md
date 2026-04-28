@@ -22,3 +22,10 @@ This log records formal repository-level decisions that affect the canonical Age
 - **Decision:** Normalize all commons cards to the canonical runtime execute entry, preserve x402 routing only for commercial cards, and enforce the split in schemas, validation, manifests, dist-pin artifacts, and repository documentation.
 - **Rationale:** The repository should publish one coherent invocation model: commons are runtime-first and non-x402 at entry, while commercial cards remain payment-aware and x402-routed. Leaving mixed semantics in cards, docs, or validators would make the release contract misleading.
 - **Affected artifacts:** `agents/v1.0.0/commons/*.json`, `agents/v1.1.0/commons/*.json`, `schemas/v1.0.0/_shared/agent.card.base.schema.json`, `schemas/v1.1.0/agent.card.schema.json`, `scripts/validate-cards.mjs`, `meta/manifest.json`, `meta/commons-agent.json`, `meta/commercial-agent.json`, `README.md`, `SPEC.md`, `ONBOARDING.md`, `CHANGELOG.md`, `checksums.txt`, `dist-pin/agent-cards/v1.1.0/**`.
+
+### 2026-04-28 — VerifyAgent separated from Agent Cards repository scope
+
+- **Decision:** Remove VerifyAgent-specific product/demo artifacts from Agent Cards publication surfaces and treat VerifyAgent as an external public verifier.
+- **Rationale:** Agent Cards should stay focused on identity, capabilities, endpoint discovery, verbs, and signer metadata references; public receipt validation belongs in the dedicated VerifyAgent repository.
+- **Affected artifacts:** `agents/v1.0.0/commercial/verifyagent.eth.json`, `agents/v1.1.0/commercial/verifyagent.eth.json`, `meta/manifest.json`, `scripts/validate-cards.mjs`, `README.md`, `SPEC.md`, `ONBOARDING.md`, `CHANGELOG.md`, `SECURITY_PROVENANCE.md`, `checksums.txt`, `dist-pin/agent-cards/v1.1.0/**`.
+
